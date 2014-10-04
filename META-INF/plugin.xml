@@ -1,0 +1,61 @@
+<idea-plugin version="2">
+  <id>com.yourcompany.unique.plugin.id</id>
+  <name>Plugin display name here</name>
+  <version>1.0</version>
+  <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+
+  <description><![CDATA[
+      Enter short description for your plugin here.<br>
+      <em>most HTML tags may be used</em>
+    ]]></description>
+
+  <change-notes><![CDATA[
+      Add change notes here.<br>
+      <em>most HTML tags may be used</em>
+    ]]>
+  </change-notes>
+
+  <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
+  <idea-version since-build="131"/>
+
+  <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+
+  <extensions defaultExtensionNs="com.intellij">
+    <fileTypeFactory implementation="ru.compscicenter.jetbrains.octave.OctaveFileTypeFactory"/>
+    <lang.parserDefinition language="Octave" implementationClass="ru.compscicenter.jetbrains.octave.OctaveParserDefinition"/>
+    <lang.syntaxHighlighterFactory key="Octave" implementationClass="ru.compscicenter.jetbrains.octave.OctaveSyntaxHighlighterFactory"/>
+    <colorSettingsPage implementation="ru.compscicenter.jetbrains.octave.OctaveColorSettingsPage"/>
+    <annotator language="JAVA" implementationClass="ru.compscicenter.jetbrains.octave.OctaveAnnotator"/>
+    <codeInsight.lineMarkerProvider language="JAVA" implementationClass="ru.compscicenter.jetbrains.octave.OctaveLineMarkerProvider"/>
+    <completion.contributor language="Octave" implementationClass="ru.compscicenter.jetbrains.octave.OctaveCompletionContributor"/>
+    <psi.referenceContributor implementation="ru.compscicenter.jetbrains.octave.OctaveReferenceContributor"/>
+    <lang.refactoringSupport language="Octave" implementationClass="ru.compscicenter.jetbrains.octave.OctaveRefactoringSupportProvider"/>
+    <lang.findUsagesProvider language="Octave" implementationClass="ru.compscicenter.jetbrains.octave.OctaveFindUsagesProvider"/>
+    <lang.foldingBuilder language="JAVA" implementationClass="ru.compscicenter.jetbrains.octave.OctaveFoldingBuilder"/>
+    <gotoSymbolContributor implementation="ru.compscicenter.jetbrains.octave.OctaveChooseByNameContributor"/>
+    <lang.psiStructureViewFactory language="Octave" implementationClass="ru.compscicenter.jetbrains.octave.OctaveStructureViewFactory"/>
+    <lang.formatter language="Octave" implementationClass="ru.compscicenter.jetbrains.octave.OctaveFormattingModelBuilder"/>
+    <codeStyleSettingsProvider implementation="ru.compscicenter.jetbrains.octave.OctaveCodeStyleSettingsProvider"/>
+    <langCodeStyleSettingsProvider implementation="ru.compscicenter.jetbrains.octave.OctaveLanguageCodeStyleSettingsProvider"/>
+    <lang.commenter language="Octave" implementationClass="ru.compscicenter.jetbrains.octave.OctaveCommenter"/>
+    <!-- Add your extensions here -->
+
+  </extensions>
+
+  <application-components>
+    <!-- Add your application components here -->
+  </application-components>
+
+  <project-components>
+    <!-- Add your project components here -->
+  </project-components>
+
+  <actions>
+    <!-- Add your actions here -->
+  </actions>
+
+</idea-plugin>
