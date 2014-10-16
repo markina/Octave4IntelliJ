@@ -1,4 +1,4 @@
-package ru.compscicenter.jetbrains.octave;
+package ru.compscicenter.jetbrains.octave.lexer;
 
 import com.intellij.lexer.FlexAdapter;
 
