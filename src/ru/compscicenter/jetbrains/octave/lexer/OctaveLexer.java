@@ -4,8 +4,6 @@ package ru.compscicenter.jetbrains.octave.lexer;
 
 import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
-import ru.compscicenter.jetbrains.octave.psi.OctaveTypes;
-import com.intellij.psi.TokenType;
 
 
 /**
@@ -1140,371 +1138,371 @@ class OctaveLexer implements FlexLexer {
 
       switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
         case 54: 
-          { return OctaveTypes.TRUE_KEYWORD;
+          { return OctaveTokenTypes.TRUE_KEYWORD;
           }
         case 93: break;
         case 46: 
-          { return OctaveTypes.DOUBLE_AND;
+          { return OctaveTokenTypes.DOUBLE_AND;
           }
         case 94: break;
         case 50: 
-          { return OctaveTypes.INF_KEYWORD;
+          { return OctaveTokenTypes.INF_KEYWORD;
           }
         case 95: break;
         case 51: 
-          { return OctaveTypes.FOR_KEYWORD;
+          { return OctaveTokenTypes.FOR_KEYWORD;
           }
         case 96: break;
         case 70: 
-          { return OctaveTypes.REALMIN_KEYWORD;
+          { return OctaveTokenTypes.REALMIN_KEYWORD;
           }
         case 97: break;
         case 59: 
-          { return OctaveTypes.CATCH_KEYWORD;
+          { return OctaveTokenTypes.CATCH_KEYWORD;
           }
         case 98: break;
         case 25: 
-          { return OctaveTypes.POWER;
+          { return OctaveTokenTypes.POWER;
           }
         case 99: break;
         case 14: 
-          { return OctaveTypes.SEMICOLON;
+          { return OctaveTokenTypes.SEMICOLON;
           }
         case 100: break;
         case 91: 
-          { return OctaveTypes.END_UNWIND_PROTECT_KEYWORD;
+          { return OctaveTokenTypes.END_UNWIND_PROTECT_KEYWORD;
           }
         case 101: break;
         case 9: 
-          { return OctaveTypes.E_KEYWORD;
+          { return OctaveTokenTypes.E_KEYWORD;
           }
         case 102: break;
         case 2: 
-          { return OctaveTypes.LINE_BREAK;
+          { return OctaveTokenTypes.LINE_BREAK;
           }
         case 103: break;
         case 84: 
-          { return OctaveTypes.ENDFUNCTION_KEYWORD;
+          { return OctaveTokenTypes.ENDFUNCTION_KEYWORD;
           }
         case 104: break;
         case 55: 
-          { return OctaveTypes.CASE_KEYWORD;
+          { return OctaveTokenTypes.CASE_KEYWORD;
           }
         case 105: break;
         case 43: 
-          { return OctaveTypes.GE;
+          { return OctaveTokenTypes.GE;
           }
         case 106: break;
         case 82: 
-          { return OctaveTypes.PERSISTENT_KEYWORD;
+          { return OctaveTokenTypes.PERSISTENT_KEYWORD;
           }
         case 107: break;
         case 71: 
-          { return OctaveTypes.REALMAX_KEYWORD;
+          { return OctaveTokenTypes.REALMAX_KEYWORD;
           }
         case 108: break;
         case 66: 
-          { return OctaveTypes.STATIC_KEYWORD;
+          { return OctaveTokenTypes.STATIC_KEYWORD;
           }
         case 109: break;
         case 79: 
-          { return OctaveTypes.ENDSWITCH_KEYWORD;
+          { return OctaveTokenTypes.ENDSWITCH_KEYWORD;
           }
         case 110: break;
         case 89: 
-          { return OctaveTypes.ENDENUMERATION_KEYWORD;
+          { return OctaveTokenTypes.ENDENUMERATION_KEYWORD;
           }
         case 111: break;
         case 67: 
-          { return OctaveTypes.SWITCH_KEYWORD;
+          { return OctaveTokenTypes.SWITCH_KEYWORD;
           }
         case 112: break;
         case 27: 
-          { return OctaveTypes.COLON;
+          { return OctaveTokenTypes.COLON;
           }
         case 113: break;
         case 81: 
-          { return OctaveTypes.ENDMETHODS_KEYWORD;
+          { return OctaveTokenTypes.ENDMETHODS_KEYWORD;
           }
         case 114: break;
         case 8: 
-          { return OctaveTypes.DOT;
+          { return OctaveTokenTypes.DOT;
           }
         case 115: break;
         case 39: 
-          { return OctaveTypes.IF_KEYWORD;
+          { return OctaveTokenTypes.IF_KEYWORD;
           }
         case 116: break;
         case 13: 
-          { return OctaveTypes.EQ;
+          { return OctaveTokenTypes.EQ;
           }
         case 117: break;
         case 63: 
-          { return OctaveTypes.ENDFOR_KEYWORD;
+          { return OctaveTokenTypes.ENDFOR_KEYWORD;
           }
         case 118: break;
         case 28: 
-          { return OctaveTypes.I_KEYWORD;
+          { return OctaveTokenTypes.I_KEYWORD;
           }
         case 119: break;
         case 1: 
-          { return OctaveTypes.BAD_CHARACTER;
+          { return OctaveTokenTypes.BAD_CHARACTER;
           }
         case 120: break;
         case 57: 
-          { return OctaveTypes.FALSE_KEYWORD;
+          { return OctaveTokenTypes.FALSE_KEYWORD;
           }
         case 121: break;
         case 36: 
-          { return OctaveTypes.COMPLEX_LITERAL;
+          { return OctaveTokenTypes.COMPLEX_LITERAL;
           }
         case 122: break;
         case 5: 
-          { return OctaveTypes.IDENTIFIER;
+          { return OctaveTokenTypes.IDENTIFIER;
           }
         case 123: break;
         case 24: 
-          { return OctaveTypes.DIVISION;
+          { return OctaveTokenTypes.DIVISION;
           }
         case 124: break;
         case 52: 
-          { return OctaveTypes.TRY_KEYWORD;
+          { return OctaveTokenTypes.TRY_KEYWORD;
           }
         case 125: break;
         case 87: 
-          { return OctaveTypes.END_TRY_CATCH_KEYWORD;
+          { return OctaveTokenTypes.END_TRY_CATCH_KEYWORD;
           }
         case 126: break;
         case 49: 
-          { return OctaveTypes.NAN_KEYWORD;
+          { return OctaveTokenTypes.NAN_KEYWORD;
           }
         case 127: break;
         case 15: 
-          { return OctaveTypes.COMMA;
+          { return OctaveTokenTypes.COMMA;
           }
         case 128: break;
         case 76: 
-          { return OctaveTypes.CONTINUE_KEYWORD;
+          { return OctaveTokenTypes.CONTINUE_KEYWORD;
           }
         case 129: break;
         case 75: 
-          { return OctaveTypes.CLASSDEF_KEYWORD;
+          { return OctaveTokenTypes.CLASSDEF_KEYWORD;
           }
         case 130: break;
         case 17: 
-          { return OctaveTypes.RPAR;
+          { return OctaveTokenTypes.RPAR;
           }
         case 131: break;
         case 41: 
-          { return OctaveTypes.NA_KEYWORD;
+          { return OctaveTokenTypes.NA_KEYWORD;
           }
         case 132: break;
         case 31: 
-          { return OctaveTypes.NOT;
+          { return OctaveTokenTypes.NOT;
           }
         case 133: break;
         case 73: 
-          { return OctaveTypes.ENDWHILE_KEYWORD;
+          { return OctaveTokenTypes.ENDWHILE_KEYWORD;
           }
         case 134: break;
         case 58: 
-          { return OctaveTypes.BREAK_KEYWORD;
+          { return OctaveTokenTypes.BREAK_KEYWORD;
           }
         case 135: break;
         case 29: 
-          { return OctaveTypes.LT;
+          { return OctaveTokenTypes.LT;
           }
         case 136: break;
         case 77: 
-          { return OctaveTypes.ENDEVENTS_KEYWORD;
+          { return OctaveTokenTypes.ENDEVENTS_KEYWORD;
           }
         case 137: break;
         case 56: 
-          { return OctaveTypes.ENDIF_KEYWORD;
+          { return OctaveTokenTypes.ENDIF_KEYWORD;
           }
         case 138: break;
         case 38: 
-          { return OctaveTypes.PI_KEYWORD;
+          { return OctaveTokenTypes.PI_KEYWORD;
           }
         case 139: break;
         case 69: 
-          { return OctaveTypes.GLOBAL_KEYWORD;
+          { return OctaveTokenTypes.GLOBAL_KEYWORD;
           }
         case 140: break;
         case 16: 
-          { return OctaveTypes.LPAR;
+          { return OctaveTokenTypes.LPAR;
           }
         case 141: break;
         case 34: 
-          { return OctaveTypes.FLOAT_NUMBER_LITERAL;
+          { return OctaveTokenTypes.FLOAT_NUMBER_LITERAL;
           }
         case 142: break;
         case 19: 
-          { return OctaveTypes.RBRACKET;
+          { return OctaveTokenTypes.RBRACKET;
           }
         case 143: break;
         case 53: 
-          { return OctaveTypes.ELSE_KEYWORD;
+          { return OctaveTokenTypes.ELSE_KEYWORD;
           }
         case 144: break;
         case 6: 
-          { return OctaveTypes.INTEGER_LITERAL;
+          { return OctaveTokenTypes.INTEGER_LITERAL;
           }
         case 145: break;
         case 4: 
-          { return OctaveTypes.COMMENT;
+          { return OctaveTokenTypes.COMMENT;
           }
         case 146: break;
         case 60: 
-          { return OctaveTypes.UNTIL_KEYWORD;
+          { return OctaveTokenTypes.UNTIL_KEYWORD;
           }
         case 147: break;
         case 21: 
-          { return OctaveTypes.RBRACE;
+          { return OctaveTokenTypes.RBRACE;
           }
         case 148: break;
         case 26: 
-          { return OctaveTypes.TILDE;
+          { return OctaveTokenTypes.TILDE;
           }
         case 149: break;
         case 64: 
-          { return OctaveTypes.EVENTS_KEYWORD;
+          { return OctaveTokenTypes.EVENTS_KEYWORD;
           }
         case 150: break;
         case 80: 
-          { return OctaveTypes.OTHERWISE_KEYWORD;
+          { return OctaveTokenTypes.OTHERWISE_KEYWORD;
           }
         case 151: break;
         case 74: 
-          { return OctaveTypes.FUNCTION_KEYWORD;
+          { return OctaveTokenTypes.FUNCTION_KEYWORD;
           }
         case 152: break;
         case 30: 
-          { return OctaveTypes.GT;
+          { return OctaveTokenTypes.GT;
           }
         case 153: break;
         case 20: 
-          { return OctaveTypes.LBRACE;
+          { return OctaveTokenTypes.LBRACE;
           }
         case 154: break;
         case 47: 
-          { return OctaveTypes.EPS_KEYWORD;
+          { return OctaveTokenTypes.EPS_KEYWORD;
           }
         case 155: break;
         case 68: 
-          { return OctaveTypes.RETURN_KEYWORD;
+          { return OctaveTokenTypes.RETURN_KEYWORD;
           }
         case 156: break;
         case 86: 
-          { return OctaveTypes.ENUMERATION_KEYWORD;
+          { return OctaveTokenTypes.ENUMERATION_KEYWORD;
           }
         case 157: break;
         case 33: 
-          { return OctaveTypes.AND;
+          { return OctaveTokenTypes.AND;
           }
         case 158: break;
         case 3: 
-          { return OctaveTypes.FORMFEED;
+          { return OctaveTokenTypes.FORMFEED;
           }
         case 159: break;
         case 32: 
-          { return OctaveTypes.OR;
+          { return OctaveTokenTypes.OR;
           }
         case 160: break;
         case 61: 
-          { return OctaveTypes.WHILE_KEYWORD;
+          { return OctaveTokenTypes.WHILE_KEYWORD;
           }
         case 161: break;
         case 62: 
-          { return OctaveTypes.ELSEIF_KEYWORD;
+          { return OctaveTokenTypes.ELSEIF_KEYWORD;
           }
         case 162: break;
         case 18: 
-          { return OctaveTypes.LBRACKET;
+          { return OctaveTokenTypes.LBRACKET;
           }
         case 163: break;
         case 7: 
-          { return OctaveTypes.STRING;
+          { return OctaveTokenTypes.STRING;
           }
         case 164: break;
         case 92: 
-          { return OctaveTypes.UNWIND_PROTECT_CLEANUP_KEYWORD;
+          { return OctaveTokenTypes.UNWIND_PROTECT_CLEANUP_KEYWORD;
           }
         case 165: break;
         case 22: 
-          { return OctaveTypes.MINUS;
+          { return OctaveTokenTypes.MINUS;
           }
         case 166: break;
         case 44: 
-          { return OctaveTypes.NOTEQ;
+          { return OctaveTokenTypes.NOTEQ;
           }
         case 167: break;
         case 88: 
-          { return OctaveTypes.ENDPROPERTIES_KEYWORD;
+          { return OctaveTokenTypes.ENDPROPERTIES_KEYWORD;
           }
         case 168: break;
         case 90: 
-          { return OctaveTypes.UNWIND_PROTECT_KEYWORD;
+          { return OctaveTokenTypes.UNWIND_PROTECT_KEYWORD;
           }
         case 169: break;
         case 85: 
-          { return OctaveTypes.ENDCLASSDEF_KEYWORD;
+          { return OctaveTokenTypes.ENDCLASSDEF_KEYWORD;
           }
         case 170: break;
         case 45: 
-          { return OctaveTypes.DOUBLE_OR;
+          { return OctaveTokenTypes.DOUBLE_OR;
           }
         case 171: break;
         case 78: 
-          { return OctaveTypes.ENDPARFOR_KEYWORD;
+          { return OctaveTokenTypes.ENDPARFOR_KEYWORD;
           }
         case 172: break;
         case 10: 
-          { return OctaveTypes.PLUS;
+          { return OctaveTokenTypes.PLUS;
           }
         case 173: break;
         case 37: 
-          { return OctaveTypes.DO_KEYWORD;
+          { return OctaveTokenTypes.DO_KEYWORD;
           }
         case 174: break;
         case 65: 
-          { return OctaveTypes.PARFOR_KEYWORD;
+          { return OctaveTokenTypes.PARFOR_KEYWORD;
           }
         case 175: break;
         case 11: 
-          { return OctaveTypes.SPACE;
+          { return OctaveTokenTypes.SPACE;
           }
         case 176: break;
         case 40: 
-          { return OctaveTypes.EQEQ;
+          { return OctaveTokenTypes.EQEQ;
           }
         case 177: break;
         case 35: 
-          { return OctaveTypes.LONG_LITERAL;
+          { return OctaveTokenTypes.LONG_LITERAL;
           }
         case 178: break;
         case 42: 
-          { return OctaveTypes.LE;
+          { return OctaveTokenTypes.LE;
           }
         case 179: break;
         case 83: 
-          { return OctaveTypes.PROPERTIES_KEYWORD;
+          { return OctaveTokenTypes.PROPERTIES_KEYWORD;
           }
         case 180: break;
         case 12: 
-          { return OctaveTypes.TAB;
+          { return OctaveTokenTypes.TAB;
           }
         case 181: break;
         case 48: 
-          { return OctaveTypes.END_KEYWORD;
+          { return OctaveTokenTypes.END_KEYWORD;
           }
         case 182: break;
         case 72: 
-          { return OctaveTypes.METHODS_KEYWORD;
+          { return OctaveTokenTypes.METHODS_KEYWORD;
           }
         case 183: break;
         case 23: 
-          { return OctaveTypes.MULTIPLICATION;
+          { return OctaveTokenTypes.MULTIPLICATION;
           }
         case 184: break;
         default:

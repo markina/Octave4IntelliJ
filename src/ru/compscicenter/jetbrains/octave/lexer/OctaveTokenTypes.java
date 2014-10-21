@@ -1,12 +1,13 @@
 // This is a generated file. Not intended for manual editing.
-package ru.compscicenter.jetbrains.octave.psi;
+package ru.compscicenter.jetbrains.octave.lexer;
 
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
+import ru.compscicenter.jetbrains.octave.parser.OctaveElementType;
 
-public interface OctaveTypes {
+public interface OctaveTokenTypes {
 
   public static final IElementType COMMENT = new OctaveElementType("COMMENT");
   public static final IElementType CRLF = new OctaveElementType("CRLF");
