@@ -5,6 +5,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
+import com.intellij.psi.tree.TokenSet;
 import ru.compscicenter.jetbrains.octave.parser.OctaveElementType;
 
 public interface OctaveTokenTypes {
@@ -16,6 +17,8 @@ public interface OctaveTokenTypes {
   public static final IElementType SPACE = new OctaveElementType("SPACE");
   public static final IElementType TAB = new OctaveElementType("TAB");
   public static final IElementType FORMFEED = new OctaveElementType("FORMFEED");
+
+
   public static final IElementType IDENTIFIER = new OctaveElementType("IDENTIFIER");
 
 //grouping
@@ -125,6 +128,12 @@ public interface OctaveTokenTypes {
   public static final IElementType NOTEQ = new OctaveElementType("NOTEQ");
 
   public static final IElementType BAD_CHARACTER = TokenType.BAD_CHARACTER;
+
+  public static final TokenSet SET_ENDIF_KEYWORDS = TokenSet.create(ENDIF_KEYWORD, END_KEYWORD);
+  public static final TokenSet SET_END_CONDITION = TokenSet.create(COMMA, LINE_BREAK);
+  public static final TokenSet SET_PUNCTUATION = TokenSet.create(COMMA, SEMICOLON, DOT, CRLF);
+  public static final TokenSet SET_SPACES = TokenSet.create(SPACE, TAB, FORMFEED, LINE_BREAK);
+  public static final TokenSet SET_END_IDENTIFIER = TokenSet.orSet(SET_PUNCTUATION, SET_SPACES);
 
 
   class Factory {
