@@ -130,10 +130,15 @@ public interface OctaveTokenTypes {
   public static final IElementType BAD_CHARACTER = TokenType.BAD_CHARACTER;
 
   public static final TokenSet SET_ENDIF_KEYWORDS = TokenSet.create(ENDIF_KEYWORD, END_KEYWORD);
-  public static final TokenSet SET_END_CONDITION = TokenSet.create(COMMA, LINE_BREAK);
+  public static final TokenSet SET_ENDFOR_KEYWORDS = TokenSet.create(ENDFOR_KEYWORD, END_KEYWORD);
+
+  public static final TokenSet SET_END_CONDITION_OR_ENUMERATE = TokenSet.create(COMMA, LINE_BREAK);
   public static final TokenSet SET_PUNCTUATION = TokenSet.create(COMMA, SEMICOLON, DOT, CRLF);
   public static final TokenSet SET_SPACES = TokenSet.create(SPACE, TAB, FORMFEED, LINE_BREAK);
   public static final TokenSet SET_END_IDENTIFIER = TokenSet.orSet(SET_PUNCTUATION, SET_SPACES);
+  public static final TokenSet SET_END_STATEMENT = TokenSet.create(COMMA, SEMICOLON, CRLF, LINE_BREAK);
+
+
 
 
   class Factory {
