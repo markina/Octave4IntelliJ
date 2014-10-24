@@ -4,7 +4,6 @@ import com.intellij.lang.PsiBuilder;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.TokenSet;
 import ru.compscicenter.jetbrains.octave.lexer.OctaveTokenTypes;
-import ru.compscicenter.jetbrains.octave.psi.OctaveTokenType;
 
 /**
  * Created by Markina Margarita on 21.10.14.
@@ -40,6 +39,9 @@ public class OctaveExpressionParsing extends Parsing {
     else if (firstToken == OctaveTokenTypes.UNWIND_PROTECT_KEYWORD) {
       parseUnwindStatement();
     }
+    else if (firstToken == OctaveTokenTypes.TRY_KEYWORD) {
+      parseTryStatement();
+    }
     else if (firstToken == OctaveTokenTypes.BREAK_KEYWORD) {
       myPsiBuilder.advanceLexer();
     }
@@ -53,6 +55,25 @@ public class OctaveExpressionParsing extends Parsing {
       myPsiBuilder.error("bad character");
       myPsiBuilder.advanceLexer();
     }
+  }
+
+  private void parseTryStatement() {
+    final PsiBuilder.Marker tryStatement = myPsiBuilder.mark();
+    checkMatches(OctaveTokenTypes.TRY_KEYWORD, "?catch?");
+    skipLineBreak();
+    while (!isNullOrMatches(OctaveTokenTypes.SET_ENDTRY_KEYWORDS) &&
+           !isNullOrMatches(OctaveTokenTypes.CATCH_KEYWORD)) {
+      parseExpressionStatement();
+      skipLineBreak();
+    }
+    checkMatches(OctaveTokenTypes.CATCH_KEYWORD, "catch expected");
+    skipLineBreak();
+    while (!isNullOrMatches(OctaveTokenTypes.SET_ENDTRY_KEYWORDS)) {
+      parseExpressionStatement();
+      skipLineBreak();
+    }
+    checkSetMatches(OctaveTokenTypes.SET_ENDTRY_KEYWORDS, "endtry expected");
+    tryStatement.done(OctaveElementTypes.TRY_STATEMENT);
   }
 
   private void parseUnwindStatement() {
