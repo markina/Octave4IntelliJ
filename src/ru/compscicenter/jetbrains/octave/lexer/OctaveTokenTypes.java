@@ -132,12 +132,16 @@ public interface OctaveTokenTypes {
   public static final TokenSet SET_ENDIF_KEYWORDS = TokenSet.create(ENDIF_KEYWORD, END_KEYWORD);
   public static final TokenSet SET_ENDFOR_KEYWORDS = TokenSet.create(ENDFOR_KEYWORD, END_KEYWORD);
   public static final TokenSet SET_ENDWHILE_KEYWORDS = TokenSet.create(ENDWHILE_KEYWORD, END_KEYWORD);
+  public static final TokenSet SET_ENDSWITCH_KEYWORDS = TokenSet.create(END_KEYWORD, ENDSWITCH_KEYWORD);
 
-  public static final TokenSet SET_END_CONDITION_OR_ENUMERATE = TokenSet.create(COMMA, LINE_BREAK);
+  public static final TokenSet SET_END_AUXILIARY_STATEMENT = TokenSet.create(COMMA, LINE_BREAK);
+
   public static final TokenSet SET_PUNCTUATION = TokenSet.create(COMMA, SEMICOLON, DOT, CRLF);
   public static final TokenSet SET_SPACES = TokenSet.create(SPACE, TAB, FORMFEED, LINE_BREAK);
   public static final TokenSet SET_END_IDENTIFIER = TokenSet.orSet(SET_PUNCTUATION, SET_SPACES);
   public static final TokenSet SET_END_STATEMENT = TokenSet.create(COMMA, SEMICOLON, CRLF, LINE_BREAK);
+  public static final TokenSet IF_OR_ELSE_KEYWORD = TokenSet.create(IF_KEYWORD, ELSEIF_KEYWORD);
+  public static final TokenSet SET_CASE_OR_OTHERWISE = TokenSet.create(CASE_KEYWORD, OTHERWISE_KEYWORD);
 
 
   class Factory {
