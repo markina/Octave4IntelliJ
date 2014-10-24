@@ -17,4 +17,9 @@ public class OctaveBaseElementImpl<T extends StubElement> extends StubBasedPsiEl
   public OctaveBaseElementImpl(ASTNode node) {
     super(node);
   }
+
+  @Override
+  public String toString() {
+    return getNode().getElementType().toString();
+  }
 }

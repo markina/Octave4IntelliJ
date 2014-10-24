@@ -67,6 +67,11 @@ public class OctaveParserDefinition implements ParserDefinition {
   @NotNull
   @Override
   public PsiElement createElement(@NotNull ASTNode node) {
+    final IElementType type = node.getElementType();
+    if (type instanceof OctaveElementType) {
+      OctaveElementType elementType = (OctaveElementType)type;
+      return elementType.createElement(node);
+    }
     return new ASTWrapperPsiElement(node);
   }
 
