@@ -1,6 +1,5 @@
 package ru.compscicenter.jetbrains.octave.parser;
 
-import com.intellij.psi.tree.IElementType;
 import ru.compscicenter.jetbrains.octave.psi.*;
 
 /**
@@ -16,4 +15,5 @@ public interface OctaveElementTypes {
   OctaveElementType SWITCH_STATEMENT = new OctaveElementType("SWITCH_STATEMENT", OctaveSwitchStatementImpl.class);
   OctaveElementType SWITCH_PARAMETER_STATEMENT = new OctaveElementType("SWITCH_PARAMETER_STATEMENT", OctaveSwitchParameterImpl.class);
   OctaveElementType CASE_STATEMENT = new OctaveElementType("CASE_STATEMENT", OctaveCaseStatementImpl.class);
+  OctaveElementType DO_STATEMENT = new OctaveElementType("DO_STATEMENT", OctaveDoStatementImpl.class);
 }

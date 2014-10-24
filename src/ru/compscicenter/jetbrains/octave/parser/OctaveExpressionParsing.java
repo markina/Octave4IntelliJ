@@ -33,6 +33,9 @@ public class OctaveExpressionParsing extends Parsing {
     else if (firstToken == OctaveTokenTypes.SWITCH_KEYWORD) {
       parseSwitchExpression();
     }
+    else if (firstToken == OctaveTokenTypes.DO_KEYWORD) {
+      parseDoExpression();
+    }
     else if (firstToken == OctaveTokenTypes.BREAK_KEYWORD) {
       myPsiBuilder.advanceLexer();
     }
@@ -48,13 +51,27 @@ public class OctaveExpressionParsing extends Parsing {
     }
   }
 
+  private void parseDoExpression() {
+    final PsiBuilder.Marker doExpression = myPsiBuilder.mark();
+    checkMatches(OctaveTokenTypes.DO_KEYWORD, "?do?");
+    skipLineBreak();
+    while (!isNullOrMatches(OctaveTokenTypes.UNTIL_KEYWORD)) {
+      parseExpressionStatement();
+      skipLineBreak();
+    }
+    checkMatches(OctaveTokenTypes.UNTIL_KEYWORD, "?until?");
+    parseConditionExpression();
+    checkSetMatches(OctaveTokenTypes.SET_END_AUXILIARY_STATEMENT, "end_condition expected");
+    doExpression.done(OctaveElementTypes.DO_STATEMENT);
+  }
+
   private void parseSwitchExpression() {
     final PsiBuilder.Marker switchExpression = myPsiBuilder.mark();
     checkMatches(OctaveTokenTypes.SWITCH_KEYWORD, "?switch?");
     parseSwitchParameter();
     checkSetMatches(OctaveTokenTypes.SET_END_AUXILIARY_STATEMENT, "end_condition expected");
     skipLineBreak();
-    while (!isMatchesOrNull(OctaveTokenTypes.SET_ENDSWITCH_KEYWORDS)) {
+    while (!isNullOrMatches(OctaveTokenTypes.SET_ENDSWITCH_KEYWORDS)) {
       parseCaseStatement();
     }
     checkSetMatches(OctaveTokenTypes.SET_ENDWHILE_KEYWORDS, "endwhile expected");
@@ -64,10 +81,9 @@ public class OctaveExpressionParsing extends Parsing {
   private void parseCaseStatement() {
     final PsiBuilder.Marker caseStatement = myPsiBuilder.mark();
     checkSetMatches(OctaveTokenTypes.SET_CASE_OR_OTHERWISE, "case_or_otherwise expected");
-    while(!isMatchesOrNull(OctaveTokenTypes.SET_CASE_OR_OTHERWISE)) {
-      checkSetMatches(OctaveTokenTypes.SET_CASE_OR_OTHERWISE, "?case or otherwise?");
-      parseExpression(); // todo
-      checkSetMatches(OctaveTokenTypes.SET_END_IDENTIFIER, "end identifier expected");
+    parseExpression(); // todo
+    checkSetMatches(OctaveTokenTypes.SET_END_IDENTIFIER, "end identifier expected");
+    while(!isNullOrMatches(OctaveTokenTypes.SET_ENDSWITCH_KEYWORDS) && !isNullOrMatches(OctaveTokenTypes.SET_CASE_OR_OTHERWISE)) {
       parseExpressionStatement();
       checkSetMatches(OctaveTokenTypes.SET_END_STATEMENT, "end statement expected");
       skipLineBreak();
@@ -87,7 +103,7 @@ public class OctaveExpressionParsing extends Parsing {
     parseConditionExpression();
     checkSetMatches(OctaveTokenTypes.SET_END_AUXILIARY_STATEMENT, "end_condition expected");
     skipLineBreak();
-    while (!isMatchesOrNull(OctaveTokenTypes.SET_ENDWHILE_KEYWORDS)) {
+    while (!isNullOrMatches(OctaveTokenTypes.SET_ENDWHILE_KEYWORDS)) {
       parseExpressionStatement();
       checkSetMatches(OctaveTokenTypes.SET_END_STATEMENT, "end statement expected");
       skipLineBreak();
@@ -115,7 +131,7 @@ public class OctaveExpressionParsing extends Parsing {
     parseForEnumerateExpression();
     checkSetMatches(OctaveTokenTypes.SET_END_AUXILIARY_STATEMENT, "end_enumerate expected");
     skipLineBreak();
-    while (!isMatchesOrNull(OctaveTokenTypes.SET_ENDFOR_KEYWORDS)) {
+    while (!isNullOrMatches(OctaveTokenTypes.SET_ENDFOR_KEYWORDS)) {
       parseExpressionStatement();
       checkSetMatches(OctaveTokenTypes.SET_END_STATEMENT, "end statement expected");
       skipLineBreak();
@@ -136,10 +152,10 @@ public class OctaveExpressionParsing extends Parsing {
     parseConditionExpression();
     checkSetMatches(OctaveTokenTypes.SET_END_AUXILIARY_STATEMENT, "end_condition expected");
     skipLineBreak();
-    while (!isMatchesOrNull(OctaveTokenTypes.SET_ENDIF_KEYWORDS)) {
+    while (!isNullOrMatches(OctaveTokenTypes.SET_ENDIF_KEYWORDS)) {
       if (myPsiBuilder.getTokenType() == OctaveTokenTypes.ELSE_KEYWORD) {
         checkMatches(OctaveTokenTypes.ELSE_KEYWORD, "else expected");
-        while (!isMatchesOrNull(OctaveTokenTypes.SET_ENDIF_KEYWORDS)) {
+        while (!isNullOrMatches(OctaveTokenTypes.SET_ENDIF_KEYWORDS)) {
           parseExpressionStatement();
           checkSetMatches(OctaveTokenTypes.SET_END_STATEMENT, "end statement expected");
           skipLineBreak();
@@ -161,11 +177,15 @@ public class OctaveExpressionParsing extends Parsing {
     ifExpression.done(OctaveElementTypes.IF_STATEMENT);
   }
 
-  private boolean isMatchesOrNull(TokenSet tokenSet) {
+  private boolean isNullOrMatches(TokenSet tokenSet) {
     return myPsiBuilder.getTokenType() == null ||
       tokenSet.contains(myPsiBuilder.getTokenType());
   }
 
+  private boolean isNullOrMatches(IElementType keyword) {
+    return myPsiBuilder.getTokenType() == null ||
+           keyword == myPsiBuilder.getTokenType();
+  }
 
   private void parseConditionExpression() {
     final PsiBuilder.Marker conditionExpression = myPsiBuilder.mark();
