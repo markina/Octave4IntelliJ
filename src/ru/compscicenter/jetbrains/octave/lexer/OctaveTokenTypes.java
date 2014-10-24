@@ -132,6 +132,7 @@ public interface OctaveTokenTypes {
   public static final TokenSet SET_ENDSWITCH_KEYWORDS = TokenSet.create(END_KEYWORD, ENDSWITCH_KEYWORD);
   public static final TokenSet SET_ENDUNWIND_KEYWORDS = TokenSet.create(END_KEYWORD, END_UNWIND_PROTECT_KEYWORD);
   public static final TokenSet SET_ENDTRY_KEYWORDS = TokenSet.create(END_KEYWORD, END_TRY_CATCH_KEYWORD);
+  public static final TokenSet SET_ENDFUNCTION_KEYWORDS = TokenSet.create(END_KEYWORD, ENDFUNCTION_KEYWORD);
 
   public static final TokenSet SET_END_AUXILIARY_STATEMENT = TokenSet.create(COMMA, LINE_BREAK, SEMICOLON);
 

@@ -1,5 +1,7 @@
 package ru.compscicenter.jetbrains.octave.parser;
 
+import com.intellij.psi.tree.IElementType;
+import ru.compscicenter.jetbrains.octave.psi.api.impl.OctaveFunctionStatementImpl;
 import ru.compscicenter.jetbrains.octave.psi.api.impl.*;
 
 /**
@@ -18,4 +20,6 @@ public interface OctaveElementTypes {
   OctaveElementType DO_STATEMENT = new OctaveElementType("DO_STATEMENT", OctaveDoStatementImpl.class);
   OctaveElementType UNWIND_STATEMENT = new OctaveElementType("UNWIND_STATEMENT", OctaveUnwindStatementImpl.class);
   OctaveElementType TRY_STATEMENT = new OctaveElementType("TRY_STATEMENT", OctaveTryStatementImpl.class);
+  OctaveElementType FUNCTION_STATEMENT = new OctaveElementType("FUNCTION_STATEMENT", OctaveFunctionStatementImpl.class);
+  OctaveElementType FUNCTION_NAME_STATEMENT = new OctaveElementType("FUNCTION_NAME_STATEMENT", OctaveFunctionNameStatementImpl.class);
 }

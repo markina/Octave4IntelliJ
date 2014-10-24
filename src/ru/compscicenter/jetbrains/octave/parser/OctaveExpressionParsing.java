@@ -42,6 +42,9 @@ public class OctaveExpressionParsing extends Parsing {
     else if (firstToken == OctaveTokenTypes.TRY_KEYWORD) {
       parseTryStatement();
     }
+    else if (firstToken == OctaveTokenTypes.FUNCTION_KEYWORD) {
+      parseFunctionStatement();
+    }
     else if (firstToken == OctaveTokenTypes.BREAK_KEYWORD) {
       myPsiBuilder.advanceLexer();
     }
@@ -55,6 +58,28 @@ public class OctaveExpressionParsing extends Parsing {
       myPsiBuilder.error("bad character");
       myPsiBuilder.advanceLexer();
     }
+  }
+
+  private void parseFunctionStatement() {
+    final PsiBuilder.Marker functionExpression = myPsiBuilder.mark();
+    checkMatches(OctaveTokenTypes.FUNCTION_KEYWORD, "?function?");
+    parseFunctionName();
+    checkSetMatches(OctaveTokenTypes.SET_END_AUXILIARY_STATEMENT, "end_function_name expected");
+    skipLineBreak();
+    while (!isNullOrMatches(OctaveTokenTypes.SET_ENDFUNCTION_KEYWORDS)) {
+      parseExpressionStatement();
+      skipLineBreak();
+    }
+    if(myPsiBuilder.getTokenType() != null) {
+      checkSetMatches(OctaveTokenTypes.SET_ENDFUNCTION_KEYWORDS, "endfunction expected");
+    }
+    functionExpression.done(OctaveElementTypes.FUNCTION_STATEMENT);
+  }
+
+  private void parseFunctionName() {
+    final PsiBuilder.Marker functionNameExpression = myPsiBuilder.mark();
+    parseExpression(); //todo
+    functionNameExpression.done(OctaveElementTypes.FUNCTION_NAME_STATEMENT);
   }
 
   private void parseTryStatement() {
@@ -113,7 +138,7 @@ public class OctaveExpressionParsing extends Parsing {
     final PsiBuilder.Marker switchExpression = myPsiBuilder.mark();
     checkMatches(OctaveTokenTypes.SWITCH_KEYWORD, "?switch?");
     parseSwitchParameter();
-    checkSetMatches(OctaveTokenTypes.SET_END_AUXILIARY_STATEMENT, "end_condition expected");
+    checkSetMatches(OctaveTokenTypes.SET_END_AUXILIARY_STATEMENT, "end_switch_parameter expected");
     skipLineBreak();
     while (!isNullOrMatches(OctaveTokenTypes.SET_ENDSWITCH_KEYWORDS)) {
       parseCaseStatement();
