@@ -27,11 +27,42 @@ public class OctaveExpressionParsing extends Parsing {
     else if (firstToken == OctaveTokenTypes.FOR_KEYWORD) {
       parseForExpression();
     }
+    else if (firstToken == OctaveTokenTypes.WHILE_KEYWORD) {
+      parseWhileExpression();
+    }
     else if (firstToken == OctaveTokenTypes.IDENTIFIER) { // todo
       parseExpression(); //todo
     } else {
       myPsiBuilder.error("bad character");
       myPsiBuilder.advanceLexer();
+    }
+  }
+
+  private void parseWhileExpression() {
+    final PsiBuilder.Marker whileExpression = myPsiBuilder.mark();
+    myPsiBuilder.advanceLexer();
+    parseConditionExpression();
+    checkSetMatches(OctaveTokenTypes.SET_END_CONDITION_OR_ENUMERATE, "end_condition expected");
+    skipLineBreak();
+    while (myPsiBuilder.getTokenType() != null &&
+           !OctaveTokenTypes.SET_ENDWHILE_KEYWORDS.contains(myPsiBuilder.getTokenType())) {
+      parseExpressionStatement();
+      checkSetMatches(OctaveTokenTypes.SET_END_STATEMENT, "end statement expected");
+      skipLineBreak();
+    }
+    myPsiBuilder.advanceLexer();
+    whileExpression.done(OctaveElementTypes.WHILE_STATEMENT);
+  }
+
+  private void parseExpression() { //todo
+    if (myPsiBuilder.getTokenType() == OctaveTokenTypes.IDENTIFIER) {
+      myPsiBuilder.advanceLexer();
+      if (OctaveTokenTypes.SET_END_IDENTIFIER.contains(myPsiBuilder.getTokenType())) {
+        return;
+      }
+      else {
+        parseExpressionStatement();
+      }
     }
   }
 
@@ -57,43 +88,37 @@ public class OctaveExpressionParsing extends Parsing {
     enumerateExpression.done(OctaveElementTypes.ENUMERATE_STATEMENT);
   }
 
-  private void parseExpression() { //todo
-    if (myPsiBuilder.getTokenType() == OctaveTokenTypes.IDENTIFIER) {
-      myPsiBuilder.advanceLexer();
-      if (OctaveTokenTypes.SET_END_IDENTIFIER.contains(myPsiBuilder.getTokenType())) {
-        return;
-      }
-      else {
-        parseExpressionStatement();
-      }
-    }
-  }
-
   private void parseIfExpression() {  // myPsiBuilder.getTokenType() == "if"
     final PsiBuilder.Marker ifExpression = myPsiBuilder.mark();
     myPsiBuilder.advanceLexer();
     parseConditionExpression();
     checkSetMatches(OctaveTokenTypes.SET_END_CONDITION_OR_ENUMERATE, "end_condition expected");
     skipLineBreak();
-    while (!OctaveTokenTypes.SET_ENDIF_KEYWORDS.contains(myPsiBuilder.getTokenType())) {
+    while (myPsiBuilder.getTokenType() != null &&
+           !OctaveTokenTypes.SET_ENDIF_KEYWORDS.contains(myPsiBuilder.getTokenType())) {
       if (myPsiBuilder.getTokenType() == OctaveTokenTypes.ELSE_KEYWORD) {
-        while (myPsiBuilder.getTokenType() != OctaveTokenTypes.ENDIF_KEYWORD) {
+        myPsiBuilder.advanceLexer();
+        while (myPsiBuilder.getTokenType() != null &&
+               !OctaveTokenTypes.SET_ENDIF_KEYWORDS.contains(myPsiBuilder.getTokenType())) {
           parseExpressionStatement();
+          checkSetMatches(OctaveTokenTypes.SET_END_STATEMENT, "end statement expected");
+          skipLineBreak();
         }
+
         break;
       }
-      parseExpressionStatement();
-      checkSetMatches(OctaveTokenTypes.SET_END_STATEMENT, "end statement expected");
-      skipLineBreak();
+      else if (myPsiBuilder.getTokenType() == OctaveTokenTypes.ELSEIF_KEYWORD) {
+        parseIfExpression();
+        ifExpression.done(OctaveElementTypes.IF_STATEMENT);
+        return;
+      } else {
+        parseExpressionStatement();
+        checkSetMatches(OctaveTokenTypes.SET_END_STATEMENT, "end statement expected");
+        skipLineBreak();
+      }
     }
-    myPsiBuilder.advanceLexer();
+    checkSetMatches(OctaveTokenTypes.SET_ENDIF_KEYWORDS, "endif expected");
     ifExpression.done(OctaveElementTypes.IF_STATEMENT);
-  }
-
-  private void skipLineBreak() {
-    while (OctaveTokenTypes.SET_SPACES.contains(myPsiBuilder.getTokenType())) {
-      myPsiBuilder.advanceLexer();
-    }
   }
 
   private void parseConditionExpression() {
@@ -121,5 +146,11 @@ public class OctaveExpressionParsing extends Parsing {
     }
     myPsiBuilder.error(message);
     return false;
+  }
+
+  private void skipLineBreak() {
+    while (OctaveTokenTypes.SET_SPACES.contains(myPsiBuilder.getTokenType())) {
+      myPsiBuilder.advanceLexer();
+    }
   }
 }
