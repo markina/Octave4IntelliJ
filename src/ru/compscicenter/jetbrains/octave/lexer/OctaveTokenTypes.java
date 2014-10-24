@@ -1,8 +1,5 @@
-// This is a generated file. Not intended for manual editing.
 package ru.compscicenter.jetbrains.octave.lexer;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.TokenSet;
@@ -145,11 +142,4 @@ public interface OctaveTokenTypes {
   public static final TokenSet IF_OR_ELSE_KEYWORD = TokenSet.create(IF_KEYWORD, ELSEIF_KEYWORD);
   public static final TokenSet SET_CASE_OR_OTHERWISE = TokenSet.create(CASE_KEYWORD, OTHERWISE_KEYWORD);
 
-
-  class Factory {
-    public static PsiElement createElement(ASTNode node) {
-      IElementType type = node.getElementType();
-      throw new AssertionError("Unknown element type: " + type);
-    }
-  }
 }

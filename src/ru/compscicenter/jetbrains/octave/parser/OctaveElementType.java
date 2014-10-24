@@ -7,7 +7,6 @@ import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import ru.compscicenter.jetbrains.octave.OctaveFileType;
 import ru.compscicenter.jetbrains.octave.OctaveLanguage;
-import ru.compscicenter.jetbrains.octave.psi.OctaveIfStatementImpl;
 
 import java.lang.reflect.Constructor;
 

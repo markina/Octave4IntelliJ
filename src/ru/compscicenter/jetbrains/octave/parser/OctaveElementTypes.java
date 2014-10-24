@@ -1,6 +1,6 @@
 package ru.compscicenter.jetbrains.octave.parser;
 
-import ru.compscicenter.jetbrains.octave.psi.*;
+import ru.compscicenter.jetbrains.octave.psi.api.impl.*;
 
 /**
  * Created by Markina Margarita on 17.10.14.

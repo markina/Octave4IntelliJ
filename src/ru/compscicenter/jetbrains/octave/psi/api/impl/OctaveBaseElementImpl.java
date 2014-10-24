@@ -1,4 +1,4 @@
-package ru.compscicenter.jetbrains.octave.psi;
+package ru.compscicenter.jetbrains.octave.psi.api.impl;
 
 import com.intellij.extapi.psi.StubBasedPsiElementBase;
 import com.intellij.lang.ASTNode;
