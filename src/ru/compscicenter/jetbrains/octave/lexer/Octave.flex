@@ -117,8 +117,8 @@ SPASE = [\ ]
 
 
 // logical constants
-"TRUE"                      { return OctaveTokenTypes.TRUE_KEYWORD; }
-"FALSE"                     { return OctaveTokenTypes.FALSE_KEYWORD; }
+"true"                      { return OctaveTokenTypes.TRUE_KEYWORD; }
+"false"                     { return OctaveTokenTypes.FALSE_KEYWORD; }
 
 // relational
 "<"                         { return OctaveTokenTypes.LT; }

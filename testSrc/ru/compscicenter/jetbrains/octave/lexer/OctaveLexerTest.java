@@ -221,6 +221,23 @@ public class OctaveLexerTest extends TestCase {
     );
   }
 
+  public void testLogicTrue() throws IOException {
+    doTest("true",
+           "[true, Octave:TRUE_KEYWORD]");
+  }
+
+  public void testLogicFalse() throws IOException {
+    doTest("false",
+           "[false, Octave:FALSE_KEYWORD]");
+  }
+
+  public void testIdentifierDotDot() throws IOException {
+    doTest("..",
+           "[., Octave:DOT]",
+           "[., Octave:DOT]"
+    );
+  }
+
 
 
 
