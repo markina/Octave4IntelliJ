@@ -55,7 +55,7 @@ EXPONENT_FLOAT=(({INT_PART})|({POINT_FLOAT})){EXPONENT}
 FLOAT_NUMBER=({POINT_FLOAT})|({EXPONENT_FLOAT})|({EXPONENT_HEX})
 
 LONG_INTEGER = ({INTEGER} | {FLOAT_NUMBER})[Ll]
-COMPLEX_NUMBER=(({FLOAT_NUMBER})|({INT_PART}))[i]
+COMPLEX_NUMBER=(({FLOAT_NUMBER})|({INT_PART}))?[i,I]
 
 NEXT_LINE = [\n]
 SPASE = [\ ]
@@ -101,8 +101,6 @@ SPASE = [\ ]
 "nan"                       { return OctaveTokenTypes.NAN_KEYWORD; }
 "e"                         { return OctaveTokenTypes.E_KEYWORD; }
 "pi"                        { return OctaveTokenTypes.PI_KEYWORD; }
-"I"                         { return OctaveTokenTypes.I_KEYWORD; }
-"i"                         { return OctaveTokenTypes.I_KEYWORD; }
 "eps"                       { return OctaveTokenTypes.EPS_KEYWORD; }
 "realmax"                   { return OctaveTokenTypes.REALMAX_KEYWORD; }
 "realmin"                   { return OctaveTokenTypes.REALMIN_KEYWORD; }

@@ -155,7 +155,28 @@ public class OctaveLexerTest extends TestCase {
            "[45, Octave:INTEGER_LITERAL]");
   }
 
-  //num2hex([-1,1,e, Inf])
+  public void testComplexNumber() throws IOException {
+    doTest("5+6i",
+           "[5, Octave:INTEGER_LITERAL]",
+           "[+, Octave:PLUS]",
+           "[6i, Octave:COMPLEX_LITERAL]"
+    );
+  }
+
+  public void testComplexNumber2() throws IOException {
+    doTest("6*i",
+           "[6, Octave:INTEGER_LITERAL]",
+           "[*, Octave:MULTIPLICATION]",
+           "[i, Octave:COMPLEX_LITERAL]"
+    );
+  }
+
+  //a + bi
+  //a + b*i
+  //a + i*b
+  //bi + a
+  //b*i + a
+  //i*b + a
 
 
   private static void doTest(String text, String... expected) throws IOException {
