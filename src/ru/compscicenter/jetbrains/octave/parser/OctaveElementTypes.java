@@ -22,4 +22,5 @@ public interface OctaveElementTypes {
   OctaveElementType TRY_STATEMENT = new OctaveElementType("TRY_STATEMENT", OctaveTryStatementImpl.class);
   OctaveElementType FUNCTION_STATEMENT = new OctaveElementType("FUNCTION_STATEMENT", OctaveFunctionStatementImpl.class);
   OctaveElementType FUNCTION_NAME_STATEMENT = new OctaveElementType("FUNCTION_NAME_STATEMENT", OctaveFunctionNameStatementImpl.class);
+  OctaveElementType PARFOR_STATEMENT = new OctaveElementType("PARFOR_STATEMENT", OctaveParforStatementImpl.class);
 }

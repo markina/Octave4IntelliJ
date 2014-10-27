@@ -20,6 +20,12 @@ CRLF= \n|\r|\r\n
 WHITE_SPACE=[\ \t\f]
 
 END_OF_LINE_COMMENT=("%")[^\r\n]*
+BEGIN_BLOCK_COMMENT=("%{"|"#{")
+END_BLOCK_COMMENT=("%}"|"#}")
+NO_END_COMMENT = ("#"([^}]))|([^#])
+COMMENT_BLOCK="#{"({NO_END_COMMENT})*("#}")
+
+
 
 LETTER = [a-zA-Z]|[:unicode_uppercase_letter:]|[:unicode_lowercase_letter:]|[:unicode_titlecase_letter:]|[:unicode_modifier_letter:]|[:unicode_other_letter:]|[:unicode_letter_number:]
 
@@ -62,6 +68,7 @@ SPASE = [\ ]
 %%
 
 <YYINITIAL> {
+{COMMENT_BLOCK}             { return OctaveTokenTypes.COMMENT; }
 {END_OF_LINE_COMMENT}       { return OctaveTokenTypes.COMMENT; }
 
 {NEXT_LINE}*                { return OctaveTokenTypes.LINE_BREAK; }

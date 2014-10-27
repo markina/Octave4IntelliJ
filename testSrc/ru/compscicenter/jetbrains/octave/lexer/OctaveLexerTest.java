@@ -33,6 +33,20 @@ public class OctaveLexerTest extends TestCase {
            "[a_b_c, Octave:IDENTIFIER]");
   }
 
+  public void testENumber() throws IOException {
+    doTest("40E3",
+           "[40E3, Octave:FLOAT_NUMBER_LITERAL]");
+  }
+
+  public void testEINumber() throws IOException {
+    doTest("2.4594e+23-1.3998e+07i",
+           "[2.4594e+23, Octave:FLOAT_NUMBER_LITERAL]",
+           "[-, Octave:MINUS]",
+           "[1.3998e+07i, Octave:COMPLEX_LITERAL]"
+    );
+  }
+
+
   public void testNumAndIdentifier() throws IOException {
     doTest("12b",
            "[12, Octave:INTEGER_LITERAL]",
@@ -273,34 +287,6 @@ public class OctaveLexerTest extends TestCase {
            "[x, Octave:IDENTIFIER]"
     );
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  //pi:-pi/4:0
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

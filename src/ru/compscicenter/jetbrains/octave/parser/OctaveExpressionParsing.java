@@ -27,6 +27,9 @@ public class OctaveExpressionParsing extends Parsing {
     else if (firstToken == OctaveTokenTypes.FOR_KEYWORD) {
       parseForStatement();
     }
+    else if (firstToken == OctaveTokenTypes.PARFOR_KEYWORD) {
+      parseParforStatement(); // what change with for
+    }
     else if (firstToken == OctaveTokenTypes.WHILE_KEYWORD) {
       parseWhileStatement();
     }
@@ -59,6 +62,8 @@ public class OctaveExpressionParsing extends Parsing {
       myPsiBuilder.advanceLexer();
     }
   }
+
+
 
   private void parseFunctionStatement() {
     final PsiBuilder.Marker functionExpression = myPsiBuilder.mark();
@@ -194,6 +199,22 @@ public class OctaveExpressionParsing extends Parsing {
     }
   }
 
+  private void parseParforStatement() {
+    final PsiBuilder.Marker parforExpression = myPsiBuilder.mark();
+    checkMatches(OctaveTokenTypes.PARFOR_KEYWORD, "?parfor?");
+    parseForEnumerateExpression();
+    checkSetMatches(OctaveTokenTypes.SET_END_AUXILIARY_STATEMENT, "end_enumerate expected");
+    skipLineBreak();
+    while (!isNullOrMatches(OctaveTokenTypes.SET_ENDPARFOR_KEYWORDS)) {
+      parseExpressionStatement();
+      checkSetMatches(OctaveTokenTypes.SET_END_STATEMENT, "end statement expected");
+      skipLineBreak();
+    }
+    checkSetMatches(OctaveTokenTypes.SET_ENDPARFOR_KEYWORDS, "endparfor expected");
+    parforExpression.done(OctaveElementTypes.PARFOR_STATEMENT);
+  }
+
+
   private void parseForStatement() {
     final PsiBuilder.Marker forExpression = myPsiBuilder.mark();
     checkMatches(OctaveTokenTypes.FOR_KEYWORD, "?for?");
@@ -205,7 +226,7 @@ public class OctaveExpressionParsing extends Parsing {
       checkSetMatches(OctaveTokenTypes.SET_END_STATEMENT, "end statement expected");
       skipLineBreak();
     }
-    checkSetMatches(OctaveTokenTypes.SET_ENDFOR_KEYWORDS, "endif expected");
+    checkSetMatches(OctaveTokenTypes.SET_ENDFOR_KEYWORDS, "endfor expected");
     forExpression.done(OctaveElementTypes.FOR_STATEMENT);
   }
 
