@@ -63,7 +63,6 @@ public interface OctaveTokenTypes {
   public static final IElementType INTEGER_LITERAL = new OctaveElementType("INTEGER_LITERAL");
   public static final IElementType FLOAT_NUMBER_LITERAL = new OctaveElementType("FLOAT_NUMBER_LITERAL");
   public static final IElementType COMPLEX_LITERAL = new OctaveElementType("COMPLEX_LITERAL");
-  public static final IElementType LONG_LITERAL = new OctaveElementType("LONG_LITERAL");
   public static final IElementType HEX_INTEGER = new OctaveElementType("HEX_INTEGER");
 
 

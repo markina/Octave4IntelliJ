@@ -51,11 +51,6 @@ public class OctaveLexerTest extends TestCase {
            "[NaN, Octave:NAN_KEYWORD]");
   }
 
-  public void testLong() throws IOException {
-    doTest("555L",
-           "[555L, Octave:LONG_LITERAL]");
-  }
-
   public void testBr() throws IOException {
     doTest("T = tables{t};",
            "[T, Octave:IDENTIFIER]",
@@ -179,10 +174,23 @@ public class OctaveLexerTest extends TestCase {
     );
   }
 
-  public void test0xNumeric() throws IOException {
+  public void testHexNumeric() throws IOException {
     doTest("0x5",
            "[0x5, Octave:HEX_INTEGER]");
   }
+
+  public void testHexNumeric1() throws IOException {
+    doTest("0xFFAabcc340",
+           "[0xFFAabcc340, Octave:HEX_INTEGER]");
+  }
+
+
+
+
+
+
+
+
 
 
 
