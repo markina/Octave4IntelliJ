@@ -184,6 +184,56 @@ public class OctaveLexerTest extends TestCase {
            "[0xFFAabcc340, Octave:HEX_INTEGER]");
   }
 
+  public void testMatrix() throws IOException {
+    doTest("y=0:.15:.7",
+           "[y, Octave:IDENTIFIER]",
+           "[=, Octave:EQ]",
+           "[0, Octave:INTEGER_LITERAL]",
+           "[:, Octave:COLON]",
+           "[.15, Octave:FLOAT_NUMBER_LITERAL]",
+           "[:, Octave:COLON]",
+           "[.7, Octave:FLOAT_NUMBER_LITERAL]"
+    );
+  }
+
+  public void testPiColon() throws IOException {
+    doTest("pi:-pi/4:0",
+           "[pi, Octave:PI_KEYWORD]",
+           "[:, Octave:COLON]",
+           "[-, Octave:MINUS]",
+           "[pi, Octave:PI_KEYWORD]",
+           "[/, Octave:DIVISION]",
+           "[4, Octave:INTEGER_LITERAL]",
+           "[:, Octave:COLON]",
+           "[0, Octave:INTEGER_LITERAL]"
+    );
+  }
+
+  public void testDotOperation() throws IOException {
+    doTest("t./r.*r.+r",
+           "[t, Octave:IDENTIFIER]",
+           "[./, Octave:DOT_DIVISION]",
+           "[r, Octave:IDENTIFIER]",
+           "[.*, Octave:DOT_MULTIPLICATION]",
+           "[r, Octave:IDENTIFIER]",
+           "[.+, Octave:DOT_PLUS]",
+           "[r, Octave:IDENTIFIER]"
+    );
+  }
+
+
+
+
+
+
+
+  //pi:-pi/4:0
+
+
+
+
+
+
 
 
 

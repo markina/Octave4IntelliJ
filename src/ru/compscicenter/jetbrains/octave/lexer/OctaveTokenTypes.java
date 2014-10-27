@@ -65,7 +65,11 @@ public interface OctaveTokenTypes {
   public static final IElementType COMPLEX_LITERAL = new OctaveElementType("COMPLEX_LITERAL");
   public static final IElementType HEX_INTEGER = new OctaveElementType("HEX_INTEGER");
 
-
+  public static final IElementType DOT_DIVISION = new OctaveElementType("DOT_DIVISION");
+  public static final IElementType DOT_MULTIPLICATION = new OctaveElementType("DOT_MULTIPLICATION");
+  public static final IElementType DOT_PLUS = new OctaveElementType("DOT_PLUS");
+  public static final IElementType DOT_MINUS = new OctaveElementType("DOT_MINUS");
+  public static final IElementType DOT_POWER = new OctaveElementType("DOT_POWER");
 
   public static final IElementType MINUS = new OctaveElementType("MINUS");  // -
   public static final IElementType PLUS = new OctaveElementType("PLUS");  // +

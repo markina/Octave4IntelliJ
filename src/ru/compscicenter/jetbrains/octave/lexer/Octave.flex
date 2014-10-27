@@ -69,6 +69,13 @@ SPASE = [\ ]
 [\t]                        { return OctaveTokenTypes.TAB; }
 [\f]                        { return OctaveTokenTypes.FORMFEED; }
 
+//dot operation
+"./"                        {return OctaveTokenTypes.DOT_DIVISION; }
+".*"                        {return OctaveTokenTypes.DOT_MULTIPLICATION; }
+".+"                        {return OctaveTokenTypes.DOT_PLUS; }
+".-"                        {return OctaveTokenTypes.DOT_MINUS; }
+".^"                        {return OctaveTokenTypes.DOT_POWER; }
+
 "="                         { return OctaveTokenTypes.EQ; }
 ";"                         { return OctaveTokenTypes.SEMICOLON; }
 ","                         { return OctaveTokenTypes.COMMA; }
@@ -91,6 +98,10 @@ SPASE = [\ ]
 "^"                         { return OctaveTokenTypes.POWER; }
 "~"                         { return OctaveTokenTypes.TILDE; }
 ":"                         { return OctaveTokenTypes.COLON; }
+
+
+
+
 
 // special constants
 "NA"                        { return OctaveTokenTypes.NA_KEYWORD; }
