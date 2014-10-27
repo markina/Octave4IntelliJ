@@ -23,7 +23,7 @@ public interface OctaveTokenTypes {
   public static final IElementType RPAR = new OctaveElementType("RPAR");    // )
   public static final IElementType LBRACKET = new OctaveElementType("LBRACKET");    // [
   public static final IElementType RBRACKET = new OctaveElementType("RBRACKET");    // ]
-  public static final IElementType LBRACE = new OctaveElementType("RBRACE");    // {
+  public static final IElementType LBRACE = new OctaveElementType("LBRACE");    // {
   public static final IElementType RBRACE = new OctaveElementType("RBRACE");    // }
 
   // special constants
