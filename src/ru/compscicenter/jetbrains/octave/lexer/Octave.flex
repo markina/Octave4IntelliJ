@@ -95,11 +95,14 @@ SPASE = [\ ]
 
 // special constants
 "NA"                        { return OctaveTokenTypes.NA_KEYWORD; }
+"inf"                       { return OctaveTokenTypes.INF_KEYWORD; }
 "Inf"                       { return OctaveTokenTypes.INF_KEYWORD; }
 "NaN"                       { return OctaveTokenTypes.NAN_KEYWORD; }
+"nan"                       { return OctaveTokenTypes.NAN_KEYWORD; }
 "e"                         { return OctaveTokenTypes.E_KEYWORD; }
 "pi"                        { return OctaveTokenTypes.PI_KEYWORD; }
 "I"                         { return OctaveTokenTypes.I_KEYWORD; }
+"i"                         { return OctaveTokenTypes.I_KEYWORD; }
 "eps"                       { return OctaveTokenTypes.EPS_KEYWORD; }
 "realmax"                   { return OctaveTokenTypes.REALMAX_KEYWORD; }
 "realmin"                   { return OctaveTokenTypes.REALMIN_KEYWORD; }
