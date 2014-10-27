@@ -78,6 +78,8 @@ public interface OctaveTokenTypes {
   public static final IElementType POWER = new OctaveElementType("POWER");  // ^
   public static final IElementType TILDE = new OctaveElementType("TILDE");  // ~
   public static final IElementType COLON = new OctaveElementType("COLON");  // :
+  public static final IElementType AT = new OctaveElementType("AT");  // :
+
 
   public static final IElementType BREAK_KEYWORD = new OctaveElementType("BREAK_KEYWORD");
   public static final IElementType CASE_KEYWORD = new OctaveElementType("CASE_KEYWORD");

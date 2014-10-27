@@ -238,6 +238,49 @@ public class OctaveLexerTest extends TestCase {
     );
   }
 
+  public void testMethonAndComment() throws IOException {
+    doTest("to(A, \"\\n\") % \"string in comment\" comment \"\\n\"\n",
+           "[to, Octave:IDENTIFIER]",
+           "[(, Octave:LPAR]",
+           "[A, Octave:IDENTIFIER]",
+           "[,, Octave:COMMA]",
+           "[ , Octave:SPACE]",
+           "[\"\\n\", Octave:STRING]",
+           "[), Octave:RPAR]",
+           "[ , Octave:SPACE]",
+           "[% \"string in comment\" comment \"\\n\", Octave:COMMENT]",
+           "[\n, Octave:LINE_BREAK]"
+    );
+  }
+
+  public void testComment() throws IOException {
+    doTest("%rowvec(C1); % ",
+           "[%rowvec(C1); % , Octave:COMMENT]"
+    );
+  }
+
+  //f=@(x)x
+
+
+  public void testArrayfun() throws IOException {
+    doTest("f=@(x)x",
+           "[f, Octave:IDENTIFIER]",
+           "[=, Octave:EQ]",
+           "[@, Octave:AT]",
+           "[(, Octave:LPAR]",
+           "[x, Octave:IDENTIFIER]",
+           "[), Octave:RPAR]",
+           "[x, Octave:IDENTIFIER]"
+    );
+  }
+
+
+
+
+
+
+
+
 
 
 

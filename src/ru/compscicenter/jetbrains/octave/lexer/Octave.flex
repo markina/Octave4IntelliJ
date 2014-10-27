@@ -98,6 +98,7 @@ SPASE = [\ ]
 "^"                         { return OctaveTokenTypes.POWER; }
 "~"                         { return OctaveTokenTypes.TILDE; }
 ":"                         { return OctaveTokenTypes.COLON; }
+"@"                         { return OctaveTokenTypes.AT; }
 
 
 
