@@ -171,15 +171,13 @@ SPASE = [\ ]
 {STRING}                    { return OctaveTokenTypes.STRING; }
 
 // numeric constants
+{HEX_INTEGER}               { return OctaveTokenTypes.HEX_INTEGER; }
 {INTEGER}                   { return OctaveTokenTypes.INTEGER_LITERAL; }
 {FLOAT_NUMBER}              { return OctaveTokenTypes.FLOAT_NUMBER_LITERAL; }
 
-// complex constants
+
 {COMPLEX_NUMBER}            { return OctaveTokenTypes.COMPLEX_LITERAL; }
-
-// integer constants
 {LONG_INTEGER}              { return OctaveTokenTypes.LONG_LITERAL; }
-
 
 {IDENTIFIER}                { return OctaveTokenTypes.IDENTIFIER; }
 

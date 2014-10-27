@@ -171,12 +171,22 @@ public class OctaveLexerTest extends TestCase {
     );
   }
 
-  //a + bi
-  //a + b*i
-  //a + i*b
-  //bi + a
-  //b*i + a
-  //i*b + a
+  public void testComplexNumber22() throws IOException {
+    doTest("6*I",
+           "[6, Octave:INTEGER_LITERAL]",
+           "[*, Octave:MULTIPLICATION]",
+           "[I, Octave:COMPLEX_LITERAL]"
+    );
+  }
+
+  public void test0xNumeric() throws IOException {
+    doTest("0x5",
+           "[0x5, Octave:HEX_INTEGER]");
+  }
+
+
+
+
 
 
   private static void doTest(String text, String... expected) throws IOException {

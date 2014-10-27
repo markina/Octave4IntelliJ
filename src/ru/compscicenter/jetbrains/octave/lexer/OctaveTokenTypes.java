@@ -32,7 +32,6 @@ public interface OctaveTokenTypes {
   public static final IElementType NAN_KEYWORD = new OctaveElementType("NAN_KEYWORD");
   public static final IElementType E_KEYWORD = new OctaveElementType("E_KEYWORD");
   public static final IElementType PI_KEYWORD = new OctaveElementType("PI_KEYWORD");
-  public static final IElementType I_KEYWORD = new OctaveElementType("I_KEYWORD");
   public static final IElementType EPS_KEYWORD = new OctaveElementType("EPS_KEYWORD");
   public static final IElementType REALMAX_KEYWORD = new OctaveElementType("REALMAX_KEYWORD");
   public static final IElementType REALMIN_KEYWORD = new OctaveElementType("REALMIN_KEYWORD");
@@ -65,6 +64,9 @@ public interface OctaveTokenTypes {
   public static final IElementType FLOAT_NUMBER_LITERAL = new OctaveElementType("FLOAT_NUMBER_LITERAL");
   public static final IElementType COMPLEX_LITERAL = new OctaveElementType("COMPLEX_LITERAL");
   public static final IElementType LONG_LITERAL = new OctaveElementType("LONG_LITERAL");
+  public static final IElementType HEX_INTEGER = new OctaveElementType("HEX_INTEGER");
+
+
 
   public static final IElementType MINUS = new OctaveElementType("MINUS");  // -
   public static final IElementType PLUS = new OctaveElementType("PLUS");  // +
