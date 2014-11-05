@@ -159,34 +159,37 @@ SPASE = [\ ]
 "end_unwind_protect"        { return OctaveTokenTypes.END_UNWIND_PROTECT_KEYWORD; }
 "endclassdef"               { return OctaveTokenTypes.ENDCLASSDEF_KEYWORD; }
 "endenumeration"            { return OctaveTokenTypes.ENDENUMERATION_KEYWORD; }
-"endevents"                 { return OctaveTokenTypes.ENDEVENTS_KEYWORD; }
 "endfor"                    { return OctaveTokenTypes.ENDFOR_KEYWORD; }
 "endfunction"               { return OctaveTokenTypes.ENDFUNCTION_KEYWORD; }
 "endif"                     { return OctaveTokenTypes.ENDIF_KEYWORD; }
 "endmethods"                { return OctaveTokenTypes.ENDMETHODS_KEYWORD; }
 "endparfor"                 { return OctaveTokenTypes.ENDPARFOR_KEYWORD; }
-"endproperties"             { return OctaveTokenTypes.ENDPROPERTIES_KEYWORD; }
 "endswitch"                 { return OctaveTokenTypes.ENDSWITCH_KEYWORD; }
 "endwhile"                  { return OctaveTokenTypes.ENDWHILE_KEYWORD; }
 "enumeration"               { return OctaveTokenTypes.ENUMERATION_KEYWORD; }
-"events"                    { return OctaveTokenTypes.EVENTS_KEYWORD; }
 "for"                       { return OctaveTokenTypes.FOR_KEYWORD; }
 "function"                  { return OctaveTokenTypes.FUNCTION_KEYWORD; }
-"global"                    { return OctaveTokenTypes.GLOBAL_KEYWORD; }
 "if"                        { return OctaveTokenTypes.IF_KEYWORD; }
 "methods"                   { return OctaveTokenTypes.METHODS_KEYWORD; }
-"otherwise"                 { return OctaveTokenTypes.OTHERWISE_KEYWORD; }
-"parfor"                    { return OctaveTokenTypes.PARFOR_KEYWORD; }
-"persistent"                { return OctaveTokenTypes.PERSISTENT_KEYWORD; }
-"properties"                { return OctaveTokenTypes.PROPERTIES_KEYWORD; }
-"return"                    { return OctaveTokenTypes.RETURN_KEYWORD; }
-"static"                    { return OctaveTokenTypes.STATIC_KEYWORD; }
-"switch"                    { return OctaveTokenTypes.SWITCH_KEYWORD; }
 "try"                       { return OctaveTokenTypes.TRY_KEYWORD; }
 "until"                     { return OctaveTokenTypes.UNTIL_KEYWORD; }
 "unwind_protect"            { return OctaveTokenTypes.UNWIND_PROTECT_KEYWORD; }
 "unwind_protect_cleanup"    { return OctaveTokenTypes.UNWIND_PROTECT_CLEANUP_KEYWORD; }
 "while"                     { return OctaveTokenTypes.WHILE_KEYWORD; }
+"endevents"                 { return OctaveTokenTypes.ENDEVENTS_KEYWORD; }
+"events"                    { return OctaveTokenTypes.EVENTS_KEYWORD; }
+"endproperties"             { return OctaveTokenTypes.ENDPROPERTIES_KEYWORD; }
+"properties"                { return OctaveTokenTypes.PROPERTIES_KEYWORD; }
+"otherwise"                 { return OctaveTokenTypes.OTHERWISE_KEYWORD; }
+"parfor"                    { return OctaveTokenTypes.PARFOR_KEYWORD; }
+"switch"                    { return OctaveTokenTypes.SWITCH_KEYWORD; }
+"persistent"                { return OctaveTokenTypes.PERSISTENT_KEYWORD; }
+"static"                    { return OctaveTokenTypes.STATIC_KEYWORD; }
+
+"global"                    { return OctaveTokenTypes.GLOBAL_KEYWORD; }
+"return"                    { return OctaveTokenTypes.RETURN_KEYWORD; }
+
+
 
 {STRING}                    { return OctaveTokenTypes.STRING; }
 

@@ -1,6 +1,5 @@
 package ru.compscicenter.jetbrains.octave.parser;
 
-import com.intellij.psi.tree.IElementType;
 import ru.compscicenter.jetbrains.octave.psi.api.impl.OctaveFunctionStatementImpl;
 import ru.compscicenter.jetbrains.octave.psi.api.impl.*;
 
@@ -23,4 +22,12 @@ public interface OctaveElementTypes {
   OctaveElementType FUNCTION_STATEMENT = new OctaveElementType("FUNCTION_STATEMENT", OctaveFunctionStatementImpl.class);
   OctaveElementType FUNCTION_NAME_STATEMENT = new OctaveElementType("FUNCTION_NAME_STATEMENT", OctaveFunctionNameStatementImpl.class);
   OctaveElementType PARFOR_STATEMENT = new OctaveElementType("PARFOR_STATEMENT", OctaveParforStatementImpl.class);
+  OctaveElementType CLASSDEF_STATEMENT = new OctaveElementType("CLASSDEF_STATEMENT", OctaveClassDefStatementImpl.class);
+  OctaveElementType CLASS_NAME_STATEMENT = new OctaveElementType("CLASS_NAME_STATEMENT", OctaveClassNameStatementImpl.class);
+  OctaveElementType METHODS_NAME_STATEMENT = new OctaveElementType("METHODS_NAME_STATEMENT", OctaveMethodsNameStatementImpl.class);
+  OctaveElementType METHODS_STATEMENT = new OctaveElementType("METHODS_STATEMENT", OctaveMethodsStatementImpl.class);
+  OctaveElementType ENUMERATION_STATEMENT = new OctaveElementType("ENUMERATION_STATEMENT", OctaveEnumerationStatementImpl.class);
+  OctaveElementType PROPERTIES_STATEMENT = new OctaveElementType("PROPERTIES_STATEMENT", OctavePropertiesStatementImpl.class);
+  OctaveElementType EVENTS_STATEMENT = new OctaveElementType("EVENTS_STATEMENT", OctaveEventsStatementImpl.class);
+  OctaveElementType RETURN_STATEMENT = new OctaveElementType("RETURN_STATEMENT", OctaveReturnStatementImpl.class);
 }

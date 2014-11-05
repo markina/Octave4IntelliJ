@@ -141,6 +141,11 @@ public interface OctaveTokenTypes {
   public static final TokenSet SET_ENDTRY_KEYWORDS = TokenSet.create(END_KEYWORD, END_TRY_CATCH_KEYWORD);
   public static final TokenSet SET_ENDFUNCTION_KEYWORDS = TokenSet.create(END_KEYWORD, ENDFUNCTION_KEYWORD);
   public static final TokenSet SET_ENDPARFOR_KEYWORDS = TokenSet.create(ENDPARFOR_KEYWORD, END_KEYWORD);
+  public static final TokenSet SET_ENDCLASSDEF_KEYWORDS = TokenSet.create(ENDCLASSDEF_KEYWORD, END_KEYWORD);
+  public static final TokenSet SET_ENDMETHODS_KEYWORDS = TokenSet.create(ENDMETHODS_KEYWORD, END_KEYWORD);
+  public static final TokenSet SET_ENDENUMERATION_KEYWORDS = TokenSet.create(ENDENUMERATION_KEYWORD, END_KEYWORD);
+  public static final TokenSet SET_ENDPROPERTIES_KEYWORDS = TokenSet.create(ENDPROPERTIES_KEYWORD, END_KEYWORD);
+  public static final TokenSet SET_ENDEVENTS_KEYWORDS = TokenSet.create(ENDEVENTS_KEYWORD, END_KEYWORD);
 
   public static final TokenSet SET_END_AUXILIARY_STATEMENT = TokenSet.create(COMMA, LINE_BREAK, SEMICOLON);
 
@@ -150,5 +155,7 @@ public interface OctaveTokenTypes {
   public static final TokenSet SET_END_STATEMENT = TokenSet.create(COMMA, SEMICOLON, CRLF, LINE_BREAK);
   public static final TokenSet IF_OR_ELSE_KEYWORD = TokenSet.create(IF_KEYWORD, ELSEIF_KEYWORD);
   public static final TokenSet SET_CASE_OR_OTHERWISE = TokenSet.create(CASE_KEYWORD, OTHERWISE_KEYWORD);
+
+
 
 }
