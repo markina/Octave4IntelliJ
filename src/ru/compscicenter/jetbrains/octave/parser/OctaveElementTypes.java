@@ -9,6 +9,7 @@ import ru.compscicenter.jetbrains.octave.psi.api.impl.*;
 public interface OctaveElementTypes {
 
   OctaveElementType IF_STATEMENT = new OctaveElementType("IF_STATEMENT", OctaveIfStatementImpl.class);
+  OctaveElementType ELSEIF_STATEMENT = new OctaveElementType("ELSEIF_STATEMENT", OctaveElseifStatementImpl.class);
   OctaveElementType CONDITION_STATEMENT = new OctaveElementType("CONDITION_STATEMENT", OctaveConditionStatementImpl.class);
   OctaveElementType FOR_STATEMENT = new OctaveElementType("FOR_STATEMENT", OctaveForStatementImpl.class);
   OctaveElementType ENUMERATE_STATEMENT = new OctaveElementType("ENUMERATE_STATEMENT", OctaveEnumerateStatementImpl.class);

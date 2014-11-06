@@ -82,7 +82,7 @@ public class OctaveExpressionParsing extends Parsing {
     final PsiBuilder.Marker returnExpression = myPsiBuilder.mark();
     checkMatches(OctaveTokenTypes.RETURN_KEYWORD, "?return?");
     skipLineBreak();
-    parseExpressionStatement();
+    parseExpression();
     returnExpression.done(OctaveElementTypes.RETURN_STATEMENT);
   }
 
@@ -344,20 +344,21 @@ public class OctaveExpressionParsing extends Parsing {
 
   private void parseIfStatement() {
     final PsiBuilder.Marker ifExpression = myPsiBuilder.mark();
-    checkSetMatches(OctaveTokenTypes.IF_OR_ELSE_KEYWORD, "?if?");
+    checkMatches(OctaveTokenTypes.IF_KEYWORD, "?if?");
     parseConditionExpression();
     while (!isNullOrMatches(OctaveTokenTypes.SET_ENDIF_KEYWORDS)) {
       if (myPsiBuilder.getTokenType() == OctaveTokenTypes.ELSE_KEYWORD) {
-        checkMatches(OctaveTokenTypes.ELSE_KEYWORD, "else expected");
+        checkMatches(OctaveTokenTypes.ELSE_KEYWORD, "?else expected?");
         while (!isNullOrMatches(OctaveTokenTypes.SET_ENDIF_KEYWORDS)) {
           parseExpressionStatement();
+          skipLineBreak();
         }
         break;
       }
       else if (myPsiBuilder.getTokenType() == OctaveTokenTypes.ELSEIF_KEYWORD) {
-        parseIfStatement();
-        ifExpression.done(OctaveElementTypes.IF_STATEMENT);
-        return;
+        parseElseifStatement();
+        skipLineBreak();
+        break;
       }
       else {
         parseExpressionStatement();
@@ -365,6 +366,31 @@ public class OctaveExpressionParsing extends Parsing {
     }
     checkSetMatches(OctaveTokenTypes.SET_ENDIF_KEYWORDS, "endif expected");
     ifExpression.done(OctaveElementTypes.IF_STATEMENT);
+  }
+
+  private void parseElseifStatement() {
+    final PsiBuilder.Marker ifExpression = myPsiBuilder.mark();
+    checkMatches(OctaveTokenTypes.ELSEIF_KEYWORD, "?elseif?");
+    parseConditionExpression();
+    while (!isNullOrMatches(OctaveTokenTypes.SET_ENDIF_KEYWORDS)) {
+      if (myPsiBuilder.getTokenType() == OctaveTokenTypes.ELSE_KEYWORD) {
+        checkMatches(OctaveTokenTypes.ELSE_KEYWORD, "?else expected?");
+        while (!isNullOrMatches(OctaveTokenTypes.SET_ENDIF_KEYWORDS)) {
+          parseExpressionStatement();
+        }
+        break;
+      }
+      else if (myPsiBuilder.getTokenType() == OctaveTokenTypes.ELSEIF_KEYWORD) {
+        parseElseifStatement();
+        skipLineBreak();
+        break;
+      }
+      else {
+        parseExpressionStatement();
+      }
+    }
+    //checkSetMatches(OctaveTokenTypes.SET_ENDIF_KEYWORDS, "endif expected");
+    ifExpression.done(OctaveElementTypes.ELSEIF_STATEMENT);
   }
 
   private boolean isNullOrMatches(TokenSet tokenSet) {

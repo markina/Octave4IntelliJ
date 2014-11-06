@@ -155,7 +155,7 @@ public interface OctaveTokenTypes {
   public static final TokenSet SET_SPACES = TokenSet.create(SPACE, TAB, FORMFEED, LINE_BREAK);
   public static final TokenSet SET_END_IDENTIFIER = TokenSet.orSet(SET_PUNCTUATION, SET_SPACES);
   public static final TokenSet SET_END_STATEMENT = TokenSet.create(COMMA, SEMICOLON, CRLF, LINE_BREAK);
-  public static final TokenSet IF_OR_ELSE_KEYWORD = TokenSet.create(IF_KEYWORD, ELSEIF_KEYWORD);
+  public static final TokenSet IF_OR_ELSEIF_KEYWORD = TokenSet.create(IF_KEYWORD, ELSEIF_KEYWORD);
   public static final TokenSet SET_CASE_OR_OTHERWISE = TokenSet.create(CASE_KEYWORD, OTHERWISE_KEYWORD);
 
 

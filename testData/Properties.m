@@ -1,0 +1,4 @@
+properties
+    evidence;
+    time;
+end
