@@ -83,7 +83,17 @@ public class OctaveParsingTest extends ParsingTestCase {
     doTest(true);
   }
 
+  public void testParfor() {
+    doTest(true);
+  }
 
+  public void testEnumeration() {
+    doTest(true);
+  }
+
+  public void testClassdef() {
+    doTest(true);
+  }
 
 
 
