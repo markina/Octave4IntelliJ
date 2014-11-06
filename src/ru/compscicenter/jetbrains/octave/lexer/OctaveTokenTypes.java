@@ -65,6 +65,10 @@ public interface OctaveTokenTypes {
   public static final IElementType COMPLEX_LITERAL = new OctaveElementType("COMPLEX_LITERAL");
   public static final IElementType HEX_INTEGER = new OctaveElementType("HEX_INTEGER");
 
+  public static final TokenSet SET_NUMBER_LITERAL = TokenSet.create(INTEGER_LITERAL, FLOAT_NUMBER_LITERAL, COMPLEX_LITERAL, HEX_INTEGER);
+
+
+
   public static final IElementType DOT_DIVISION = new OctaveElementType("DOT_DIVISION");
   public static final IElementType DOT_MULTIPLICATION = new OctaveElementType("DOT_MULTIPLICATION");
   public static final IElementType DOT_PLUS = new OctaveElementType("DOT_PLUS");
@@ -146,8 +150,6 @@ public interface OctaveTokenTypes {
   public static final TokenSet SET_ENDENUMERATION_KEYWORDS = TokenSet.create(ENDENUMERATION_KEYWORD, END_KEYWORD);
   public static final TokenSet SET_ENDPROPERTIES_KEYWORDS = TokenSet.create(ENDPROPERTIES_KEYWORD, END_KEYWORD);
   public static final TokenSet SET_ENDEVENTS_KEYWORDS = TokenSet.create(ENDEVENTS_KEYWORD, END_KEYWORD);
-
-  public static final TokenSet SET_END_AUXILIARY_STATEMENT = TokenSet.create(COMMA, LINE_BREAK, SEMICOLON);
 
   public static final TokenSet SET_PUNCTUATION = TokenSet.create(COMMA, SEMICOLON, DOT, CRLF);
   public static final TokenSet SET_SPACES = TokenSet.create(SPACE, TAB, FORMFEED, LINE_BREAK);

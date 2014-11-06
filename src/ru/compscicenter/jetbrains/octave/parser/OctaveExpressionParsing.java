@@ -72,10 +72,7 @@ public class OctaveExpressionParsing extends Parsing {
     else if (firstToken == OctaveTokenTypes.RETURN_KEYWORD) {
       parseReturnStatement();
     }
-    else if (firstToken == OctaveTokenTypes.IDENTIFIER) { // todo
-      parseExpression(); //todo
-    }
-    else {
+    else if(!parseExpression()) { // todo
       myPsiBuilder.error("bad character");
       myPsiBuilder.advanceLexer();
     }
@@ -283,9 +280,14 @@ public class OctaveExpressionParsing extends Parsing {
     whileExpression.done(OctaveElementTypes.WHILE_STATEMENT);
   }
 
-  private void parseExpression() { //todo
+  private boolean parseExpression() { //todo
+    /* todo
+    for t = 1:10
+       3
+       4
+    end
+     */
     if (myPsiBuilder.getTokenType() == OctaveTokenTypes.IDENTIFIER) {
-
       myPsiBuilder.advanceLexer();
       if (myPsiBuilder.getTokenType() == OctaveTokenTypes.PERSISTENT_KEYWORD) {
         checkMatches(OctaveTokenTypes.PERSISTENT_KEYWORD, "?persistent");
@@ -297,12 +299,16 @@ public class OctaveExpressionParsing extends Parsing {
         checkSetMatches(OctaveTokenTypes.SET_END_STATEMENT, "end statement expected");
         skipLineBreak();
         //myPsiBuilder.advanceLexer();
-        return;
+        return true;
       }
       else {
         parseExpressionStatement();
       }
     }
+    if(OctaveTokenTypes.SET_NUMBER_LITERAL.contains(myPsiBuilder.getTokenType())) {
+
+    }
+    return false;
   }
 
   private void parseParforStatement() {
