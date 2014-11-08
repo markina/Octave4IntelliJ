@@ -18,7 +18,7 @@ public interface OctaveTokenTypes {
 
   public static final IElementType IDENTIFIER = new OctaveElementType("IDENTIFIER");
 
-//grouping
+  //grouping
   public static final IElementType LPAR = new OctaveElementType("LPAR");    // (
   public static final IElementType RPAR = new OctaveElementType("RPAR");    // )
   public static final IElementType LBRACKET = new OctaveElementType("LBRACKET");    // [
@@ -49,11 +49,10 @@ public interface OctaveTokenTypes {
   public static final IElementType FALSE_KEYWORD = new OctaveElementType("FALSE_KEYWORD");
 
 
-
-//string constants
+  //string constants
   public static final IElementType STRING = new OctaveElementType("STRING");
 
-//division
+  //division
   public static final IElementType COMMA = new OctaveElementType("COMMA");    // ,
   public static final IElementType DOT = new OctaveElementType("DOT");    // .
   public static final IElementType EQ = new OctaveElementType("EQ");    // =
@@ -66,7 +65,6 @@ public interface OctaveTokenTypes {
   public static final IElementType HEX_INTEGER = new OctaveElementType("HEX_INTEGER");
 
   public static final TokenSet SET_NUMBER_LITERAL = TokenSet.create(INTEGER_LITERAL, FLOAT_NUMBER_LITERAL, COMPLEX_LITERAL, HEX_INTEGER);
-
 
 
   public static final IElementType DOT_DIVISION = new OctaveElementType("DOT_DIVISION");
@@ -83,6 +81,19 @@ public interface OctaveTokenTypes {
   public static final IElementType TILDE = new OctaveElementType("TILDE");  // ~
   public static final IElementType COLON = new OctaveElementType("COLON");  // :
   public static final IElementType AT = new OctaveElementType("AT");  // :
+
+  public static final IElementType INCREMENT = new OctaveElementType("INCREMENT");
+  public static final IElementType DECREMENT = new OctaveElementType("DECREMENT");
+  public static final IElementType OPERATION_PLUS_EQ = new OctaveElementType("OPERATION_PLUS_EQ");
+  public static final IElementType OPERATION_MINUS_EQ = new OctaveElementType("OPERATION_MINUS_EQ");
+  public static final IElementType OPERATION_MULT_EQ = new OctaveElementType("OPERATION_MULT_EQ");
+  public static final IElementType OPERATION_DIV_EQ = new OctaveElementType("OPERATION_DIV_EQ");
+  public static final IElementType OPERATION_POWER_EQ = new OctaveElementType("OPERATION_POWER_EQ");
+  public static final IElementType OPERATION_DOT_PLUS_EQ = new OctaveElementType("OPERATION_DOT_PLUS_EQ");
+  public static final IElementType OPERATION_DOT_MINUS_EQ = new OctaveElementType("OPERATION_DOT_MINUS_EQ");
+  public static final IElementType OPERATION_DOT_MULT_EQ = new OctaveElementType("OPERATION_DOT_MULT_EQ");
+  public static final IElementType OPERATION_DOT_DIV_EQ = new OctaveElementType("OPERATION_DOT_DIV_EQ");
+  public static final IElementType OPERATION_DOT_POWER_EQ = new OctaveElementType("OPERATION_DOT_POWER_EQ");
 
 
   public static final IElementType BREAK_KEYWORD = new OctaveElementType("BREAK_KEYWORD");
@@ -128,11 +139,11 @@ public interface OctaveTokenTypes {
   public static final IElementType WHILE_KEYWORD = new OctaveElementType("WHILE_KEYWORD");
 
   // relational
-  public static final IElementType LT    = new OctaveElementType("LT");
-  public static final IElementType GT    = new OctaveElementType("GT");
-  public static final IElementType EQEQ  = new OctaveElementType("EQEQ");
-  public static final IElementType GE    = new OctaveElementType("GE");
-  public static final IElementType LE    = new OctaveElementType("LE");
+  public static final IElementType LT = new OctaveElementType("LT");
+  public static final IElementType GT = new OctaveElementType("GT");
+  public static final IElementType EQEQ = new OctaveElementType("EQEQ");
+  public static final IElementType GE = new OctaveElementType("GE");
+  public static final IElementType LE = new OctaveElementType("LE");
   public static final IElementType NOTEQ = new OctaveElementType("NOTEQ");
 
   public static final IElementType BAD_CHARACTER = TokenType.BAD_CHARACTER;
@@ -155,9 +166,11 @@ public interface OctaveTokenTypes {
   public static final TokenSet SET_SPACES = TokenSet.create(SPACE, TAB, FORMFEED, LINE_BREAK);
   public static final TokenSet SET_END_IDENTIFIER = TokenSet.orSet(SET_PUNCTUATION, SET_SPACES);
   public static final TokenSet SET_END_STATEMENT = TokenSet.create(COMMA, SEMICOLON, CRLF, LINE_BREAK);
-  public static final TokenSet IF_OR_ELSEIF_KEYWORD = TokenSet.create(IF_KEYWORD, ELSEIF_KEYWORD);
   public static final TokenSet SET_CASE_OR_OTHERWISE = TokenSet.create(CASE_KEYWORD, OTHERWISE_KEYWORD);
 
-
-
+  public static final TokenSet SET_EQ_OR_OPERATION_EQ = TokenSet.create(
+    EQ, OPERATION_PLUS_EQ, OPERATION_MINUS_EQ, OPERATION_MULT_EQ, OPERATION_DIV_EQ, OPERATION_POWER_EQ,
+    OPERATION_DOT_PLUS_EQ, OPERATION_DOT_MINUS_EQ, OPERATION_DOT_MULT_EQ, OPERATION_DOT_DIV_EQ, OPERATION_DOT_POWER_EQ);
+  public static final TokenSet SET_OR_OPERATIONS = TokenSet.create(OR, DOUBLE_OR);
+  public static final TokenSet SET_AND_OPERATIONS = TokenSet.create(AND, DOUBLE_AND);
 }

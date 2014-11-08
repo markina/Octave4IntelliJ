@@ -1,5 +1,6 @@
 package ru.compscicenter.jetbrains.octave.parser;
 
+import com.intellij.psi.tree.IElementType;
 import ru.compscicenter.jetbrains.octave.psi.api.impl.OctaveFunctionStatementImpl;
 import ru.compscicenter.jetbrains.octave.psi.api.impl.*;
 
@@ -31,4 +32,8 @@ public interface OctaveElementTypes {
   OctaveElementType PROPERTIES_STATEMENT = new OctaveElementType("PROPERTIES_STATEMENT", OctavePropertiesStatementImpl.class);
   OctaveElementType EVENTS_STATEMENT = new OctaveElementType("EVENTS_STATEMENT", OctaveEventsStatementImpl.class);
   OctaveElementType RETURN_STATEMENT = new OctaveElementType("RETURN_STATEMENT", OctaveReturnStatementImpl.class);
+
+  OctaveElementType EXPRESSION = new OctaveElementType("EXPRESSION", OctaveExpressionImpl.class);
+  OctaveElementType BINARY_EXPRESSION = new OctaveElementType("BINARY_EXPRESSION", OctaveBinaryExpressionImpl.class);;
+  OctaveElementType IDENTIDIER = new OctaveElementType("IDENTIFIER", OctaveIdentifierImpl.class);
 }

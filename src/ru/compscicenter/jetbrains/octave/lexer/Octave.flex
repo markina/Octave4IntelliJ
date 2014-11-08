@@ -78,12 +78,28 @@ SPASE = [\ ]
 [\t]                        { return OctaveTokenTypes.TAB; }
 [\f]                        { return OctaveTokenTypes.FORMFEED; }
 
+"++"                        { return OctaveTokenTypes.INCREMENT; }
+"--"                        { return OctaveTokenTypes.DECREMENT; }
+
+"+="                        { return OctaveTokenTypes.OPERATION_PLUS_EQ; }
+"-="                        { return OctaveTokenTypes.OPERATION_MINUS_EQ; }
+"*="                        { return OctaveTokenTypes.OPERATION_MULT_EQ; }
+"/="                        { return OctaveTokenTypes.OPERATION_DIV_EQ; }
+"^="                        { return OctaveTokenTypes.OPERATION_POWER_EQ; }
+".+="                       { return OctaveTokenTypes.OPERATION_DOT_PLUS_EQ; }
+".-="                       { return OctaveTokenTypes.OPERATION_DOT_MINUS_EQ; }
+".*="                       { return OctaveTokenTypes.OPERATION_DOT_MULT_EQ; }
+"./="                       { return OctaveTokenTypes.OPERATION_DOT_DIV_EQ; }
+".^="                       { return OctaveTokenTypes.OPERATION_DOT_POWER_EQ; }
+
 //dot operation
 "./"                        {return OctaveTokenTypes.DOT_DIVISION; }
 ".*"                        {return OctaveTokenTypes.DOT_MULTIPLICATION; }
 ".+"                        {return OctaveTokenTypes.DOT_PLUS; }
 ".-"                        {return OctaveTokenTypes.DOT_MINUS; }
 ".^"                        {return OctaveTokenTypes.DOT_POWER; }
+
+
 
 "="                         { return OctaveTokenTypes.EQ; }
 ";"                         { return OctaveTokenTypes.SEMICOLON; }

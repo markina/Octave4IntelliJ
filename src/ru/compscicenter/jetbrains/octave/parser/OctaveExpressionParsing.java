@@ -3,13 +3,12 @@ package ru.compscicenter.jetbrains.octave.parser;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.tree.TokenSet;
 import ru.compscicenter.jetbrains.octave.lexer.OctaveTokenTypes;
 
 /**
  * Created by Markina Margarita on 21.10.14.
  */
-public class OctaveExpressionParsing extends Parsing {
+public class OctaveExpressionParsing extends OctaveParsing {
   private static final Logger LOG = Logger.getInstance(OctaveExpressionParsing.class.getName());
 
   public OctaveExpressionParsing(OctaveParserContext context) {
@@ -75,13 +74,13 @@ public class OctaveExpressionParsing extends Parsing {
     else if (firstToken == OctaveTokenTypes.RETURN_KEYWORD) {
       parseReturnStatement();
     }
-    else if (!parseExpression()) { // todo
-      myPsiBuilder.error("bad character");
-      myPsiBuilder.advanceLexer();
+    else {
+      parseExpression();
     }
   }
 
   private void parseReturnStatement() {
+
     final PsiBuilder.Marker returnExpression = myPsiBuilder.mark();
     feedMatches(OctaveTokenTypes.RETURN_KEYWORD, "Error: return");
     skipLineBreak();
@@ -284,36 +283,116 @@ public class OctaveExpressionParsing extends Parsing {
     whileExpression.done(OctaveElementTypes.WHILE_STATEMENT);
   }
 
-  private boolean parseExpression() { //todo
+  private void parseExpression() { //todo
+    final PsiBuilder.Marker expression = myPsiBuilder.mark();
+    if (parseOrExpression()) {
+      if (OctaveTokenTypes.SET_EQ_OR_OPERATION_EQ.contains(myPsiBuilder.getTokenType())) {
+        feedMatches(OctaveTokenTypes.SET_EQ_OR_OPERATION_EQ, "Error: eq expected");
+        parseOrExpression();
+        checkMatches(OctaveTokenTypes.SET_END_STATEMENT, "end statement expected");
+        expression.done(OctaveElementTypes.EXPRESSION);
+        return;
+      }
+      else {
+        if (myPsiBuilder.getTokenType() == OctaveTokenTypes.IDENTIFIER) {
+          feedMatches(OctaveTokenTypes.IDENTIFIER, "Error: identifier expected");
+          expression.drop();
+          return;
+        }
+      }
+    }
+    expression.drop();
+    myPsiBuilder.advanceLexer();
+    myPsiBuilder.error("Expression expected");
+  }
+
+  private boolean parseOrExpression() {
+    PsiBuilder.Marker orExpression = myPsiBuilder.mark();
+    if (!parseAndExpression()) {
+      orExpression.drop();
+      return false;
+    }
+    while (OctaveTokenTypes.SET_OR_OPERATIONS.contains(myPsiBuilder.getTokenType())) {
+      feedMatches(OctaveTokenTypes.SET_OR_OPERATIONS, "Error: or operation");
+      if(!parseAndExpression()) {
+        myPsiBuilder.error("Expression expected");
+      }
+      orExpression.done(OctaveElementTypes.BINARY_EXPRESSION);
+      orExpression = orExpression.precede();
+    }
+
+    orExpression.drop();
+    return true;
+  }
+
+  private boolean parseAndExpression() {
+    PsiBuilder.Marker andExpression = myPsiBuilder.mark();
+    if(!parseNotExpression()) {
+      andExpression.drop();
+      return false;
+    }
+    while (OctaveTokenTypes.SET_AND_OPERATIONS.contains(myPsiBuilder.getTokenType())) {
+      feedMatches(OctaveTokenTypes.SET_AND_OPERATIONS, "Error: and operation");
+      if (!parseNotExpression()) {
+        myPsiBuilder.error("Expression expected");
+      }
+      andExpression.done(OctaveElementTypes.BINARY_EXPRESSION);
+      andExpression = andExpression.precede();
+    }
+
+    andExpression.drop();
+    return true;
+  }
+
+  private boolean parseNotExpression() {
+    return parsePrimaryExpression(); // todo
+  }
+
+  private boolean parsePrimaryExpression() {
+    if(myPsiBuilder.getTokenType() == OctaveTokenTypes.IDENTIFIER) {
+      buildTokenElement(OctaveElementTypes.IDENTIDIER);
+      return true;
+    }
+    myPsiBuilder.advanceLexer();
+    return false;
+  }
+
+
+
+
+
+
+
     /* todo
     for t = 1:10
        3
        4
     end
      */
-    if (myPsiBuilder.getTokenType() == OctaveTokenTypes.IDENTIFIER) {
-      myPsiBuilder.advanceLexer();
-      if (myPsiBuilder.getTokenType() == OctaveTokenTypes.PERSISTENT_KEYWORD) {
-        feedMatches(OctaveTokenTypes.PERSISTENT_KEYWORD, "Error: persistent");
-      }
-      else if (myPsiBuilder.getTokenType() == OctaveTokenTypes.STATIC_KEYWORD) {
-        feedMatches(OctaveTokenTypes.STATIC_KEYWORD, "Error: static");
-      }
-      if (OctaveTokenTypes.SET_END_IDENTIFIER.contains(myPsiBuilder.getTokenType())) {
-        checkMatches(OctaveTokenTypes.SET_END_STATEMENT, "end statement expected");
-        skipLineBreak();
-        //myPsiBuilder.advanceLexer();
-        return true;
-      }
-      else {
-        parseExpressionStatement();
-      }
-    }
-    if (OctaveTokenTypes.SET_NUMBER_LITERAL.contains(myPsiBuilder.getTokenType())) {
-
-    }
-    return false;
-  }
+  //
+  //if (myPsiBuilder.getTokenType() == OctaveTokenTypes.IDENTIFIER) {
+  //  myPsiBuilder.advanceLexer();
+  //  if (myPsiBuilder.getTokenType() == OctaveTokenTypes.PERSISTENT_KEYWORD) {
+  //    feedMatches(OctaveTokenTypes.PERSISTENT_KEYWORD, "Error: persistent");
+  //  }
+  //  else if (myPsiBuilder.getTokenType() == OctaveTokenTypes.STATIC_KEYWORD) {
+  //    feedMatches(OctaveTokenTypes.STATIC_KEYWORD, "Error: static");
+  //  }
+  //  if (OctaveTokenTypes.SET_END_IDENTIFIER.contains(myPsiBuilder.getTokenType())) {
+  //    checkMatches(OctaveTokenTypes.SET_END_STATEMENT, "end statement expected");
+  //    skipLineBreak();
+  //    //myPsiBuilder.advanceLexer();
+  //    return true;
+  //  }
+  //  else {
+  //    parseExpressionStatement();
+  //  }
+  //}
+  //if (OctaveTokenTypes.SET_NUMBER_LITERAL.contains(myPsiBuilder.getTokenType())) {
+  //
+  //}
+  //return false;
+  //}
 
   private void parseParforStatement() {
     final PsiBuilder.Marker parforExpression = myPsiBuilder.mark();
@@ -395,15 +474,6 @@ public class OctaveExpressionParsing extends Parsing {
     ifExpression.done(OctaveElementTypes.ELSEIF_STATEMENT);
   }
 
-  private boolean isNullOrMatches(TokenSet tokenSet) {
-    return myPsiBuilder.getTokenType() == null ||
-           tokenSet.contains(myPsiBuilder.getTokenType());
-  }
-
-  private boolean isNullOrMatches(IElementType keyword) {
-    return myPsiBuilder.getTokenType() == null ||
-           keyword == myPsiBuilder.getTokenType();
-  }
 
   private void parseConditionExpression() {
     final PsiBuilder.Marker conditionExpression = myPsiBuilder.mark();
@@ -411,37 +481,5 @@ public class OctaveExpressionParsing extends Parsing {
     conditionExpression.done(OctaveElementTypes.CONDITION_STATEMENT);
   }
 
-  private boolean checkMatches(IElementType token, String message) {
-    if (myPsiBuilder.getTokenType() == token) {
-      myPsiBuilder.advanceLexer();
-      return true;
-    }
-    myPsiBuilder.error(message);
-    return false;
-  }
 
-  private void feedMatches(IElementType token, String message) {
-    LOG.assertTrue(myPsiBuilder.getTokenType() == token, message);
-    myPsiBuilder.advanceLexer();
-  }
-
-  private void feedMatches(TokenSet tokens, String message) {
-    LOG.assertTrue(tokens.contains(myPsiBuilder.getTokenType()), message);
-    myPsiBuilder.advanceLexer();
-  }
-
-  private boolean checkMatches(TokenSet keywords, String message) {
-    if (keywords.contains(myPsiBuilder.getTokenType())) {
-      myPsiBuilder.advanceLexer();
-      return true;
-    }
-    myPsiBuilder.error(message);
-    return false;
-  }
-
-  private void skipLineBreak() {
-    while (OctaveTokenTypes.SET_SPACES.contains(myPsiBuilder.getTokenType())) {
-      myPsiBuilder.advanceLexer();
-    }
-  }
 }
