@@ -34,6 +34,8 @@ public interface OctaveElementTypes {
   OctaveElementType RETURN_STATEMENT = new OctaveElementType("RETURN_STATEMENT", OctaveReturnStatementImpl.class);
 
   OctaveElementType EXPRESSION = new OctaveElementType("EXPRESSION", OctaveExpressionImpl.class);
-  OctaveElementType BINARY_EXPRESSION = new OctaveElementType("BINARY_EXPRESSION", OctaveBinaryExpressionImpl.class);;
+  OctaveElementType BINARY_EXPRESSION = new OctaveElementType("BINARY_EXPRESSION", OctaveBinaryExpressionImpl.class);
   OctaveElementType IDENTIDIER = new OctaveElementType("IDENTIFIER", OctaveIdentifierImpl.class);
+  OctaveElementType PREFIX_EXPRESSION = new OctaveElementType("PREFIX_EXPRESSION", OctavePrefixExpressionImpl.class);
+  OctaveElementType SLICE_EXPRESSION = new OctaveElementType("SLICE_EXPRESSION", OctaveSliceExpressionImpl.class);
 }

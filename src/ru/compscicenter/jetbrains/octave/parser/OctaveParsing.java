@@ -13,7 +13,8 @@ import ru.compscicenter.jetbrains.octave.lexer.OctaveTokenTypes;
 public class OctaveParsing {
   private final OctaveParserContext myContext;
   protected final PsiBuilder myPsiBuilder;
-  private static final Logger LOG = Logger.getInstance(OctaveParsing.class.getName());
+  public static final Logger LOG = Logger.getInstance(OctaveParsing.class.getName());
+  public static final String EXPRESSION_EXPECTED = "Expression expected";
 
 
   public OctaveParsing(@NotNull final OctaveParserContext context) {
@@ -33,7 +34,7 @@ public class OctaveParsing {
   }
 
   public boolean checkMatches(final IElementType token, final String message) {
-    if (myPsiBuilder.getTokenType() == token) {
+    if (isNullOrMatches(token)) {
       myPsiBuilder.advanceLexer();
       return true;
     }
@@ -52,10 +53,11 @@ public class OctaveParsing {
   }
 
   public boolean checkMatches(final TokenSet keywords, final String message) {
-    if (keywords.contains(myPsiBuilder.getTokenType())) {
+    if (isNullOrMatches(keywords)) {
       myPsiBuilder.advanceLexer();
       return true;
     }
+
     myPsiBuilder.error(message);
     return false;
   }

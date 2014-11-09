@@ -173,4 +173,8 @@ public interface OctaveTokenTypes {
     OPERATION_DOT_PLUS_EQ, OPERATION_DOT_MINUS_EQ, OPERATION_DOT_MULT_EQ, OPERATION_DOT_DIV_EQ, OPERATION_DOT_POWER_EQ);
   public static final TokenSet SET_OR_OPERATIONS = TokenSet.create(OR, DOUBLE_OR);
   public static final TokenSet SET_AND_OPERATIONS = TokenSet.create(AND, DOUBLE_AND);
+  public static final TokenSet COMPARISON_OPERATIONS = TokenSet.create(LT, GT, EQEQ, GE, LE, NOTEQ);
+  public static final TokenSet PLUS_MINUS_OPERATIONS = TokenSet.create(PLUS, MINUS);
+  public static final TokenSet MULT_DIV_OPERATIONS = TokenSet.create(MULTIPLICATION, DIVISION);
+  public static final TokenSet UNARY_OPERATIONS = TokenSet.create(PLUS, MINUS);
 }

@@ -8,7 +8,7 @@ import ru.compscicenter.jetbrains.octave.psi.api.OctaveReturnStatement;
 /**
  * Created by Markina Margarita on 05.11.14.
  */
-public class OctaveReturnStatementImpl  extends OctaveElementImpl implements OctaveReturnStatement {
+public class OctaveReturnStatementImpl extends OctaveElementImpl implements OctaveReturnStatement {
   public OctaveReturnStatementImpl(@NotNull final ASTNode astNode) {
     super(astNode);
   }

@@ -3,5 +3,5 @@ package ru.compscicenter.jetbrains.octave.psi.api;
 /**
  * Created by Markina Margarita on 05.11.14.
  */
-public interface OctaveReturnStatement extends OctaveElement{
+public interface OctaveReturnStatement extends OctaveElement {
 }

@@ -8,7 +8,7 @@ import ru.compscicenter.jetbrains.octave.psi.api.OctaveElseifStatement;
 /**
  * Created by Markina Margarita on 06.11.14.
  */
-public class OctaveElseifStatementImpl  extends OctaveElementImpl implements OctaveElseifStatement {
+public class OctaveElseifStatementImpl extends OctaveElementImpl implements OctaveElseifStatement {
   public OctaveElseifStatementImpl(@NotNull final ASTNode astNode) {
     super(astNode);
   }
