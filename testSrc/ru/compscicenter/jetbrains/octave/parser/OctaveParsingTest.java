@@ -103,10 +103,6 @@ public class OctaveParsingTest extends ParsingTestCase {
     doTest(true);
   }
 
-  //public void testIdentifier() {
-  //  doTest(true);
-  //} todo
-
   public void testOrIdentifier() {
     doTest(true);
   }
@@ -133,16 +129,14 @@ public class OctaveParsingTest extends ParsingTestCase {
   public void testDiv()  {
     doTest(true);
   }
-  //
-  //todo
-  //public void testPlusMinus()  {
-  //  doTest(true);
-  //}
-  //
-  // todo
-  //public void testMultDiv()  {
-  //  doTest(true);
-  //}
+
+  public void testPlusMinus()  {
+    doTest(true);
+  }
+
+  public void testMultDiv()  {
+    doTest(true);
+  }
 
 
 

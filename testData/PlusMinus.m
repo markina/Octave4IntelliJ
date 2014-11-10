@@ -1,1 +1,1 @@
-- a + b + c - a - b + t
+- a + b + g - f + t - y

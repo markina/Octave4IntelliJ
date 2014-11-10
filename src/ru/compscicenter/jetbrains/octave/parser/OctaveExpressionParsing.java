@@ -21,6 +21,15 @@ public class OctaveExpressionParsing extends OctaveParsing {
 
     if (firstToken == null) return;
 
+    if (OctaveTokenTypes.SET_END_KEYWORDS.contains(firstToken)) {
+      return;
+    }
+
+    if (OctaveTokenTypes.SET_INNER_KEYWORDS.contains(firstToken)) {
+      return;
+    }
+
+
     if (firstToken == OctaveTokenTypes.IF_KEYWORD) {
       parseIfStatement();
     }
@@ -72,7 +81,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
     else if (firstToken == OctaveTokenTypes.RETURN_KEYWORD) {
       parseReturnStatement();
     }
-    else {
+   else {
       parseExpression();
     }
   }
@@ -89,10 +98,9 @@ public class OctaveExpressionParsing extends OctaveParsing {
   private void parsePropertiesStatement() {
     final PsiBuilder.Marker propertiesExpression = myPsiBuilder.mark();
     feedMatches(OctaveTokenTypes.PROPERTIES_KEYWORD, "Error: properties");
-    skipLineBreak();
+    //skipLineBreak();
     while (!isNullOrMatches(OctaveTokenTypes.SET_ENDPROPERTIES_KEYWORDS)) {
       parseExpressionStatement();
-      skipLineBreak();
     }
     if (myPsiBuilder.getTokenType() != null) {
       checkMatches(OctaveTokenTypes.SET_ENDPROPERTIES_KEYWORDS, "endproperties expected");
@@ -103,10 +111,9 @@ public class OctaveExpressionParsing extends OctaveParsing {
   private void parseEventsStatement() {
     final PsiBuilder.Marker eventsExpression = myPsiBuilder.mark();
     feedMatches(OctaveTokenTypes.EVENTS_KEYWORD, "Error: events");
-    skipLineBreak();
+    //skipLineBreak();
     while (!isNullOrMatches(OctaveTokenTypes.SET_ENDEVENTS_KEYWORDS)) {
       parseExpressionStatement();
-      skipLineBreak();
     }
     if (myPsiBuilder.getTokenType() != null) {
       checkMatches(OctaveTokenTypes.SET_ENDEVENTS_KEYWORDS, "endevents expected");
@@ -118,10 +125,9 @@ public class OctaveExpressionParsing extends OctaveParsing {
   private void parseEmumerationStatement() {
     final PsiBuilder.Marker enumerationExpression = myPsiBuilder.mark();
     feedMatches(OctaveTokenTypes.ENUMERATION_KEYWORD, "Error: enumeration");
-    skipLineBreak();
+    //skipLineBreak();
     while (!isNullOrMatches(OctaveTokenTypes.SET_ENDENUMERATION_KEYWORDS)) {
       parseExpressionStatement();
-      skipLineBreak();
     }
     if (myPsiBuilder.getTokenType() != null) {
       checkMatches(OctaveTokenTypes.SET_ENDENUMERATION_KEYWORDS, "endenumeration expected");
@@ -135,7 +141,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
     parseMethodsName();
     while (!isNullOrMatches(OctaveTokenTypes.SET_ENDMETHODS_KEYWORDS)) {
       parseExpressionStatement();
-      skipLineBreak();
+      //skipLineBreak();
     }
     if (myPsiBuilder.getTokenType() != null) {
       checkMatches(OctaveTokenTypes.SET_ENDMETHODS_KEYWORDS, "endmethods expected");
@@ -155,7 +161,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
     parseClassName();
     while (!isNullOrMatches(OctaveTokenTypes.SET_ENDCLASSDEF_KEYWORDS)) {
       parseExpressionStatement();
-      skipLineBreak();
+      //skipLineBreak();
     }
     if (myPsiBuilder.getTokenType() != null) {
       checkMatches(OctaveTokenTypes.SET_ENDCLASSDEF_KEYWORDS, "endclassdef expected");
@@ -176,7 +182,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
     parseFunctionName();
     while (!isNullOrMatches(OctaveTokenTypes.SET_ENDFUNCTION_KEYWORDS)) {
       parseExpressionStatement();
-      skipLineBreak();
+      //skipLineBreak();
     }
     if (myPsiBuilder.getTokenType() != null) {
       checkMatches(OctaveTokenTypes.SET_ENDFUNCTION_KEYWORDS, "endfunction expected");
@@ -193,17 +199,14 @@ public class OctaveExpressionParsing extends OctaveParsing {
   private void parseTryStatement() {
     final PsiBuilder.Marker tryStatement = myPsiBuilder.mark();
     feedMatches(OctaveTokenTypes.TRY_KEYWORD, "Error: try");
-    skipLineBreak();
+    //skipLineBreak();
     while (!isNullOrMatches(OctaveTokenTypes.SET_ENDTRY_KEYWORDS) &&
            !isNullOrMatches(OctaveTokenTypes.CATCH_KEYWORD)) {
       parseExpressionStatement();
-      skipLineBreak();
     }
     checkMatches(OctaveTokenTypes.CATCH_KEYWORD, "catch expected");
-    skipLineBreak();
     while (!isNullOrMatches(OctaveTokenTypes.SET_ENDTRY_KEYWORDS)) {
       parseExpressionStatement();
-      skipLineBreak();
     }
     checkMatches(OctaveTokenTypes.SET_ENDTRY_KEYWORDS, "endtry expected");
     tryStatement.done(OctaveElementTypes.TRY_STATEMENT);
@@ -212,17 +215,14 @@ public class OctaveExpressionParsing extends OctaveParsing {
   private void parseUnwindStatement() {
     final PsiBuilder.Marker unwindStatement = myPsiBuilder.mark();
     feedMatches(OctaveTokenTypes.UNWIND_PROTECT_KEYWORD, "Error: unwind");
-    skipLineBreak();
+    //skipLineBreak();
     while (!isNullOrMatches(OctaveTokenTypes.SET_ENDUNWIND_KEYWORDS) &&
            !isNullOrMatches(OctaveTokenTypes.UNWIND_PROTECT_CLEANUP_KEYWORD)) {
       parseExpressionStatement();
-      skipLineBreak();
     }
     checkMatches(OctaveTokenTypes.UNWIND_PROTECT_CLEANUP_KEYWORD, "unwind cleanup expected");
-    skipLineBreak();
     while (!isNullOrMatches(OctaveTokenTypes.SET_ENDUNWIND_KEYWORDS)) {
       parseExpressionStatement();
-      skipLineBreak();
     }
     feedMatches(OctaveTokenTypes.SET_ENDUNWIND_KEYWORDS, "Error: unwind_end");
     unwindStatement.done(OctaveElementTypes.UNWIND_STATEMENT);
@@ -231,10 +231,10 @@ public class OctaveExpressionParsing extends OctaveParsing {
   private void parseDoStatement() {
     final PsiBuilder.Marker doExpression = myPsiBuilder.mark();
     feedMatches(OctaveTokenTypes.DO_KEYWORD, "Error: do");
-    skipLineBreak();
+    //skipLineBreak();
     while (!isNullOrMatches(OctaveTokenTypes.UNTIL_KEYWORD)) {
       parseExpressionStatement();
-      skipLineBreak();
+      //skipLineBreak();
     }
     feedMatches(OctaveTokenTypes.UNTIL_KEYWORD, "Error: until");
     parseConditionExpression();
@@ -258,7 +258,6 @@ public class OctaveExpressionParsing extends OctaveParsing {
     parseExpression(); // todo
     while (!isNullOrMatches(OctaveTokenTypes.SET_ENDSWITCH_KEYWORDS) && !isNullOrMatches(OctaveTokenTypes.SET_CASE_OR_OTHERWISE)) {
       parseExpressionStatement();
-      skipLineBreak();
     }
     caseStatement.done(OctaveElementTypes.CASE_STATEMENT);
   }
@@ -275,13 +274,12 @@ public class OctaveExpressionParsing extends OctaveParsing {
     parseConditionExpression();
     while (!isNullOrMatches(OctaveTokenTypes.SET_ENDWHILE_KEYWORDS)) {
       parseExpressionStatement();
-      skipLineBreak();
     }
     checkMatches(OctaveTokenTypes.SET_ENDWHILE_KEYWORDS, "endwhile expected");
     whileExpression.done(OctaveElementTypes.WHILE_STATEMENT);
   }
 
-  private void parseExpression() { //todo
+  private void parseExpression() {
     final PsiBuilder.Marker expression = myPsiBuilder.mark();
     if (parseOrExpression()) {
       if (OctaveTokenTypes.SET_EQ_OR_OPERATION_EQ.contains(myPsiBuilder.getTokenType())) {
@@ -291,7 +289,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
         expression.done(OctaveElementTypes.EXPRESSION);
         return;
       }
-        checkMatches(OctaveTokenTypes.SET_END_STATEMENT, "end statement expected"); //todo
+        checkMatches(OctaveTokenTypes.SET_END_STATEMENT, "end statement expected");
         expression.done(OctaveElementTypes.EXPRESSION);
         return;
     }
@@ -365,7 +363,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
   private boolean parseComparisonExpression() {
     PsiBuilder.Marker comparisonExpression = myPsiBuilder.mark();
     if (parsePlusMinusExpression()) {
-      skipLineBreak();
+      //skipLineBreak();
       while (OctaveTokenTypes.COMPARISON_OPERATIONS.contains(myPsiBuilder.getTokenType())) {
         feedMatches(OctaveTokenTypes.COMPARISON_OPERATIONS, "Error: comparison");
         if (!parsePlusMinusExpression()) {
@@ -390,7 +388,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
       plusMinusExpression.drop();
       return false;
     }
-    skipLineBreak();
+    //skipLineBreak();
     while (OctaveTokenTypes.PLUS_MINUS_OPERATIONS.contains(myPsiBuilder.getTokenType())) {
       feedMatches(OctaveTokenTypes.PLUS_MINUS_OPERATIONS, "Error: plus_minus operation");
       if (!parseMultDivExpression()) {
@@ -410,7 +408,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
       multDivExpression.drop();
       return false;
     }
-    skipLineBreak();
+    //skipLineBreak();
     while (OctaveTokenTypes.MULT_DIV_OPERATIONS.contains(myPsiBuilder.getTokenType())) {
       feedMatches(OctaveTokenTypes.MULT_DIV_OPERATIONS, "Error: mult_div operation");
       if (!parseSliceExpression()) {
@@ -430,7 +428,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
       sliceExpression.drop();
       return false;
     }
-    skipLineBreak();
+    //skipLineBreak();
     while (OctaveTokenTypes.COLON == myPsiBuilder.getTokenType()) {
       feedMatches(OctaveTokenTypes.COLON, "Error: colon");
       if (!parseUnaryExpression()) {
@@ -448,7 +446,6 @@ public class OctaveExpressionParsing extends OctaveParsing {
     if (OctaveTokenTypes.UNARY_OPERATIONS.contains(myPsiBuilder.getTokenType())) {
       final PsiBuilder.Marker unaryEsprassion = myPsiBuilder.mark();
       feedMatches(OctaveTokenTypes.UNARY_OPERATIONS, "Error: unary operation");
-      myPsiBuilder.advanceLexer();
       if (!parseUnaryExpression()) {
         myPsiBuilder.error(EXPRESSION_EXPECTED);
       }
@@ -466,7 +463,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
       powerExpression.drop();
       return false;
     }
-    skipLineBreak();
+    //skipLineBreak();
     if (OctaveTokenTypes.POWER == (myPsiBuilder.getTokenType())) {
       feedMatches(OctaveTokenTypes.POWER, "Error: power");
       if (!parseUnaryExpression()) {
@@ -504,30 +501,6 @@ public class OctaveExpressionParsing extends OctaveParsing {
        4
     end
      */
-  //
-  //if (myPsiBuilder.getTokenType() == OctaveTokenTypes.IDENTIFIER) {
-  //  myPsiBuilder.advanceLexer();
-  //  if (myPsiBuilder.getTokenType() == OctaveTokenTypes.PERSISTENT_KEYWORD) {
-  //    feedMatches(OctaveTokenTypes.PERSISTENT_KEYWORD, "Error: persistent");
-  //  }
-  //  else if (myPsiBuilder.getTokenType() == OctaveTokenTypes.STATIC_KEYWORD) {
-  //    feedMatches(OctaveTokenTypes.STATIC_KEYWORD, "Error: static");
-  //  }
-  //  if (OctaveTokenTypes.SET_END_IDENTIFIER.contains(myPsiBuilder.getTokenType())) {
-  //    checkMatches(OctaveTokenTypes.SET_END_STATEMENT, "end statement expected");
-  //    skipLineBreak();
-  //    //myPsiBuilder.advanceLexer();
-  //    return true;
-  //  }
-  //  else {
-  //    parseExpressionStatement();
-  //  }
-  //}
-  //if (OctaveTokenTypes.SET_NUMBER_LITERAL.contains(myPsiBuilder.getTokenType())) {
-  //
-  //}
-  //return false;
-  //}
 
   private void parseParforStatement() {
     final PsiBuilder.Marker parforExpression = myPsiBuilder.mark();
@@ -535,7 +508,6 @@ public class OctaveExpressionParsing extends OctaveParsing {
     parseForEnumerateExpression();
     while (!isNullOrMatches(OctaveTokenTypes.SET_ENDPARFOR_KEYWORDS)) {
       parseExpressionStatement();
-      skipLineBreak();
     }
     checkMatches(OctaveTokenTypes.SET_ENDPARFOR_KEYWORDS, "endparfor expected");
     parforExpression.done(OctaveElementTypes.PARFOR_STATEMENT);
@@ -562,19 +534,18 @@ public class OctaveExpressionParsing extends OctaveParsing {
   private void parseIfStatement() {
     final PsiBuilder.Marker ifExpression = myPsiBuilder.mark();
     feedMatches(OctaveTokenTypes.IF_KEYWORD, "Error: if");
+    //skipLineBreak();
     parseConditionExpression();
     while (!isNullOrMatches(OctaveTokenTypes.SET_ENDIF_KEYWORDS)) {
       if (myPsiBuilder.getTokenType() == OctaveTokenTypes.ELSE_KEYWORD) {
         feedMatches(OctaveTokenTypes.ELSE_KEYWORD, "Error: else");
         while (!isNullOrMatches(OctaveTokenTypes.SET_ENDIF_KEYWORDS)) {
           parseExpressionStatement();
-          skipLineBreak();
         }
         break;
       }
       else if (myPsiBuilder.getTokenType() == OctaveTokenTypes.ELSEIF_KEYWORD) {
         parseElseifStatement();
-        skipLineBreak();
         break;
       }
       else {
@@ -588,6 +559,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
   private void parseElseifStatement() {
     final PsiBuilder.Marker ifExpression = myPsiBuilder.mark();
     feedMatches(OctaveTokenTypes.ELSEIF_KEYWORD, "Error: elseif");
+    //skipLineBreak();
     parseConditionExpression();
     while (!isNullOrMatches(OctaveTokenTypes.SET_ENDIF_KEYWORDS)) {
       if (myPsiBuilder.getTokenType() == OctaveTokenTypes.ELSE_KEYWORD) {
@@ -599,7 +571,6 @@ public class OctaveExpressionParsing extends OctaveParsing {
       }
       else if (myPsiBuilder.getTokenType() == OctaveTokenTypes.ELSEIF_KEYWORD) {
         parseElseifStatement();
-        skipLineBreak();
         break;
       }
       else {

@@ -5,7 +5,7 @@ for enum
   if cond1
     e4
     e5
-  elseif
+  elseif cond
     e6
   end
   e7

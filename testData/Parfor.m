@@ -5,7 +5,7 @@ parfor enum
   if cond1
     e4
     e5
-  elseif
+  elseif f
     e6
   endif
   e7
