@@ -14,10 +14,12 @@ public class OctaveStatementParsing extends OctaveParsing {
   }
 
   public void parseExpressionStatement() {
-    skipLineBreak();
-
     final IElementType currentToken = myPsiBuilder.getTokenType();
 
+    if(currentToken == OctaveTokenTypes.LINE_BREAK) {
+      skipLineBreak();
+      return;
+    }
     if(numberOfNesting == 0) {
       if (OctaveTokenTypes.SET_END_EXPRESSION.contains(currentToken)) {
         myPsiBuilder.advanceLexer();
@@ -34,13 +36,13 @@ public class OctaveStatementParsing extends OctaveParsing {
       return;
     }
 
-    if (OctaveTokenTypes.SET_END_KEYWORDS.contains(currentToken)) {
-      return;
-    }
+    //if (OctaveTokenTypes.SET_END_KEYWORDS.contains(currentToken)) {
+    //  return;
+    //}
 
-    if (OctaveTokenTypes.SET_INNER_KEYWORDS.contains(currentToken)) {
-      return;
-    }
+    //if (OctaveTokenTypes.SET_INNER_KEYWORDS.contains(currentToken)) {
+    //  return;
+    //}
 
 
     if (currentToken == OctaveTokenTypes.IF_KEYWORD) {

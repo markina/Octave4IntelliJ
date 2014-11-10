@@ -13,10 +13,11 @@ import ru.compscicenter.jetbrains.octave.lexer.OctaveTokenTypes;
 public class OctaveParsing {
   private final OctaveParserContext myContext;
   protected final PsiBuilder myPsiBuilder;
-  public static int numberOfNesting = 0;
+
   public static final Logger LOG = Logger.getInstance(OctaveParsing.class.getName());
   public static final String EXPRESSION_EXPECTED = "Expression expected";
 
+  public static int numberOfNesting = 0;
 
   public OctaveParsing(@NotNull final OctaveParserContext context) {
     myContext = context;

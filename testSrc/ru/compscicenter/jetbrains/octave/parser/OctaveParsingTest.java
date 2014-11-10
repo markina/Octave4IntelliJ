@@ -166,6 +166,12 @@ public class OctaveParsingTest extends ParsingTestCase {
     doTest(true);
   }
 
+  public void testBadChar() {
+    doTest(true);
+  }
 
+  public void testBrackets() {
+    doTest(true);
+  }
 
 }

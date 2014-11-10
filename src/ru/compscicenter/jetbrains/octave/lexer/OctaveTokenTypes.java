@@ -172,7 +172,6 @@ public interface OctaveTokenTypes {
 
   public static final TokenSet SET_PUNCTUATION = TokenSet.create(COMMA, SEMICOLON, DOT, CRLF);
   public static final TokenSet SET_SPACES = TokenSet.create(SPACE, TAB, FORMFEED, LINE_BREAK);
-  public static final TokenSet SET_END_IDENTIFIER = TokenSet.orSet(SET_PUNCTUATION, SET_SPACES);
   public static final TokenSet SET_END_EXPRESSION = TokenSet.create(COMMA, SEMICOLON, CRLF, LINE_BREAK);
   public static final TokenSet  SET_END_EXPRESSION_IN_BRACKETS = TokenSet.create(COMMA, CRLF, LINE_BREAK);
   public static final TokenSet SET_CASE_OR_OTHERWISE = TokenSet.create(CASE_KEYWORD, OTHERWISE_KEYWORD);
@@ -187,7 +186,7 @@ public interface OctaveTokenTypes {
   public static final TokenSet MULT_DIV_OPERATIONS = TokenSet.create(MULTIPLICATION, DIVISION);
   public static final TokenSet UNARY_OPERATIONS = TokenSet.create(PLUS, MINUS);
   public static final TokenSet SET_CONST = TokenSet.create(
-    E_KEYWORD, END_KEYWORD, INF_KEYWORD, NAN_KEYWORD, NA_KEYWORD, PI_KEYWORD, EPS_KEYWORD, REALMAX_KEYWORD, REALMIN_KEYWORD);
+    E_KEYWORD, INF_KEYWORD, NAN_KEYWORD, NA_KEYWORD, PI_KEYWORD, EPS_KEYWORD, REALMAX_KEYWORD, REALMIN_KEYWORD);
   public static final TokenSet SET_RITHT_BRACKETS = TokenSet.create(RPAR, RBRACE, RBRACKET);
   public static final TokenSet SET_LEFT_BRACKETS = TokenSet.create(LPAR, LBRACE, LBRACKET);
 }
