@@ -19,7 +19,9 @@ public class OctaveExpressionParsing extends OctaveParsing {
     final IElementType firstToken = myPsiBuilder.getTokenType();
 
 
-    if (firstToken == null) return;
+    if (firstToken == null) {
+      return;
+    }
 
     if (OctaveTokenTypes.SET_END_KEYWORDS.contains(firstToken)) {
       return;
@@ -81,7 +83,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
     else if (firstToken == OctaveTokenTypes.RETURN_KEYWORD) {
       parseReturnStatement();
     }
-   else {
+    else {
       parseExpression();
     }
   }
@@ -289,9 +291,9 @@ public class OctaveExpressionParsing extends OctaveParsing {
         expression.done(OctaveElementTypes.EXPRESSION);
         return;
       }
-        checkMatches(OctaveTokenTypes.SET_END_STATEMENT, "end statement expected");
-        expression.done(OctaveElementTypes.EXPRESSION);
-        return;
+      checkMatches(OctaveTokenTypes.SET_END_STATEMENT, "end statement expected");
+      expression.done(OctaveElementTypes.EXPRESSION);
+      return;
     }
     expression.drop();
     myPsiBuilder.advanceLexer();
@@ -356,7 +358,6 @@ public class OctaveExpressionParsing extends OctaveParsing {
     }
     else {
       return parseComparisonExpression();
-      //return parsePrimaryExpression();
     }
   }
 
@@ -488,10 +489,30 @@ public class OctaveExpressionParsing extends OctaveParsing {
   }
 
   private boolean parsePrimaryExpression() {
+    if (myPsiBuilder == null) {
+      return false;
+    }
     if (myPsiBuilder.getTokenType() == OctaveTokenTypes.IDENTIFIER) {
       buildTokenElement(OctaveElementTypes.IDENTIDIER);
       return true;
     }
+    if (myPsiBuilder.getTokenType() == OctaveTokenTypes.INTEGER_LITERAL) {
+      buildTokenElement(OctaveElementTypes.INTEGER_LITERAL);
+      return true;
+    }
+    if (myPsiBuilder.getTokenType() == OctaveTokenTypes.COMPLEX_LITERAL) {
+      buildTokenElement(OctaveElementTypes.COMPLEX_LITERAL);
+      return true;
+    }
+    if (myPsiBuilder.getTokenType() == OctaveTokenTypes.HEX_INTEGER) {
+      buildTokenElement(OctaveElementTypes.HEX_INTEGER);
+      return true;
+    }
+    if (myPsiBuilder.getTokenType() == OctaveTokenTypes.FLOAT_NUMBER_LITERAL) {
+      buildTokenElement(OctaveElementTypes.FLOAT_NUMBER_LITERAL);
+      return true;
+    }
+
     myPsiBuilder.advanceLexer();
     return false;
   }

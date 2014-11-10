@@ -111,33 +111,34 @@ public class OctaveParsingTest extends ParsingTestCase {
     doTest(true);
   }
 
-  public void testPlus()  {
+  public void testPlus() {
     doTest(true);
   }
 
 
-  public void testMinus()  {
+  public void testMinus() {
     doTest(true);
   }
 
 
-  public void testMult()  {
+  public void testMult() {
     doTest(true);
   }
 
 
-  public void testDiv()  {
+  public void testDiv() {
     doTest(true);
   }
 
-  public void testPlusMinus()  {
+  public void testPlusMinus() {
     doTest(true);
   }
 
-  public void testMultDiv()  {
+  public void testMultDiv() {
     doTest(true);
   }
 
-
-
+  public void testIf2() {
+    doTest(true);
+  }
 }
