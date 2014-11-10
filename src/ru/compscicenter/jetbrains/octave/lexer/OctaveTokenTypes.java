@@ -64,8 +64,6 @@ public interface OctaveTokenTypes {
   public static final IElementType COMPLEX_LITERAL = new OctaveElementType("COMPLEX_LITERAL");
   public static final IElementType HEX_INTEGER = new OctaveElementType("HEX_INTEGER");
 
-  public static final TokenSet SET_NUMBER_LITERAL = TokenSet.create(INTEGER_LITERAL, FLOAT_NUMBER_LITERAL, COMPLEX_LITERAL, HEX_INTEGER);
-
 
   public static final IElementType DOT_DIVISION = new OctaveElementType("DOT_DIVISION");
   public static final IElementType DOT_MULTIPLICATION = new OctaveElementType("DOT_MULTIPLICATION");
@@ -186,4 +184,6 @@ public interface OctaveTokenTypes {
   public static final TokenSet PLUS_MINUS_OPERATIONS = TokenSet.create(PLUS, MINUS);
   public static final TokenSet MULT_DIV_OPERATIONS = TokenSet.create(MULTIPLICATION, DIVISION);
   public static final TokenSet UNARY_OPERATIONS = TokenSet.create(PLUS, MINUS);
+  public static final TokenSet SET_CONST = TokenSet.create(
+    E_KEYWORD, END_KEYWORD, INF_KEYWORD, NAN_KEYWORD, NA_KEYWORD, PI_KEYWORD, EPS_KEYWORD, REALMAX_KEYWORD, REALMIN_KEYWORD);
 }

@@ -516,16 +516,18 @@ public class OctaveExpressionParsing extends OctaveParsing {
       buildTokenElement(OctaveElementTypes.FLOAT_NUMBER_LITERAL);
       return true;
     }
+    if (OctaveTokenTypes.SET_CONST.contains(myPsiBuilder.getTokenType())) {
+      buildTokenElement(OctaveElementTypes.CONST);
+      return true;
+    }
+
+
+
+
 
     myPsiBuilder.advanceLexer();
     return false;
   }
-    /* todo
-    for t = 1:10
-       3
-       4
-    end
-     */
 
   private void parseParforStatement() {
     final PsiBuilder.Marker parforExpression = myPsiBuilder.mark();

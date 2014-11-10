@@ -42,4 +42,5 @@ public interface OctaveElementTypes {
   OctaveElementType HEX_INTEGER = new OctaveElementType("HEX_INTEGER", OctaveHexIntegerImpl.class);
   OctaveElementType PREFIX_EXPRESSION = new OctaveElementType("PREFIX_EXPRESSION", OctavePrefixExpressionImpl.class);
   OctaveElementType SLICE_EXPRESSION = new OctaveElementType("SLICE_EXPRESSION", OctaveSliceExpressionImpl.class);
+  OctaveElementType CONST = new OctaveElementType("CONST", OctaveConstExpressionImpl.class);
 }
