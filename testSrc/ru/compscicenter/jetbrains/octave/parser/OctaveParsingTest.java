@@ -157,4 +157,8 @@ public class OctaveParsingTest extends ParsingTestCase {
   public void testComplexNum() {
     doTest(true);
   }
+
+  public void testPars() {
+    doTest(true);
+  }
 }

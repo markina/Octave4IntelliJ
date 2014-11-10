@@ -43,4 +43,8 @@ public interface OctaveElementTypes {
   OctaveElementType PREFIX_EXPRESSION = new OctaveElementType("PREFIX_EXPRESSION", OctavePrefixExpressionImpl.class);
   OctaveElementType SLICE_EXPRESSION = new OctaveElementType("SLICE_EXPRESSION", OctaveSliceExpressionImpl.class);
   OctaveElementType CONST = new OctaveElementType("CONST", OctaveConstExpressionImpl.class);
+
+  OctaveElementType BRACKET_EXPRESSION = new OctaveElementType("BRACKET_EXPRESSION", OctaveBracketExpressionImpl.class);
+  OctaveElementType PAR_EXPRESSION = new OctaveElementType("PAR_EXPRESSION", OctaveParExpressionImpl.class);
+  OctaveElementType BRACE_EXPRESSION = new OctaveElementType("BRACE_EXPRESSION", OctaveBraceExpressionImpl.class);
 }

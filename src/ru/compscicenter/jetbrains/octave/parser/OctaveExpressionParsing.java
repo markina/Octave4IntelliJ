@@ -16,75 +16,75 @@ public class OctaveExpressionParsing extends OctaveParsing {
   public void parseExpressionStatement() {
     skipLineBreak();
 
-    final IElementType firstToken = myPsiBuilder.getTokenType();
+    final IElementType currentToken = myPsiBuilder.getTokenType();
 
-    if (OctaveTokenTypes.SET_END_STATEMENT.contains(firstToken)) {
+    if (OctaveTokenTypes.SET_END_STATEMENT.contains(currentToken)) {
       myPsiBuilder.advanceLexer();
       return;
     }
 
-    if (firstToken == null) {
+    if (currentToken == null) {
       return;
     }
 
-    if (OctaveTokenTypes.SET_END_KEYWORDS.contains(firstToken)) {
+    if (OctaveTokenTypes.SET_END_KEYWORDS.contains(currentToken)) {
       return;
     }
 
-    if (OctaveTokenTypes.SET_INNER_KEYWORDS.contains(firstToken)) {
+    if (OctaveTokenTypes.SET_INNER_KEYWORDS.contains(currentToken)) {
       return;
     }
 
 
-    if (firstToken == OctaveTokenTypes.IF_KEYWORD) {
+    if (currentToken == OctaveTokenTypes.IF_KEYWORD) {
       parseIfStatement();
     }
-    else if (firstToken == OctaveTokenTypes.FOR_KEYWORD) {
+    else if (currentToken == OctaveTokenTypes.FOR_KEYWORD) {
       parseForStatement();
     }
-    else if (firstToken == OctaveTokenTypes.PARFOR_KEYWORD) {
+    else if (currentToken == OctaveTokenTypes.PARFOR_KEYWORD) {
       parseParforStatement();
     }
-    else if (firstToken == OctaveTokenTypes.WHILE_KEYWORD) {
+    else if (currentToken == OctaveTokenTypes.WHILE_KEYWORD) {
       parseWhileStatement();
     }
-    else if (firstToken == OctaveTokenTypes.SWITCH_KEYWORD) {
+    else if (currentToken == OctaveTokenTypes.SWITCH_KEYWORD) {
       parseSwitchStatement();
     }
-    else if (firstToken == OctaveTokenTypes.DO_KEYWORD) {
+    else if (currentToken == OctaveTokenTypes.DO_KEYWORD) {
       parseDoStatement();
     }
-    else if (firstToken == OctaveTokenTypes.UNWIND_PROTECT_KEYWORD) {
+    else if (currentToken == OctaveTokenTypes.UNWIND_PROTECT_KEYWORD) {
       parseUnwindStatement();
     }
-    else if (firstToken == OctaveTokenTypes.TRY_KEYWORD) {
+    else if (currentToken == OctaveTokenTypes.TRY_KEYWORD) {
       parseTryStatement();
     }
-    else if (firstToken == OctaveTokenTypes.FUNCTION_KEYWORD) {
+    else if (currentToken == OctaveTokenTypes.FUNCTION_KEYWORD) {
       parseFunctionStatement();
     }
-    else if (firstToken == OctaveTokenTypes.BREAK_KEYWORD) {
+    else if (currentToken == OctaveTokenTypes.BREAK_KEYWORD) {
       myPsiBuilder.advanceLexer(); /// can be everywhere  :(
     }
-    else if (firstToken == OctaveTokenTypes.CONTINUE_KEYWORD) {
+    else if (currentToken == OctaveTokenTypes.CONTINUE_KEYWORD) {
       myPsiBuilder.advanceLexer(); /// can be everywhere  :(
     }
-    else if (firstToken == OctaveTokenTypes.CLASSDEF_KEYWORD) {
+    else if (currentToken == OctaveTokenTypes.CLASSDEF_KEYWORD) {
       parseClassdefStatement();
     }
-    else if (firstToken == OctaveTokenTypes.METHODS_KEYWORD) {
+    else if (currentToken == OctaveTokenTypes.METHODS_KEYWORD) {
       parseMethodStatement();
     }
-    else if (firstToken == OctaveTokenTypes.ENUMERATION_KEYWORD) {
+    else if (currentToken == OctaveTokenTypes.ENUMERATION_KEYWORD) {
       parseEmumerationStatement();
     }
-    else if (firstToken == OctaveTokenTypes.EVENTS_KEYWORD) {
+    else if (currentToken == OctaveTokenTypes.EVENTS_KEYWORD) {
       parseEventsStatement();
     }
-    else if (firstToken == OctaveTokenTypes.PROPERTIES_KEYWORD) {
+    else if (currentToken == OctaveTokenTypes.PROPERTIES_KEYWORD) {
       parsePropertiesStatement();
     }
-    else if (firstToken == OctaveTokenTypes.RETURN_KEYWORD) {
+    else if (currentToken == OctaveTokenTypes.RETURN_KEYWORD) {
       parseReturnStatement();
     }
     else {
@@ -291,7 +291,15 @@ public class OctaveExpressionParsing extends OctaveParsing {
       if (OctaveTokenTypes.SET_EQ_OR_OPERATION_EQ.contains(myPsiBuilder.getTokenType())) {
         feedMatches(OctaveTokenTypes.SET_EQ_OR_OPERATION_EQ, "Error: eq expected");
         parseOrExpression();
+        if(isNullOrMatches(OctaveTokenTypes.SET_END_BRACKETS)){
+          expression.done(OctaveElementTypes.EXPRESSION);
+          return;
+        }
         checkMatches(OctaveTokenTypes.SET_END_STATEMENT, "end statement expected");
+        expression.done(OctaveElementTypes.EXPRESSION);
+        return;
+      }
+      if(isNullOrMatches(OctaveTokenTypes.SET_END_BRACKETS)){
         expression.done(OctaveElementTypes.EXPRESSION);
         return;
       }
@@ -496,37 +504,72 @@ public class OctaveExpressionParsing extends OctaveParsing {
     if (myPsiBuilder == null) {
       return false;
     }
-    if (myPsiBuilder.getTokenType() == OctaveTokenTypes.IDENTIFIER) {
+    IElementType currentToken = myPsiBuilder.getTokenType();
+    if (currentToken == OctaveTokenTypes.IDENTIFIER) {
       buildTokenElement(OctaveElementTypes.IDENTIDIER);
       return true;
     }
-    if (myPsiBuilder.getTokenType() == OctaveTokenTypes.INTEGER_LITERAL) {
+    if (currentToken == OctaveTokenTypes.INTEGER_LITERAL) {
       buildTokenElement(OctaveElementTypes.INTEGER_LITERAL);
       return true;
     }
-    if (myPsiBuilder.getTokenType() == OctaveTokenTypes.COMPLEX_LITERAL) {
+    if (currentToken == OctaveTokenTypes.COMPLEX_LITERAL) {
       buildTokenElement(OctaveElementTypes.COMPLEX_LITERAL);
       return true;
     }
-    if (myPsiBuilder.getTokenType() == OctaveTokenTypes.HEX_INTEGER) {
+    if (currentToken == OctaveTokenTypes.HEX_INTEGER) {
       buildTokenElement(OctaveElementTypes.HEX_INTEGER);
       return true;
     }
-    if (myPsiBuilder.getTokenType() == OctaveTokenTypes.FLOAT_NUMBER_LITERAL) {
+    if (currentToken == OctaveTokenTypes.FLOAT_NUMBER_LITERAL) {
       buildTokenElement(OctaveElementTypes.FLOAT_NUMBER_LITERAL);
       return true;
     }
-    if (OctaveTokenTypes.SET_CONST.contains(myPsiBuilder.getTokenType())) {
+    if (OctaveTokenTypes.SET_CONST.contains(currentToken)) {
       buildTokenElement(OctaveElementTypes.CONST);
       return true;
     }
-
-
-
-
+    if (currentToken == OctaveTokenTypes.LPAR) {
+      parseParExpression();
+      return true;
+    }
+    if (currentToken == OctaveTokenTypes.LBRACKET) {
+      parseBracketExpression();
+      return true;
+    }
+    if (currentToken == OctaveTokenTypes.LBRACE) {
+      parseBraceExpression();
+      return true;
+    }
 
     myPsiBuilder.advanceLexer();
     return false;
+  }
+
+  private void parseBraceExpression() {
+    final PsiBuilder.Marker bracketExpression = myPsiBuilder.mark();
+    feedMatches(OctaveTokenTypes.LBRACE, "Error: left brace");
+    while (!isNullOrMatches(OctaveTokenTypes.RBRACE)) {
+      parseExpressionStatement();
+    }
+    checkMatches(OctaveTokenTypes.RBRACE, "} expected");
+    bracketExpression.done(OctaveElementTypes.BRACE_EXPRESSION);
+  }
+
+  private void parseBracketExpression() {
+    final PsiBuilder.Marker bracketExpression = myPsiBuilder.mark();
+    feedMatches(OctaveTokenTypes.LBRACKET, "Error: left bracket");
+    parseExpressionStatement();
+    checkMatches(OctaveTokenTypes.RBRACKET, "] expected");
+    bracketExpression.done(OctaveElementTypes.BRACKET_EXPRESSION);
+  }
+
+  private void parseParExpression() {
+    final PsiBuilder.Marker bracketExpression = myPsiBuilder.mark();
+    feedMatches(OctaveTokenTypes.LPAR, "Error: right par");
+    parseExpressionStatement();
+    checkMatches(OctaveTokenTypes.RPAR, ") expected");
+    bracketExpression.done(OctaveElementTypes.PAR_EXPRESSION);
   }
 
   private void parseParforStatement() {
