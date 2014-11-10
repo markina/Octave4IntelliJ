@@ -141,4 +141,12 @@ public class OctaveParsingTest extends ParsingTestCase {
   public void testIf2() {
     doTest(true);
   }
+
+  public void testNumberLiteral() {
+    doTest(true);
+  }
+
+  public void testPower() {
+
+  }
 }

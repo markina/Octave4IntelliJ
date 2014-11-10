@@ -18,6 +18,10 @@ public class OctaveExpressionParsing extends OctaveParsing {
 
     final IElementType firstToken = myPsiBuilder.getTokenType();
 
+    if (OctaveTokenTypes.SET_END_STATEMENT.contains(firstToken)) {
+      myPsiBuilder.advanceLexer();
+      return;
+    }
 
     if (firstToken == null) {
       return;
