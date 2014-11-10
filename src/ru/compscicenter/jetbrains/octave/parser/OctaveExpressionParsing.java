@@ -9,6 +9,7 @@ import ru.compscicenter.jetbrains.octave.lexer.OctaveTokenTypes;
  */
 public class OctaveExpressionParsing extends OctaveParsing {
 
+
   public OctaveExpressionParsing(OctaveParserContext context) {
     super(context);
   }
@@ -27,7 +28,11 @@ public class OctaveExpressionParsing extends OctaveParsing {
         expression.done(OctaveElementTypes.EXPRESSION);
         return;
       }
-      checkMatches(OctaveTokenTypes.SET_END_STATEMENT, "end statement expected");
+      if(numberOfNesting == 0) {
+        checkMatches(OctaveTokenTypes.SET_END_EXPRESSION, "end statement expected");
+      } else {
+        checkMatches(OctaveTokenTypes.SET_END_EXPRESSION_IN_BRACKETS, "end statement expected");
+      }
       expression.done(OctaveElementTypes.EXPRESSION);
       return;
     }
@@ -253,17 +258,20 @@ public class OctaveExpressionParsing extends OctaveParsing {
       buildTokenElement(OctaveElementTypes.CONST);
       return true;
     }
-    if (currentToken == OctaveTokenTypes.LPAR) {
-      parseParExpression();
+    if(OctaveTokenTypes.SET_LEFT_BRACKETS.contains(currentToken)) {
+      numberOfNesting++;
+      if (currentToken == OctaveTokenTypes.LPAR) {
+        parseParExpression();
+      }
+      else if (currentToken == OctaveTokenTypes.LBRACKET) {
+        parseBracketExpression();
+      }
+      else if (currentToken == OctaveTokenTypes.LBRACE) {
+        parseBraceExpression();
+      }
+      numberOfNesting--;
       return true;
-    }
-    if (currentToken == OctaveTokenTypes.LBRACKET) {
-      parseBracketExpression();
-      return true;
-    }
-    if (currentToken == OctaveTokenTypes.LBRACE) {
-      parseBraceExpression();
-      return true;
+
     }
 
     myPsiBuilder.advanceLexer();

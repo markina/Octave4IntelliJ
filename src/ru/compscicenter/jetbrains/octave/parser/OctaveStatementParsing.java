@@ -18,9 +18,16 @@ public class OctaveStatementParsing extends OctaveParsing {
 
     final IElementType currentToken = myPsiBuilder.getTokenType();
 
-    if (OctaveTokenTypes.SET_END_STATEMENT.contains(currentToken)) {
-      myPsiBuilder.advanceLexer();
-      return;
+    if(numberOfNesting == 0) {
+      if (OctaveTokenTypes.SET_END_EXPRESSION.contains(currentToken)) {
+        myPsiBuilder.advanceLexer();
+        return;
+      }
+    } else {
+      if (OctaveTokenTypes.SET_END_EXPRESSION_IN_BRACKETS.contains(currentToken)) {
+        myPsiBuilder.advanceLexer();
+        return;
+      }
     }
 
     if (currentToken == null) {
