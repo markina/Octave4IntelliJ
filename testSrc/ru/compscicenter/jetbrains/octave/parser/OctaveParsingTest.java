@@ -161,4 +161,11 @@ public class OctaveParsingTest extends ParsingTestCase {
   public void testPars() {
     doTest(true);
   }
+
+  public void testArgsByFunction() {
+    doTest(true);
+  }
+
+
+
 }

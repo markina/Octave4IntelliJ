@@ -187,5 +187,6 @@ public interface OctaveTokenTypes {
   public static final TokenSet UNARY_OPERATIONS = TokenSet.create(PLUS, MINUS);
   public static final TokenSet SET_CONST = TokenSet.create(
     E_KEYWORD, END_KEYWORD, INF_KEYWORD, NAN_KEYWORD, NA_KEYWORD, PI_KEYWORD, EPS_KEYWORD, REALMAX_KEYWORD, REALMIN_KEYWORD);
-  public static final TokenSet SET_END_BRACKETS = TokenSet.create(RPAR, RBRACE, RBRACKET);
+  public static final TokenSet SET_RITHT_BRACKETS = TokenSet.create(RPAR, RBRACE, RBRACKET);
+  public static final TokenSet SET_LEFT_BRACKETS = TokenSet.create(LPAR, LBRACE, LBRACKET);
 }

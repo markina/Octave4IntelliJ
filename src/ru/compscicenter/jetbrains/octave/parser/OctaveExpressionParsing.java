@@ -9,6 +9,7 @@ import ru.compscicenter.jetbrains.octave.lexer.OctaveTokenTypes;
  */
 public class OctaveExpressionParsing extends OctaveParsing {
 
+
   public OctaveExpressionParsing(OctaveParserContext context) {
     super(context);
   }
@@ -291,15 +292,11 @@ public class OctaveExpressionParsing extends OctaveParsing {
       if (OctaveTokenTypes.SET_EQ_OR_OPERATION_EQ.contains(myPsiBuilder.getTokenType())) {
         feedMatches(OctaveTokenTypes.SET_EQ_OR_OPERATION_EQ, "Error: eq expected");
         parseOrExpression();
-        if(isNullOrMatches(OctaveTokenTypes.SET_END_BRACKETS)){
-          expression.done(OctaveElementTypes.EXPRESSION);
-          return;
-        }
-        checkMatches(OctaveTokenTypes.SET_END_STATEMENT, "end statement expected");
-        expression.done(OctaveElementTypes.EXPRESSION);
-        return;
       }
-      if(isNullOrMatches(OctaveTokenTypes.SET_END_BRACKETS)){
+      if (OctaveTokenTypes.SET_LEFT_BRACKETS.contains(myPsiBuilder.getTokenType())) {
+        parseExpression();
+      }
+      if(isNullOrMatches(OctaveTokenTypes.SET_RITHT_BRACKETS)){
         expression.done(OctaveElementTypes.EXPRESSION);
         return;
       }
@@ -559,7 +556,9 @@ public class OctaveExpressionParsing extends OctaveParsing {
   private void parseBracketExpression() {
     final PsiBuilder.Marker bracketExpression = myPsiBuilder.mark();
     feedMatches(OctaveTokenTypes.LBRACKET, "Error: left bracket");
-    parseExpressionStatement();
+    while (!isNullOrMatches(OctaveTokenTypes.RBRACKET)) {
+      parseExpressionStatement();
+    }
     checkMatches(OctaveTokenTypes.RBRACKET, "] expected");
     bracketExpression.done(OctaveElementTypes.BRACKET_EXPRESSION);
   }
@@ -567,7 +566,9 @@ public class OctaveExpressionParsing extends OctaveParsing {
   private void parseParExpression() {
     final PsiBuilder.Marker bracketExpression = myPsiBuilder.mark();
     feedMatches(OctaveTokenTypes.LPAR, "Error: right par");
-    parseExpressionStatement();
+    while (!isNullOrMatches(OctaveTokenTypes.RPAR)) {
+      parseExpressionStatement();
+    }
     checkMatches(OctaveTokenTypes.RPAR, ") expected");
     bracketExpression.done(OctaveElementTypes.PAR_EXPRESSION);
   }
