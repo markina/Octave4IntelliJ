@@ -8,5 +8,5 @@ import javax.swing.*;
  * Created by Markina Margarita on 01.10.14.
  */
 public class OctaveIcons {
-  public static Icon FILE = IconLoader.getIcon("/ru/compscicenter/jetbrains/octave/logo.png");
+  public static Icon FILE = IconLoader.getIcon("/resurces/logo.png");
 }

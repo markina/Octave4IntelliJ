@@ -73,4 +73,8 @@ public class OctaveParsing {
     myPsiBuilder.advanceLexer();
     marker.done(elementType);
   }
+
+  public OctaveParserContext getContext() {
+    return myContext;
+  }
 }

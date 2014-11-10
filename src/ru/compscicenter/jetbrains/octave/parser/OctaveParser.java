@@ -13,7 +13,8 @@ public class OctaveParser implements PsiParser {
     final PsiBuilder.Marker rootMarker = builder.mark();
 
     final OctaveParserContext context = createParsingContext(builder);
-    final OctaveExpressionParsing statementParser = context.getExpressionParser();
+    final OctaveStatementParsing statementParser = context.getStatementParser();
+
 
     while (!builder.eof()) {
       statementParser.parseExpressionStatement();
