@@ -7,6 +7,8 @@ import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import ru.compscicenter.jetbrains.octave.lexer.OctaveTokenTypes;
 
+import java.util.Stack;
+
 /**
  * Created by Markina Margarita on 21.10.14.
  */
@@ -18,6 +20,7 @@ public class OctaveParsing {
   public static final String EXPRESSION_EXPECTED = "Expression expected";
 
   public static int numberOfNesting = 0;
+  public Stack<IElementType> stack = new Stack<IElementType>();
 
   public OctaveParsing(@NotNull final OctaveParserContext context) {
     myContext = context;
