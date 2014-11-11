@@ -21,6 +21,8 @@ public class OctaveExpressionParsing extends OctaveParsing {
       if (OctaveTokenTypes.SET_EQ_OR_OPERATION_EQ.contains(myPsiBuilder.getTokenType())) {
         feedMatches(OctaveTokenTypes.SET_EQ_OR_OPERATION_EQ, "Error: eq expected");
         parseOrExpression();
+        expression.done(OctaveElementTypes.ASSIGNMENT_EXPRESSION);
+        return;
       }
       if (OctaveTokenTypes.SET_LEFT_BRACKETS.contains(myPsiBuilder.getTokenType())) {
         parseOrExpression();
@@ -34,7 +36,6 @@ public class OctaveExpressionParsing extends OctaveParsing {
         return;
       }
       if (numberOfNesting == 0) {
-
         checkMatches(currentEndExpression, "end statement expected");
       }
       else {

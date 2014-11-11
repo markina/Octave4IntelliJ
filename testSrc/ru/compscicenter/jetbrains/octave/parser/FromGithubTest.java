@@ -6,11 +6,11 @@ import com.intellij.testFramework.TestDataPath;
 /**
  * Created by Markina Margarita on 11.11.14.
  */
-@TestDataPath("/testData/badChar")
-public class BadCharTest extends ParsingTestCase {
-  private static final String DATA_PATH = System.getProperty("user.dir") + "/testData/badChar";
+@TestDataPath("/testData/fromGithub")
+public class FromGithubTest extends ParsingTestCase {
+  private static final String DATA_PATH = System.getProperty("user.dir") + "/testData/fromGithub";
 
-  public BadCharTest() {
+  public FromGithubTest() {
     super("", "m", new OctaveParserDefinition());
   }
 
@@ -19,12 +19,8 @@ public class BadCharTest extends ParsingTestCase {
     return DATA_PATH;
   }
 
-
-  public void testBadChar() {
-    doTest(true);
-  }
-
-  public void testSemicolonInPar() {
+  public void test1() {
     doTest(true);
   }
 }
+

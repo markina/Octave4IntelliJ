@@ -35,6 +35,7 @@ public interface OctaveElementTypes {
   OctaveElementType BINARY_EXPRESSION = new OctaveElementType("BINARY_EXPRESSION", OctaveBinaryExpressionImpl.class);
   OctaveElementType PREFIX_EXPRESSION = new OctaveElementType("PREFIX_EXPRESSION", OctavePrefixExpressionImpl.class);
   OctaveElementType SLICE_EXPRESSION = new OctaveElementType("SLICE_EXPRESSION", OctaveSliceExpressionImpl.class);
+  OctaveElementType ASSIGNMENT_EXPRESSION = new OctaveElementType("ASSIGNMENT_EXPRESSION", OctaveAssignmentExpressionImpl.class);
 
   OctaveElementType IDENTIDIER = new OctaveElementType("IDENTIFIER", OctaveIdentifierImpl.class);
   OctaveElementType INTEGER_LITERAL = new OctaveElementType("INTEGER_LITERAL", OctaveIntegerLiteralImpl.class);

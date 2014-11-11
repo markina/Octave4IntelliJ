@@ -102,6 +102,4 @@ public class SimpleStatementTest extends ParsingTestCase {
   public void testIdentifier() {
     doTest(true);
   }
-
-
 }
