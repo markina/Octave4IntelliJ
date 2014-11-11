@@ -6,11 +6,11 @@ import com.intellij.testFramework.TestDataPath;
 /**
  * Created by Markina Margarita on 06.11.14.
  */
-@TestDataPath("/testData/")
-public class OctaveParsingTest extends ParsingTestCase {
-  private static final String DATA_PATH = System.getProperty("user.dir") + "/testData/";
+@TestDataPath("/testData/simpleStatement")
+public class SimpleStatementTest extends ParsingTestCase {
+  private static final String DATA_PATH = System.getProperty("user.dir") + "/testData/simpleStatement";
 
-  public OctaveParsingTest() {
+  public SimpleStatementTest() {
     super("", "m", new OctaveParserDefinition());
   }
 
@@ -95,7 +95,7 @@ public class OctaveParsingTest extends ParsingTestCase {
     doTest(true);
   }
 
-  public void testAndIdentifier() {
+  public void testIf2() {
     doTest(true);
   }
 
@@ -103,79 +103,5 @@ public class OctaveParsingTest extends ParsingTestCase {
     doTest(true);
   }
 
-  public void testOrIdentifier() {
-    doTest(true);
-  }
-
-  public void testOrAnd() {
-    doTest(true);
-  }
-
-  public void testPlus() {
-    doTest(true);
-  }
-
-
-  public void testMinus() {
-    doTest(true);
-  }
-
-
-  public void testMult() {
-    doTest(true);
-  }
-
-
-  public void testDiv() {
-    doTest(true);
-  }
-
-  public void testPlusMinus() {
-    doTest(true);
-  }
-
-  public void testMultDiv() {
-    doTest(true);
-  }
-
-  public void testIf2() {
-    doTest(true);
-  }
-
-  public void testNumberLiteral() {
-    doTest(true);
-  }
-
-  public void testPower() {
-    doTest(true);
-  }
-
-  public void testTest() {
-    doTest(true);
-  }
-
-  public void testComplexNum() {
-    doTest(true);
-  }
-
-  public void testPars() {
-    doTest(true);
-  }
-
-  public void testArgsByFunction() {
-    doTest(true);
-  }
-
-  public void testBadChar() {
-    doTest(true);
-  }
-
-  public void testBrackets2() {
-    doTest(true);
-  }
-
-  public void testBrackets() {
-    doTest(true);
-  }
 
 }
