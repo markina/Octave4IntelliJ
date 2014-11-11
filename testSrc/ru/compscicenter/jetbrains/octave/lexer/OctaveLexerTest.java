@@ -3,9 +3,8 @@ package ru.compscicenter.jetbrains.octave.lexer;
 import com.intellij.psi.tree.IElementType;
 import junit.framework.TestCase;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import java.io.Reader;
 
 public class OctaveLexerTest extends TestCase {
 
@@ -16,6 +15,17 @@ public class OctaveLexerTest extends TestCase {
            "[=, Octave:EQ]",
            "[ , Octave:SPACE]",
            "[1, Octave:INTEGER_LITERAL]");
+  }
+
+  public void testApostrophe() throws IOException {
+    doTest("a'",
+           "[a, Octave:IDENTIFIER]",
+           "[', Octave:APOSTROPHE]");
+  }
+
+  public void testAllColon() throws IOException {
+    doTest("(:)",
+           "[(:), Octave:ALL_COLON]");
   }
 
   public void testNumericFloat() throws IOException {
@@ -128,8 +138,8 @@ public class OctaveLexerTest extends TestCase {
   }
 
   public void testStringDoubleQuote() throws IOException {
-    doTest("'I \\can\"\"t escape\\'",
-           "['I \\can\"\"t escape\\', Octave:STRING]");
+    doTest("'I \\can\"\"t escape\'",
+           "['I \\can\"\"t escape\', Octave:STRING]");
   }
 
   public void testEscapeStringDouble() throws IOException {
@@ -176,7 +186,7 @@ public class OctaveLexerTest extends TestCase {
     doTest("6*i",
            "[6, Octave:INTEGER_LITERAL]",
            "[*, Octave:MULTIPLICATION]",
-           "[i, Octave:COMPLEX_LITERAL]"
+           "[i, Octave:IDENTIFIER]"
     );
   }
 
@@ -184,7 +194,7 @@ public class OctaveLexerTest extends TestCase {
     doTest("6*I",
            "[6, Octave:INTEGER_LITERAL]",
            "[*, Octave:MULTIPLICATION]",
-           "[I, Octave:COMPLEX_LITERAL]"
+           "[I, Octave:IDENTIFIER]"
     );
   }
 

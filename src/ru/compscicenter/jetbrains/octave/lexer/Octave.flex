@@ -37,8 +37,8 @@ IDENTIFIER = {IDENT_START}{IDENT_CONTINUE}*
 // string constants
 TWO_SINGLE_QUOTE_CHARACTERS = \'\'
 TWO_DOUBLE_QUOTE_CHARACTERS = \"\"
-QUOTED_LITERAL="'"({TWO_SINGLE_QUOTE_CHARACTERS}|[^\\\']|{ANY_ESCAPE_SEQUENCE})*?("'")?
-DOUBLE_QUOTED_LITERAL=\"([^\\\"]|{TWO_DOUBLE_QUOTE_CHARACTERS}|{ANY_ESCAPE_SEQUENCE})*?(\")?
+QUOTED_LITERAL="'"({TWO_SINGLE_QUOTE_CHARACTERS}|[^\\\']|{ANY_ESCAPE_SEQUENCE})*?("'")
+DOUBLE_QUOTED_LITERAL=\"([^\\\"]|{TWO_DOUBLE_QUOTE_CHARACTERS}|{ANY_ESCAPE_SEQUENCE})*?(\")
 ANY_ESCAPE_SEQUENCE = \\[^]
 STRING=({QUOTED_LITERAL} | {DOUBLE_QUOTED_LITERAL})
 
@@ -78,6 +78,18 @@ SPASE = [\ ]
 [\t]                        { return OctaveTokenTypes.TAB; }
 [\f]                        { return OctaveTokenTypes.FORMFEED; }
 
+{STRING}                    { return OctaveTokenTypes.STRING; }
+
+// numeric constants
+{HEX_INTEGER}               { return OctaveTokenTypes.HEX_INTEGER; }
+{INTEGER}                   { return OctaveTokenTypes.INTEGER_LITERAL; }
+{FLOAT_NUMBER}              { return OctaveTokenTypes.FLOAT_NUMBER_LITERAL; }
+{COMPLEX_NUMBER}            { return OctaveTokenTypes.COMPLEX_LITERAL; }
+
+
+
+
+
 "++"                        { return OctaveTokenTypes.INCREMENT; }
 "--"                        { return OctaveTokenTypes.DECREMENT; }
 
@@ -91,6 +103,8 @@ SPASE = [\ ]
 ".*="                       { return OctaveTokenTypes.OPERATION_DOT_MULT_EQ; }
 "./="                       { return OctaveTokenTypes.OPERATION_DOT_DIV_EQ; }
 ".^="                       { return OctaveTokenTypes.OPERATION_DOT_POWER_EQ; }
+
+"(:)"                       { return OctaveTokenTypes.ALL_COLON; }
 
 //dot operation
 "./"                        {return OctaveTokenTypes.DOT_DIVISION; }
@@ -124,7 +138,7 @@ SPASE = [\ ]
 "~"                         { return OctaveTokenTypes.TILDE; }
 ":"                         { return OctaveTokenTypes.COLON; }
 "@"                         { return OctaveTokenTypes.AT; }
-
+"'"                         { return OctaveTokenTypes.APOSTROPHE; }
 
 
 
@@ -205,19 +219,9 @@ SPASE = [\ ]
 "global"                    { return OctaveTokenTypes.GLOBAL_KEYWORD; }
 "return"                    { return OctaveTokenTypes.RETURN_KEYWORD; }
 
-
-
-{STRING}                    { return OctaveTokenTypes.STRING; }
-
-// numeric constants
-{HEX_INTEGER}               { return OctaveTokenTypes.HEX_INTEGER; }
-{INTEGER}                   { return OctaveTokenTypes.INTEGER_LITERAL; }
-{FLOAT_NUMBER}              { return OctaveTokenTypes.FLOAT_NUMBER_LITERAL; }
-
-
-{COMPLEX_NUMBER}            { return OctaveTokenTypes.COMPLEX_LITERAL; }
-
 {IDENTIFIER}                { return OctaveTokenTypes.IDENTIFIER; }
 
+
 .                           { return OctaveTokenTypes.BAD_CHARACTER; }
+
 }

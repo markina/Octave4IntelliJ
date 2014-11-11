@@ -225,8 +225,8 @@ public class OctaveExpressionParsing extends OctaveParsing {
       return false;
     }
     //skipLineBreak();
-    if (OctaveTokenTypes.POWER == (myPsiBuilder.getTokenType())) {
-      feedMatches(OctaveTokenTypes.POWER, "Error: power");
+    if (OctaveTokenTypes.POWER_OPERATIONS.contains(myPsiBuilder.getTokenType())) {
+      feedMatches(OctaveTokenTypes.POWER_OPERATIONS, "Error: power");
       if (!parseUnaryExpression()) {
         myPsiBuilder.error(EXPRESSION_EXPECTED);
       }
@@ -244,6 +244,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
       memberExpression.drop();
       return false;
     }
+    skipApostrophe(); //todo change with string literal
     memberExpression.drop();
     return true;
   }
@@ -255,6 +256,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
     IElementType currentToken = myPsiBuilder.getTokenType();
     if (currentToken == OctaveTokenTypes.IDENTIFIER) {
       buildTokenElement(OctaveElementTypes.IDENTIDIER);
+      skipApostrophe();
       parseInBracketsExpression();
       return true;
     }
@@ -278,13 +280,20 @@ public class OctaveExpressionParsing extends OctaveParsing {
       buildTokenElement(OctaveElementTypes.CONST);
       return true;
     }
+    if (OctaveTokenTypes.STRING == (currentToken)) {
+      buildTokenElement(OctaveElementTypes.STRING);
+      return true;
+    }
     return parseInBracketsExpression();
   }
 
   private boolean parseInBracketsExpression() {
     IElementType currentToken = myPsiBuilder.getTokenType();
-    if (OctaveTokenTypes.SET_LEFT_BRACKETS.contains(currentToken)) {
+    if(currentToken == OctaveTokenTypes.ALL_COLON) {
+      feedMatches(OctaveTokenTypes.ALL_COLON, "Error: all colon");
+    }
 
+    if (OctaveTokenTypes.SET_LEFT_BRACKETS.contains(currentToken)) {
       if (currentToken == OctaveTokenTypes.LPAR) {
         parseParExpression();
       }
@@ -295,10 +304,19 @@ public class OctaveExpressionParsing extends OctaveParsing {
         parseBraceExpression();
       }
 
+      skipApostrophe();
+      //skipLineBreak();
+
       return true;
     }
     //myPsiBuilder.advanceLexer();
     return false;
+  }
+
+  private void skipApostrophe() {
+    while (OctaveTokenTypes.APOSTROPHE== myPsiBuilder.getTokenType()) {
+      myPsiBuilder.advanceLexer();
+    }
   }
 
   private void parseBraceExpression() {

@@ -1,7 +1,5 @@
 package ru.compscicenter.jetbrains.octave.parser;
 
-import com.intellij.psi.tree.IElementType;
-import ru.compscicenter.jetbrains.octave.psi.api.impl.OctaveFunctionStatementImpl;
 import ru.compscicenter.jetbrains.octave.psi.api.impl.*;
 
 /**
@@ -35,14 +33,16 @@ public interface OctaveElementTypes {
 
   OctaveElementType EXPRESSION = new OctaveElementType("EXPRESSION", OctaveExpressionImpl.class);
   OctaveElementType BINARY_EXPRESSION = new OctaveElementType("BINARY_EXPRESSION", OctaveBinaryExpressionImpl.class);
+  OctaveElementType PREFIX_EXPRESSION = new OctaveElementType("PREFIX_EXPRESSION", OctavePrefixExpressionImpl.class);
+  OctaveElementType SLICE_EXPRESSION = new OctaveElementType("SLICE_EXPRESSION", OctaveSliceExpressionImpl.class);
+
   OctaveElementType IDENTIDIER = new OctaveElementType("IDENTIFIER", OctaveIdentifierImpl.class);
   OctaveElementType INTEGER_LITERAL = new OctaveElementType("INTEGER_LITERAL", OctaveIntegerLiteralImpl.class);
   OctaveElementType FLOAT_NUMBER_LITERAL = new OctaveElementType("FLOAT_NUMBER_LITERAL", OctaveFloatLiteralImpl.class);
   OctaveElementType COMPLEX_LITERAL = new OctaveElementType("COMPLEX_LITERAL", OctaveComplexLiteralImpl.class);
   OctaveElementType HEX_INTEGER = new OctaveElementType("HEX_INTEGER", OctaveHexIntegerImpl.class);
-  OctaveElementType PREFIX_EXPRESSION = new OctaveElementType("PREFIX_EXPRESSION", OctavePrefixExpressionImpl.class);
-  OctaveElementType SLICE_EXPRESSION = new OctaveElementType("SLICE_EXPRESSION", OctaveSliceExpressionImpl.class);
   OctaveElementType CONST = new OctaveElementType("CONST", OctaveConstExpressionImpl.class);
+  OctaveElementType STRING = new OctaveElementType("STRING_LITERAL", OctaveStringLiteralImpl.class);
 
   OctaveElementType BRACKET_EXPRESSION = new OctaveElementType("BRACKET_EXPRESSION", OctaveBracketExpressionImpl.class);
   OctaveElementType PAR_EXPRESSION = new OctaveElementType("PAR_EXPRESSION", OctaveParExpressionImpl.class);
