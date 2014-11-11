@@ -22,6 +22,8 @@ public class OctaveParsing {
   public static int numberOfNesting = 0;
   public Stack<IElementType> stack = new Stack<IElementType>();
 
+  public TokenSet currentEndExpression = OctaveTokenTypes.SET_END_EXPRESSION;
+
   public OctaveParsing(@NotNull final OctaveParserContext context) {
     myContext = context;
     myPsiBuilder = context.getBuilder();

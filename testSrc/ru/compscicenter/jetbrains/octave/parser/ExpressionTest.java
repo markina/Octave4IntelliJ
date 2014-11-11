@@ -55,8 +55,6 @@ public class ExpressionTest extends ParsingTestCase {
     doTest(true);
   }
 
-
-
   public void testNumberLiteral() {
     doTest(true);
   }
@@ -86,6 +84,14 @@ public class ExpressionTest extends ParsingTestCase {
   }
 
   public void testBrackets() {
+    doTest(true);
+  }
+
+  public void testSemicolonInBrackets() {
+    doTest(true);
+  }
+
+  public void testSemicolonInBrace() {
     doTest(true);
   }
 

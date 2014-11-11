@@ -24,4 +24,10 @@ public class BadCharTest extends ParsingTestCase{
     doTest(true);
   }
 
+  public void testSemicolonInPar() {
+    doTest(true);
+  }
+
+
+
 }

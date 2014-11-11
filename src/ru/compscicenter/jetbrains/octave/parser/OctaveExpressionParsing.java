@@ -2,6 +2,7 @@ package ru.compscicenter.jetbrains.octave.parser;
 
 import com.intellij.lang.PsiBuilder;
 import com.intellij.psi.tree.IElementType;
+import com.intellij.psi.tree.TokenSet;
 import ru.compscicenter.jetbrains.octave.lexer.OctaveTokenTypes;
 
 /**
@@ -28,17 +29,29 @@ public class OctaveExpressionParsing extends OctaveParsing {
         expression.done(OctaveElementTypes.EXPRESSION);
         return;
       }
+      if(OctaveTokenTypes.SET_NUMBER_LITERAL.contains(myPsiBuilder.getTokenType())) {
+        expression.done(OctaveElementTypes.EXPRESSION);
+        return;
+      }
       if (numberOfNesting == 0) {
-        checkMatches(OctaveTokenTypes.SET_END_EXPRESSION, "end statement expected");
+
+        checkMatches(currentEndExpression, "end statement expected");
       }
       else {
-        if (!stack.empty() &&
-            !checkMatches(OctaveTokenTypes.SET_END_EXPRESSION_IN_BRACKETS, stack.peek().toString() + "end statement expected")) {
-          stack.clear();
-          numberOfNesting = 0;
+        if (!stack.empty()) {
+          if(stack.peek().toString().equals(OctaveTokenTypes.RPAR.toString())) {
+            checkMatches(currentEndExpression,  ") expected");
+          }
+          if(stack.peek().toString().equals(OctaveTokenTypes.RBRACE.toString())) {
+            checkMatches(currentEndExpression,  "} expected");
+          }
+          if(stack.peek().toString().equals(OctaveTokenTypes.RBRACKET.toString())) {
+            checkMatches(currentEndExpression,  "] expected");
+          }
         }
       }
       expression.done(OctaveElementTypes.EXPRESSION);
+      skipLineBreak();
       return;
     }
     expression.drop();
@@ -266,7 +279,6 @@ public class OctaveExpressionParsing extends OctaveParsing {
       return true;
     }
     return parseInBracketsExpression();
-
   }
 
   private boolean parseInBracketsExpression() {
@@ -285,7 +297,6 @@ public class OctaveExpressionParsing extends OctaveParsing {
 
       return true;
     }
-
     //myPsiBuilder.advanceLexer();
     return false;
   }
@@ -293,6 +304,8 @@ public class OctaveExpressionParsing extends OctaveParsing {
   private void parseBraceExpression() {
     final PsiBuilder.Marker bracketExpression = myPsiBuilder.mark();
     numberOfNesting++;
+    TokenSet oldCurrentEndExpression = currentEndExpression;
+    currentEndExpression = OctaveTokenTypes.SET_END_EXPRESSION_IN_BRACES;
     stack.push(OctaveTokenTypes.RBRACE);
     feedMatches(OctaveTokenTypes.LBRACE, "Error: left brace");
     while (!isNullOrMatches(OctaveTokenTypes.RBRACE)) {
@@ -301,6 +314,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
     checkMatches(OctaveTokenTypes.RBRACE, "} expected");
 
     if (!stack.empty()) {
+      currentEndExpression = oldCurrentEndExpression;
       numberOfNesting--;
       stack.pop();
     }
@@ -309,6 +323,8 @@ public class OctaveExpressionParsing extends OctaveParsing {
 
   private void parseBracketExpression() {
     final PsiBuilder.Marker bracketExpression = myPsiBuilder.mark();
+    TokenSet oldCurrentEndExpression = currentEndExpression;
+    currentEndExpression = OctaveTokenTypes.SET_END_EXPRESSION_IN_BRACKETS;
     numberOfNesting++;
     stack.push(OctaveTokenTypes.RBRACKET);
     feedMatches(OctaveTokenTypes.LBRACKET, "Error: left bracket");
@@ -318,6 +334,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
     checkMatches(OctaveTokenTypes.RBRACKET, "] expected");
     if (!stack.empty()) {
       numberOfNesting--;
+      currentEndExpression = oldCurrentEndExpression;
       stack.pop();
     }
     bracketExpression.done(OctaveElementTypes.BRACKET_EXPRESSION);
@@ -326,6 +343,8 @@ public class OctaveExpressionParsing extends OctaveParsing {
   private void parseParExpression() {
     final PsiBuilder.Marker bracketExpression = myPsiBuilder.mark();
     numberOfNesting++;
+    TokenSet oldCurrentEndExpression = currentEndExpression;
+    currentEndExpression = OctaveTokenTypes.SET_END_EXPRESSION_IN_PARS;
     stack.push(OctaveTokenTypes.RPAR);
     feedMatches(OctaveTokenTypes.LPAR, "Error: right par");
     while (!isNullOrMatches(OctaveTokenTypes.RPAR)) {
@@ -334,6 +353,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
     checkMatches(OctaveTokenTypes.RPAR, ") expected");
     if (!stack.empty()) {
       numberOfNesting--;
+      currentEndExpression = oldCurrentEndExpression;
       stack.pop();
     }
     bracketExpression.done(OctaveElementTypes.PAR_EXPRESSION);

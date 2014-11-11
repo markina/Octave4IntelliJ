@@ -21,16 +21,16 @@ public class OctaveStatementParsing extends OctaveParsing {
       return;
     }
     if (numberOfNesting == 0) {
-      if (OctaveTokenTypes.SET_END_EXPRESSION.contains(currentToken)) {
-        feedMatches(OctaveTokenTypes.SET_END_EXPRESSION, "Error: end expression");
+      if (currentEndExpression.contains(currentToken)) {
+        feedMatches(currentEndExpression, "Error: end expression");
         return;
       }
     }
     else {
-      if (OctaveTokenTypes.SET_END_EXPRESSION_IN_BRACKETS.contains(currentToken)) {
-        feedMatches(OctaveTokenTypes.SET_END_EXPRESSION, "Error: end expression in brackets");
-        stack.clear();
-        numberOfNesting = 0;
+      if (currentEndExpression.contains(currentToken)) {
+        feedMatches(currentEndExpression, "Error: end expression in brackets");
+        //stack.clear(); //todo
+        //numberOfNesting = 0;
         return;
       }
     }
