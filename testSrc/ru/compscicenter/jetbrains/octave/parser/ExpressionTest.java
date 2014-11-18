@@ -94,4 +94,8 @@ public class ExpressionTest extends ParsingTestCase {
   public void testSemicolonInBrace() {
     doTest(true);
   }
+
+  public void testIncrementDecrement() {
+    doTest(true);
+  }
 }

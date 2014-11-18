@@ -45,6 +45,8 @@ public interface OctaveElementTypes {
   OctaveElementType INTEGER_LITERAL = new OctaveElementType("INTEGER_LITERAL", OctaveIntegerLiteralImpl.class);
   OctaveElementType FLOAT_NUMBER_LITERAL = new OctaveElementType("FLOAT_NUMBER_LITERAL", OctaveFloatLiteralImpl.class);
   OctaveElementType COMPLEX_LITERAL = new OctaveElementType("COMPLEX_LITERAL", OctaveComplexLiteralImpl.class);
+  OctaveElementType BOOLEAN_LITERAL = new OctaveElementType("BOOLEAN_LITERAL", OctaveBooleanLiteralImpl.class);
+
   OctaveElementType HEX_INTEGER = new OctaveElementType("HEX_INTEGER", OctaveHexIntegerImpl.class);
   OctaveElementType CONST = new OctaveElementType("CONST", OctaveConstExpressionImpl.class);
   OctaveElementType STRING = new OctaveElementType("STRING_LITERAL", OctaveStringLiteralImpl.class);

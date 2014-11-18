@@ -245,9 +245,19 @@ public class OctaveExpressionParsing extends OctaveParsing {
       memberExpression.drop();
       return false;
     }
+
     skipApostrophe(); //todo change with string literal
     memberExpression.drop();
     return true;
+  }
+
+  private void skipIncrementDecrement() {
+    if (OctaveTokenTypes.INCREMENT == myPsiBuilder.getTokenType()) {
+      myPsiBuilder.advanceLexer();
+    }
+    else if (OctaveTokenTypes.DECREMENT == myPsiBuilder.getTokenType()) {
+      myPsiBuilder.advanceLexer();
+    }
   }
 
   private boolean parsePrimaryExpression() {
@@ -257,6 +267,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
     IElementType currentToken = myPsiBuilder.getTokenType();
     if (currentToken == OctaveTokenTypes.IDENTIFIER) {
       buildTokenElement(OctaveElementTypes.REFERENCE_EXPRESSION);
+      skipIncrementDecrement();
       skipApostrophe();
       parseInBracketsExpression();
       return true;
@@ -283,6 +294,10 @@ public class OctaveExpressionParsing extends OctaveParsing {
     }
     if (OctaveTokenTypes.STRING == (currentToken)) {
       buildTokenElement(OctaveElementTypes.STRING);
+      return true;
+    }
+    if (OctaveTokenTypes.BOOLEAN_WORD.contains(currentToken)) {
+      buildTokenElement(OctaveElementTypes.BOOLEAN_LITERAL);
       return true;
     }
     return parseInBracketsExpression();

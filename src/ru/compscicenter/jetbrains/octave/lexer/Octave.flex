@@ -73,6 +73,8 @@ SPASE = [\ ]
 {COMMENT_BLOCK_2}           { return OctaveTokenTypes.COMMENT; }
 {END_OF_LINE_COMMENT}       { return OctaveTokenTypes.COMMENT; }
 
+"...\n"                     { return OctaveTokenTypes.SPACE; }
+
 {NEXT_LINE}*                { return OctaveTokenTypes.LINE_BREAK; }
 {SPASE}*                    { return OctaveTokenTypes.SPACE; }
 [\t]                        { return OctaveTokenTypes.TAB; }
@@ -93,16 +95,23 @@ SPASE = [\ ]
 "++"                        { return OctaveTokenTypes.INCREMENT; }
 "--"                        { return OctaveTokenTypes.DECREMENT; }
 
+
 "+="                        { return OctaveTokenTypes.OPERATION_PLUS_EQ; }
 "-="                        { return OctaveTokenTypes.OPERATION_MINUS_EQ; }
+"&="                        { return OctaveTokenTypes.OPERATION_AND_EQ; }
+"|="                        { return OctaveTokenTypes.OPERATION_OR_EQ; }
 "*="                        { return OctaveTokenTypes.OPERATION_MULT_EQ; }
 "/="                        { return OctaveTokenTypes.OPERATION_DIV_EQ; }
+"\\="                        { return OctaveTokenTypes.OPERATION_LEFT_DIV_EQ; }
 "^="                        { return OctaveTokenTypes.OPERATION_POWER_EQ; }
+"**="                        { return OctaveTokenTypes.OPERATION_POWER_EQ; }
+
 ".+="                       { return OctaveTokenTypes.OPERATION_DOT_PLUS_EQ; }
 ".-="                       { return OctaveTokenTypes.OPERATION_DOT_MINUS_EQ; }
 ".*="                       { return OctaveTokenTypes.OPERATION_DOT_MULT_EQ; }
 "./="                       { return OctaveTokenTypes.OPERATION_DOT_DIV_EQ; }
 ".^="                       { return OctaveTokenTypes.OPERATION_DOT_POWER_EQ; }
+".**="                       { return OctaveTokenTypes.OPERATION_DOT_POWER_EQ; }
 
 "(:)"                       { return OctaveTokenTypes.ALL_COLON; }
 
@@ -112,6 +121,9 @@ SPASE = [\ ]
 ".+"                        {return OctaveTokenTypes.DOT_PLUS; }
 ".-"                        {return OctaveTokenTypes.DOT_MINUS; }
 ".^"                        {return OctaveTokenTypes.DOT_POWER; }
+".**"                        {return OctaveTokenTypes.DOT_POWER; }
+".\\"                         { return OctaveTokenTypes.DOT_LEFT_DIVISION; }
+// todo ".'"                         { return OctaveTokenTypes.DOT_APOSTROPHE; }
 
 
 
@@ -134,7 +146,9 @@ SPASE = [\ ]
 "+"                         { return OctaveTokenTypes.PLUS; }
 "*"                         { return OctaveTokenTypes.MULTIPLICATION; }
 "/"                         { return OctaveTokenTypes.DIVISION; }
+"\\"                         { return OctaveTokenTypes.LEFT_DIVISION; }
 "^"                         { return OctaveTokenTypes.POWER; }
+"**"                        { return OctaveTokenTypes.POWER; }
 "~"                         { return OctaveTokenTypes.TILDE; }
 ":"                         { return OctaveTokenTypes.COLON; }
 "@"                         { return OctaveTokenTypes.AT; }
@@ -167,6 +181,8 @@ SPASE = [\ ]
 ">="                        { return OctaveTokenTypes.GE; }
 "<="                        { return OctaveTokenTypes.LE; }
 "!="                        { return OctaveTokenTypes.NOTEQ; }
+"~="                        { return OctaveTokenTypes.NOTEQ; }
+"<>"                        { return OctaveTokenTypes.NOTEQ; }
 
 // logical
 "!"                         { return OctaveTokenTypes.NOT; }
