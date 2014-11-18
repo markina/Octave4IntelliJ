@@ -33,6 +33,7 @@ public class OctaveElementType extends IElementType {
   }
 
   public PsiElement createElement(@NotNull final ASTNode node) {
+
     if (myPsiElementClass == null) {
       throw new IllegalStateException("Cannot create an element for " + node.getElementType() + " without element class");
     }

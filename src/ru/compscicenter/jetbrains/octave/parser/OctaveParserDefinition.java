@@ -15,8 +15,9 @@ import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import ru.compscicenter.jetbrains.octave.OctaveLanguage;
 import ru.compscicenter.jetbrains.octave.lexer.OctaveLexerAdapter;
-import ru.compscicenter.jetbrains.octave.psi.OctaveFile;
 import ru.compscicenter.jetbrains.octave.lexer.OctaveTokenTypes;
+import ru.compscicenter.jetbrains.octave.psi.OctaveFile;
+import ru.compscicenter.jetbrains.octave.psi.stubs.OctaveStubElementType;
 
 /**
  * Created by Markina Margarita on 02.10.14.
@@ -68,10 +69,15 @@ public class OctaveParserDefinition implements ParserDefinition {
   @Override
   public PsiElement createElement(@NotNull ASTNode node) {
     final IElementType type = node.getElementType();
-    if (type instanceof OctaveElementType) {
+    if (type instanceof OctaveStubElementType) {
+      OctaveStubElementType elementType = (OctaveStubElementType)type;
+      return elementType.createElement(node);
+    }
+    else if (type instanceof OctaveElementType) {
       OctaveElementType elementType = (OctaveElementType)type;
       return elementType.createElement(node);
     }
+
     return new ASTWrapperPsiElement(node);
   }
 

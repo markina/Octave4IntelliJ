@@ -21,7 +21,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
       if (OctaveTokenTypes.SET_EQ_OR_OPERATION_EQ.contains(myPsiBuilder.getTokenType())) {
         feedMatches(OctaveTokenTypes.SET_EQ_OR_OPERATION_EQ, "Error: eq expected");
         parseOrExpression();
-        expression.done(OctaveElementTypes.ASSIGNMENT_EXPRESSION);
+        expression.done(OctaveElementTypes.ASSIGNMENT_STATEMENT);
         return;
       }
       if (OctaveTokenTypes.SET_LEFT_BRACKETS.contains(myPsiBuilder.getTokenType())) {
@@ -256,7 +256,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
     }
     IElementType currentToken = myPsiBuilder.getTokenType();
     if (currentToken == OctaveTokenTypes.IDENTIFIER) {
-      buildTokenElement(OctaveElementTypes.IDENTIDIER);
+      buildTokenElement(OctaveElementTypes.REFERENCE_EXPRESSION);
       skipApostrophe();
       parseInBracketsExpression();
       return true;

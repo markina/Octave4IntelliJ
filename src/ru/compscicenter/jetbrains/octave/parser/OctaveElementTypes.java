@@ -1,6 +1,10 @@
 package ru.compscicenter.jetbrains.octave.parser;
 
+import ru.compscicenter.jetbrains.octave.psi.api.OctaveAssignmentStatement;
 import ru.compscicenter.jetbrains.octave.psi.api.impl.*;
+import ru.compscicenter.jetbrains.octave.psi.stubs.OctaveAssignmentElementType;
+import ru.compscicenter.jetbrains.octave.psi.stubs.OctaveAssignmentStub;
+import ru.compscicenter.jetbrains.octave.psi.stubs.OctaveStubElementType;
 
 /**
  * Created by Markina Margarita on 17.10.14.
@@ -35,9 +39,9 @@ public interface OctaveElementTypes {
   OctaveElementType BINARY_EXPRESSION = new OctaveElementType("BINARY_EXPRESSION", OctaveBinaryExpressionImpl.class);
   OctaveElementType PREFIX_EXPRESSION = new OctaveElementType("PREFIX_EXPRESSION", OctavePrefixExpressionImpl.class);
   OctaveElementType SLICE_EXPRESSION = new OctaveElementType("SLICE_EXPRESSION", OctaveSliceExpressionImpl.class);
-  OctaveElementType ASSIGNMENT_EXPRESSION = new OctaveElementType("ASSIGNMENT_EXPRESSION", OctaveAssignmentExpressionImpl.class);
 
-  OctaveElementType IDENTIDIER = new OctaveElementType("IDENTIFIER", OctaveIdentifierImpl.class);
+
+  OctaveElementType REFERENCE_EXPRESSION = new OctaveElementType("REFERENCE_EXPRESSION", OctaveReferenceExpressionImpl.class);
   OctaveElementType INTEGER_LITERAL = new OctaveElementType("INTEGER_LITERAL", OctaveIntegerLiteralImpl.class);
   OctaveElementType FLOAT_NUMBER_LITERAL = new OctaveElementType("FLOAT_NUMBER_LITERAL", OctaveFloatLiteralImpl.class);
   OctaveElementType COMPLEX_LITERAL = new OctaveElementType("COMPLEX_LITERAL", OctaveComplexLiteralImpl.class);
@@ -48,4 +52,6 @@ public interface OctaveElementTypes {
   OctaveElementType BRACKET_EXPRESSION = new OctaveElementType("BRACKET_EXPRESSION", OctaveBracketExpressionImpl.class);
   OctaveElementType PAR_EXPRESSION = new OctaveElementType("PAR_EXPRESSION", OctaveParExpressionImpl.class);
   OctaveElementType BRACE_EXPRESSION = new OctaveElementType("BRACE_EXPRESSION", OctaveBraceExpressionImpl.class);
+
+  OctaveStubElementType<OctaveAssignmentStub, OctaveAssignmentStatement> ASSIGNMENT_STATEMENT = new OctaveAssignmentElementType();
 }

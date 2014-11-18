@@ -1,4 +1,4 @@
-package ru.compscicenter.jetbrains.octave.reference;
+package ru.compscicenter.jetbrains.octave.psi.reference;
 
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.util.TextRange;
@@ -7,22 +7,21 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.IncorrectOperationException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.compscicenter.jetbrains.octave.psi.api.OctaveAssignmentExpression;
-import ru.compscicenter.jetbrains.octave.psi.api.OctaveIdentifier;
+import ru.compscicenter.jetbrains.octave.psi.api.OctaveAssignmentStatement;
+import ru.compscicenter.jetbrains.octave.psi.api.OctaveReferenceExpression;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * Created by Markina Margarita on 11.11.14.
  */
 public class OctaveReferenceImpl implements PsiReference, PsiPolyVariantReference {
   private static final Logger LOG = Logger.getInstance(OctaveReferenceImpl.class.getName());
-  protected final OctaveIdentifier myElement;
+  protected final OctaveReferenceExpression myElement;
 
-  public OctaveReferenceImpl(OctaveIdentifier identifier) {
-    myElement = identifier;
+  public OctaveReferenceImpl(OctaveReferenceExpression expression) {
+    myElement = expression;
   }
 
   @NotNull
@@ -33,9 +32,9 @@ public class OctaveReferenceImpl implements PsiReference, PsiPolyVariantReferenc
     if (name == null) return ResolveResult.EMPTY_ARRAY;
 
     final PsiFile file = myElement.getContainingFile();
-    final OctaveAssignmentExpression[] statements = PsiTreeUtil.getChildrenOfType(file, OctaveAssignmentExpression.class);
+    final OctaveAssignmentStatement[] statements = PsiTreeUtil.getChildrenOfType(file, OctaveAssignmentStatement.class);
     if (statements != null) {
-      for (OctaveAssignmentExpression statement : statements) {
+      for (OctaveAssignmentStatement statement : statements) {
         final PsiElement assignee = statement.getAssignee();
         if (assignee != null && assignee.getText().equals(name)) {
           result.add(new PsiElementResolveResult(assignee));
@@ -48,24 +47,26 @@ public class OctaveReferenceImpl implements PsiReference, PsiPolyVariantReferenc
 
   @Override
   public PsiElement getElement() {
-    return null;
+    return myElement;
   }
 
   @Override
   public TextRange getRangeInElement() {
-    return null;
+    final TextRange range = myElement.getNode().getTextRange();
+    return range.shiftRight(-myElement.getNode().getStartOffset());
   }
 
   @Nullable
   @Override
   public PsiElement resolve() {
-    return null;
+    final ResolveResult[] results = multiResolve(false);
+    return results.length >= 1 ? results[0].getElement() : null;
   }
 
   @NotNull
   @Override
   public String getCanonicalText() {
-    return null;
+    return getElement().getText();
   }
 
   @Override
