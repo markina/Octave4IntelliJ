@@ -22,5 +22,19 @@ public class FromGithubTest extends ParsingTestCase {
   public void test1() {
     doTest(true);
   }
+
+  public void test2() {
+    doTest(true);
+  }
+
+  public void test3() {
+    doTest(true);
+  }
+
+  public void test4() {
+    doTest(true);
+  }
+
+
 }
 

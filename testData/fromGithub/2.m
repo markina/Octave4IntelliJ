@@ -3,8 +3,7 @@
 
 % This file is from pmtk3.googlecode.com
 
-format compact
-more   off; % especially important in Octave - init may fail without it
+
 verbose = true;
 if verbose
     disp('initializing pmtk3');
@@ -24,7 +23,7 @@ addpath(thisDir);
 
 %% include directories
 %include  = @(d, varargin)addpath(genpathPMTK(d, isMatlab), varargin{:});
-include  = @(d)addpath(genpathPMTK(d));
+
 include(fullfile(thisDir, 'projects'));
 include(fullfile(thisDir, 'pmtkTools'));
 include(fullfile(thisDir, 'matlabTools'));
