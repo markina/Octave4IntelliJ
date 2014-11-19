@@ -336,7 +336,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
     feedMatches(OctaveTokenTypes.LBRACE, "Error: left brace");
     while (!isNullOrMatches(OctaveTokenTypes.RBRACE)) {
       parseExpression();
-      if (!isNullOrMatches(OctaveTokenTypes.RBRACE)) {
+      if (!isNullOrMatches(OctaveTokenTypes.RBRACE) && !isNullOrMatches(OctaveTokenTypes.IDENTIFIER)) {
         checkMatches(currentEndExpression, "end expression expected");
       }
     }
@@ -355,7 +355,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
     feedMatches(OctaveTokenTypes.LBRACKET, "Error: left bracket");
     while (!isNullOrMatches(OctaveTokenTypes.RBRACKET)) {
       parseExpression();
-      if (!isNullOrMatches(OctaveTokenTypes.RBRACKET)) {
+      if (!isNullOrMatches(OctaveTokenTypes.RBRACKET) && !isNullOrMatches(OctaveTokenTypes.IDENTIFIER)) {
         checkMatches(currentEndExpression, "end expression expecteed");
       }
     }
@@ -373,7 +373,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
     feedMatches(OctaveTokenTypes.LPAR, "Error: right par");
     while (!isNullOrMatches(OctaveTokenTypes.RPAR)) {
       parseExpression();
-      if (!isNullOrMatches(OctaveTokenTypes.RPAR)) {
+      if (!isNullOrMatches(OctaveTokenTypes.RPAR) && !isNullOrMatches(OctaveTokenTypes.IDENTIFIER)) {
         checkMatches(currentEndExpression, "end expression expecteed");
       }
     }

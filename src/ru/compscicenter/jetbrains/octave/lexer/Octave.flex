@@ -31,7 +31,7 @@ COMMENT_BLOCK_2 = "%{"({NO_END_COMMENT_2})*("%}")
 LETTER = [a-zA-Z]|[:unicode_uppercase_letter:]|[:unicode_lowercase_letter:]|[:unicode_titlecase_letter:]|[:unicode_modifier_letter:]|[:unicode_other_letter:]|[:unicode_letter_number:]
 
 IDENT_START = {LETTER}|"_"
-IDENT_CONTINUE = {LETTER}|[0-9_]
+IDENT_CONTINUE = {LETTER}|[0-9_.]
 IDENTIFIER = {IDENT_START}{IDENT_CONTINUE}*
 
 // string constants

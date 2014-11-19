@@ -49,5 +49,10 @@ public class FromGithubTest extends ParsingTestCase {
     doTest(true);
   }
 
+  public void test7() {
+    doTest(true);
+  }
+
+
 }
 
