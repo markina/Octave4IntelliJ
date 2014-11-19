@@ -80,7 +80,7 @@ public interface OctaveTokenTypes {
   public static final IElementType PLUS = new OctaveElementType("PLUS");  // +
   public static final IElementType MULTIPLICATION = new OctaveElementType("MULTIPLICATION");  //*
   public static final IElementType DIVISION = new OctaveElementType("DIVISION");  // /
-  public static final IElementType LEFT_DIVISION = new OctaveElementType("DIVISION");  // /
+  public static final IElementType LEFT_DIVISION = new OctaveElementType("LEFT_DIVISION");  // /
   public static final IElementType POWER = new OctaveElementType("POWER");  // ^
   public static final IElementType TILDE = new OctaveElementType("TILDE");  // ~
   public static final IElementType COLON = new OctaveElementType("COLON");  // :
@@ -97,7 +97,7 @@ public interface OctaveTokenTypes {
   public static final IElementType OPERATION_MINUS_EQ = new OctaveElementType("OPERATION_MINUS_EQ");
   public static final IElementType OPERATION_MULT_EQ = new OctaveElementType("OPERATION_MULT_EQ");
   public static final IElementType OPERATION_DIV_EQ = new OctaveElementType("OPERATION_DIV_EQ");
-  public static final IElementType OPERATION_LEFT_DIV_EQ = new OctaveElementType("OPERATION_DIV_EQ");
+  public static final IElementType OPERATION_LEFT_DIV_EQ = new OctaveElementType("OPERATION_LEFT_DIV_EQ");
   public static final IElementType OPERATION_POWER_EQ = new OctaveElementType("OPERATION_POWER_EQ");
   public static final IElementType OPERATION_DOT_PLUS_EQ = new OctaveElementType("OPERATION_DOT_PLUS_EQ");
   public static final IElementType OPERATION_DOT_MINUS_EQ = new OctaveElementType("OPERATION_DOT_MINUS_EQ");
@@ -196,7 +196,7 @@ public interface OctaveTokenTypes {
   public static final TokenSet SET_CASE_OR_OTHERWISE = TokenSet.create(CASE_KEYWORD, OTHERWISE_KEYWORD);
 
   public static final TokenSet SET_EQ_OR_OPERATION_EQ = TokenSet.create(
-    EQ, OPERATION_PLUS_EQ, OPERATION_MINUS_EQ, OPERATION_MULT_EQ, OPERATION_DIV_EQ, OPERATION_POWER_EQ,
+    EQ, OPERATION_PLUS_EQ, OPERATION_MINUS_EQ, OPERATION_MULT_EQ, OPERATION_DIV_EQ, OPERATION_LEFT_DIV_EQ, OPERATION_POWER_EQ,
     OPERATION_DOT_PLUS_EQ, OPERATION_DOT_MINUS_EQ, OPERATION_DOT_MULT_EQ, OPERATION_DOT_DIV_EQ,
     OPERATION_DOT_LEFT_DIV_EQ, OPERATION_DOT_POWER_EQ, OPERATION_AND_EQ, OPERATION_OR_EQ);
   public static final TokenSet SET_OR_OPERATIONS = TokenSet.create(OR, DOUBLE_OR);
@@ -206,7 +206,7 @@ public interface OctaveTokenTypes {
     PLUS, MINUS, DOT_PLUS, DOT_MINUS);
   public static final TokenSet POWER_OPERATIONS = TokenSet.create(POWER, DOT_POWER);
   public static final TokenSet MULT_DIV_OPERATIONS = TokenSet.create(
-    MULTIPLICATION, DIVISION, DOT_MULTIPLICATION, DOT_DIVISION, DOT_LEFT_DIVISION);
+    MULTIPLICATION, DIVISION, LEFT_DIVISION, DOT_MULTIPLICATION, DOT_DIVISION, DOT_LEFT_DIVISION);
   public static final TokenSet UNARY_OPERATIONS = TokenSet.create(PLUS, MINUS, TILDE, AT, INCREMENT, DECREMENT);
   public static final TokenSet SET_CONST = TokenSet.create(
     E_KEYWORD, INF_KEYWORD, NAN_KEYWORD, NA_KEYWORD, PI_KEYWORD, EPS_KEYWORD, REALMAX_KEYWORD, REALMIN_KEYWORD);

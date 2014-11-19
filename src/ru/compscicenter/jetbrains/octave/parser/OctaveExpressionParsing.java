@@ -375,7 +375,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
       skipLineBreak();
       parseExpression();
       if (!isNullOrMatches(OctaveTokenTypes.RPAR) && !isNullOrMatches(OctaveTokenTypes.IDENTIFIER)) {
-        checkMatches(currentEndExpression, "end expression expecteed");
+        checkMatches(currentEndExpression, "end expression expected in pars");
       }
     }
     checkMatches(OctaveTokenTypes.RPAR, ") expected");
