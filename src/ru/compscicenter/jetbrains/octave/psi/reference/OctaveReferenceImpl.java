@@ -16,19 +16,17 @@ import java.util.List;
 /**
  * Created by Markina Margarita on 11.11.14.
  */
-public class OctaveReferenceImpl implements PsiReference, PsiPolyVariantReference {
+public class OctaveReferenceImpl extends PsiReferenceBase {
   private static final Logger LOG = Logger.getInstance(OctaveReferenceImpl.class.getName());
-  protected final OctaveReferenceExpression myElement;
 
   public OctaveReferenceImpl(OctaveReferenceExpression expression) {
-    myElement = expression;
+    super(expression);
   }
 
   @NotNull
-  @Override
   public ResolveResult[] multiResolve(boolean incompleteCode) {
     final List<ResolveResult> result = new ArrayList<ResolveResult>();
-    final String name = myElement.getName();
+    final String name = myElement.getText();
     if (name == null) return ResolveResult.EMPTY_ARRAY;
 
     final PsiFile file = myElement.getContainingFile();
@@ -45,10 +43,6 @@ public class OctaveReferenceImpl implements PsiReference, PsiPolyVariantReferenc
     return result.toArray(new ResolveResult[result.size()]);
   }
 
-  @Override
-  public PsiElement getElement() {
-    return myElement;
-  }
 
   @Override
   public TextRange getRangeInElement() {
@@ -61,27 +55,6 @@ public class OctaveReferenceImpl implements PsiReference, PsiPolyVariantReferenc
   public PsiElement resolve() {
     final ResolveResult[] results = multiResolve(false);
     return results.length >= 1 ? results[0].getElement() : null;
-  }
-
-  @NotNull
-  @Override
-  public String getCanonicalText() {
-    return getElement().getText();
-  }
-
-  @Override
-  public PsiElement handleElementRename(String newElementName) throws IncorrectOperationException {
-    return null;
-  }
-
-  @Override
-  public PsiElement bindToElement(@NotNull PsiElement element) throws IncorrectOperationException {
-    return null;
-  }
-
-  @Override
-  public boolean isReferenceTo(PsiElement element) {
-    return false;
   }
 
   @NotNull
