@@ -98,4 +98,20 @@ public class ExpressionTest extends ParsingTestCase {
   public void testIncrementDecrement() {
     doTest(true);
   }
+
+  public void testDotOperator() {
+    doTest(true);
+  }
+
+  public void testDotOperator2() {
+    doTest(true);
+  }
+
+  public void testStringLiteral() {
+    doTest(true);
+  }
+
+  public void testAt() {
+    doTest(true);
+  }
 }

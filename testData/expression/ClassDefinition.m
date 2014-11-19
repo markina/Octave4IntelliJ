@@ -1,0 +1,2 @@
+printPmtkFigure HPD;
+printPmtkFigure centralInterval;

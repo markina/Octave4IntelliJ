@@ -25,27 +25,28 @@ public class OctaveExpressionParsing extends OctaveParsing {
         expression.done(OctaveElementTypes.ASSIGNMENT_STATEMENT);
         return;
       }
-      if (OctaveTokenTypes.SET_LEFT_BRACKETS.contains(myPsiBuilder.getTokenType())) {
-        parseOrExpression();
-      }
-      if (isNullOrMatches(OctaveTokenTypes.SET_RITHT_BRACKETS)) {
-        expression.done(OctaveElementTypes.EXPRESSION);
-        return;
-      }
+      //if (OctaveTokenTypes.SET_LEFT_BRACKETS.contains(myPsiBuilder.getTokenType())) {
+      //  //parseOrExpression();
+      //  expression.drop();
+      //  //expression.done(OctaveElementTypes.EXPRESSION);
+      //  return;
+      //}
+      //if (isNullOrMatches(OctaveTokenTypes.SET_RITHT_BRACKETS)) {
+      //  expression.done(OctaveElementTypes.EXPRESSION);
+      //  return;
+      //}
       if (OctaveTokenTypes.SET_NUMBER_LITERAL.contains(myPsiBuilder.getTokenType())) {
         expression.done(OctaveElementTypes.EXPRESSION);
         return;
       }
       if (numberOfNesting == 0) {
-        checkMatches(currentEndExpression, "end statement expected");
+        checkMatches(OctaveTokenTypes.SET_END_EXPRESSION, "end statement expected");
         expression.done(OctaveElementTypes.EXPRESSION);
         skipLineBreak();
         return;
       }
       expression.done(OctaveElementTypes.EXPRESSION);
       return;
-
-
     }
     expression.drop();
     myPsiBuilder.error("Expression expected");
@@ -71,6 +72,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
       orExpression.drop();
       return false;
     }
+
   }
 
   private boolean parseAndExpression() {
@@ -178,6 +180,13 @@ public class OctaveExpressionParsing extends OctaveParsing {
 
   private boolean parseSliceExpression() {
     PsiBuilder.Marker sliceExpression = myPsiBuilder.mark();
+    if (myPsiBuilder.getTokenType() == OctaveTokenTypes.END_KEYWORD) {
+      feedMatches(OctaveTokenTypes.END_KEYWORD, "Error: end keyword");
+      checkMatches(OctaveTokenTypes.COLON, "colon expected after end in expression");
+      parseUnaryExpression();
+      sliceExpression.done(OctaveElementTypes.SLICE_EXPRESSION);
+      sliceExpression = sliceExpression.precede();
+    }
     if (myPsiBuilder.getTokenType() != OctaveTokenTypes.COLON && !parseUnaryExpression()) {
       sliceExpression.drop();
       return false;
@@ -185,7 +194,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
     //skipLineBreak();
     while (OctaveTokenTypes.COLON == myPsiBuilder.getTokenType()) {
       feedMatches(OctaveTokenTypes.COLON, "Error: colon");
-      if(myPsiBuilder.getTokenType() == OctaveTokenTypes.END_KEYWORD) {
+      if (myPsiBuilder.getTokenType() == OctaveTokenTypes.END_KEYWORD) {
         feedMatches(OctaveTokenTypes.END_KEYWORD, "Error: end keyword");
         continue;
       }
@@ -245,14 +254,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
     return true;
   }
 
-  private void skipIncrementDecrement() {
-    if (OctaveTokenTypes.INCREMENT == myPsiBuilder.getTokenType()) {
-      myPsiBuilder.advanceLexer();
-    }
-    else if (OctaveTokenTypes.DECREMENT == myPsiBuilder.getTokenType()) {
-      myPsiBuilder.advanceLexer();
-    }
-  }
+
 
   public boolean parsePrimaryExpression() {
     if (myPsiBuilder == null) {
@@ -324,67 +326,62 @@ public class OctaveExpressionParsing extends OctaveParsing {
     return false;
   }
 
-  private void skipApostrophe() {
-    while (OctaveTokenTypes.APOSTROPHE == myPsiBuilder.getTokenType()) {
-      myPsiBuilder.advanceLexer();
-    }
-  }
+
 
   private void parseBraceExpression() {
     final PsiBuilder.Marker bracketExpression = myPsiBuilder.mark();
     numberOfNesting++;
-    TokenSet oldCurrentEndExpression = currentEndExpression;
-    currentEndExpression = OctaveTokenTypes.SET_END_EXPRESSION_IN_BRACES;
     feedMatches(OctaveTokenTypes.LBRACE, "Error: left brace");
     while (!isNullOrMatches(OctaveTokenTypes.RBRACE)) {
       skipLineBreak();
       parseExpression();
-      if (!isNullOrMatches(OctaveTokenTypes.RBRACE) && !isNullOrMatches(OctaveTokenTypes.IDENTIFIER)) {
-        checkMatches(currentEndExpression, "end expression expected");
+      if (!isNullOrMatches(OctaveTokenTypes.RBRACE)
+          && !isNullOrMatches(OctaveTokenTypes.IDENTIFIER)
+          && !isNullOrMatches(OctaveTokenTypes.SET_LEFT_BRACKETS)
+          && !OctaveTokenTypes.SET_NUMBER_LITERAL.contains(myPsiBuilder.getTokenType())) {
+        checkMatches(OctaveTokenTypes.SET_END_EXPRESSION, "end expression expecteed");
       }
     }
     checkMatches(OctaveTokenTypes.RBRACE, "} expected");
 
-    currentEndExpression = oldCurrentEndExpression;
     numberOfNesting--;
     bracketExpression.done(OctaveElementTypes.BRACE_EXPRESSION);
   }
 
   private void parseBracketExpression() {
     final PsiBuilder.Marker bracketExpression = myPsiBuilder.mark();
-    TokenSet oldCurrentEndExpression = currentEndExpression;
-    currentEndExpression = OctaveTokenTypes.SET_END_EXPRESSION_IN_BRACKETS;
     numberOfNesting++;
     feedMatches(OctaveTokenTypes.LBRACKET, "Error: left bracket");
     while (!isNullOrMatches(OctaveTokenTypes.RBRACKET)) {
       skipLineBreak();
       parseExpression();
-      if (!isNullOrMatches(OctaveTokenTypes.RBRACKET) && !isNullOrMatches(OctaveTokenTypes.IDENTIFIER)) {
-        checkMatches(currentEndExpression, "end expression expecteed");
+      if (!isNullOrMatches(OctaveTokenTypes.RBRACKET)
+          && !isNullOrMatches(OctaveTokenTypes.IDENTIFIER)
+          && !isNullOrMatches(OctaveTokenTypes.SET_LEFT_BRACKETS)
+          && !OctaveTokenTypes.SET_NUMBER_LITERAL.contains(myPsiBuilder.getTokenType())) {
+        checkMatches(OctaveTokenTypes.SET_END_EXPRESSION, "end expression expecteed");
       }
     }
     checkMatches(OctaveTokenTypes.RBRACKET, "] expected");
     numberOfNesting--;
-    currentEndExpression = oldCurrentEndExpression;
     bracketExpression.done(OctaveElementTypes.BRACKET_EXPRESSION);
   }
 
   private void parseParExpression() {
     final PsiBuilder.Marker bracketExpression = myPsiBuilder.mark();
     numberOfNesting++;
-    TokenSet oldCurrentEndExpression = currentEndExpression;
-    currentEndExpression = OctaveTokenTypes.SET_END_EXPRESSION_IN_PARS;
     feedMatches(OctaveTokenTypes.LPAR, "Error: right par");
     while (!isNullOrMatches(OctaveTokenTypes.RPAR)) {
       skipLineBreak();
       parseExpression();
-      if (!isNullOrMatches(OctaveTokenTypes.RPAR) && !isNullOrMatches(OctaveTokenTypes.IDENTIFIER)) {
-        checkMatches(currentEndExpression, "end expression expected in pars");
+      if (!isNullOrMatches(OctaveTokenTypes.RPAR)
+          && !isNullOrMatches(OctaveTokenTypes.IDENTIFIER)
+          && !isNullOrMatches(OctaveTokenTypes.SET_LEFT_BRACKETS)) {
+        checkMatches(OctaveTokenTypes.SET_END_EXPRESSION, "end expression expected in pars");
       }
     }
     checkMatches(OctaveTokenTypes.RPAR, ") expected");
     numberOfNesting--;
-    currentEndExpression = oldCurrentEndExpression;
     bracketExpression.done(OctaveElementTypes.PAR_EXPRESSION);
   }
 }

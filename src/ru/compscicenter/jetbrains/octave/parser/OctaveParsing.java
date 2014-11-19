@@ -21,8 +21,6 @@ public class OctaveParsing {
 
   public static int numberOfNesting = 0;
 
-  public TokenSet currentEndExpression = OctaveTokenTypes.SET_END_EXPRESSION;
-
   public OctaveParsing(@NotNull final OctaveParserContext context) {
     myContext = context;
     myPsiBuilder = context.getBuilder();
@@ -72,6 +70,22 @@ public class OctaveParsing {
   public void skipLineBreak() {
     while (OctaveTokenTypes.SET_SPACES.contains(myPsiBuilder.getTokenType()) ||
            OctaveTokenTypes.SET_END_EXPRESSION.contains(myPsiBuilder.getTokenType())) {
+      myPsiBuilder.advanceLexer();
+    }
+  }
+
+
+  public void skipIncrementDecrement() {
+    if (OctaveTokenTypes.INCREMENT == myPsiBuilder.getTokenType()) {
+      myPsiBuilder.advanceLexer();
+    }
+    else if (OctaveTokenTypes.DECREMENT == myPsiBuilder.getTokenType()) {
+      myPsiBuilder.advanceLexer();
+    }
+  }
+
+  public void skipApostrophe() {
+    while (OctaveTokenTypes.APOSTROPHE == myPsiBuilder.getTokenType()) {
       myPsiBuilder.advanceLexer();
     }
   }

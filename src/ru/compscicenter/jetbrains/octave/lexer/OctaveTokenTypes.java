@@ -190,9 +190,6 @@ public interface OctaveTokenTypes {
   public static final TokenSet SET_PUNCTUATION = TokenSet.create(COMMA, SEMICOLON, DOT, CRLF);
   public static final TokenSet SET_SPACES = TokenSet.create(SPACE, TAB, FORMFEED, LINE_BREAK);
   public static final TokenSet SET_END_EXPRESSION = TokenSet.create(COMMA, SEMICOLON, CRLF, LINE_BREAK);
-  public static final TokenSet SET_END_EXPRESSION_IN_BRACKETS = TokenSet.orSet(SET_END_EXPRESSION, SET_NUMBER_LITERAL);
-  public static final TokenSet SET_END_EXPRESSION_IN_BRACES = TokenSet.orSet(SET_END_EXPRESSION, SET_NUMBER_LITERAL);
-  public static final TokenSet SET_END_EXPRESSION_IN_PARS = TokenSet.create(COMMA, CRLF, LINE_BREAK, SEMICOLON);
   public static final TokenSet SET_CASE_OR_OTHERWISE = TokenSet.create(CASE_KEYWORD, OTHERWISE_KEYWORD);
 
   public static final TokenSet SET_EQ_OR_OPERATION_EQ = TokenSet.create(
