@@ -23,7 +23,7 @@ for useFull = [false]
         muSamples = model.mu; SigmaSamples = model.Sigma;
         muHat = mean(muSamples);
         SigmaHat = mean(SigmaSamples,3);
-        model = struct('mu', muHat', 'Sigma', SigmaHat);
+
         [Ximpute, V] = gaussImpute(model, Xmiss);
         Xtrain = XfullTrain;
         fname = 'mvnImputeFull';

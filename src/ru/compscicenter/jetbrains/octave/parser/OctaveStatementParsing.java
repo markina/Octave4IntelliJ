@@ -30,8 +30,6 @@ public class OctaveStatementParsing extends OctaveParsing {
     else {
       if (currentEndExpression.contains(currentToken)) {
         feedMatches(currentEndExpression, "Error: end expression in brackets");
-        //stack.clear(); //todo
-        //numberOfNesting = 0;
         return;
       }
     }
@@ -39,16 +37,6 @@ public class OctaveStatementParsing extends OctaveParsing {
     if (currentToken == null) {
       return;
     }
-
-    //if (OctaveTokenTypes.SET_END_KEYWORDS.contains(currentToken)) {
-    //  return;
-    //}
-
-    //if (OctaveTokenTypes.SET_INNER_KEYWORDS.contains(currentToken)) {
-    //  return;
-    //}
-
-
     if (currentToken == OctaveTokenTypes.IF_KEYWORD) {
       parseIfStatement();
     }

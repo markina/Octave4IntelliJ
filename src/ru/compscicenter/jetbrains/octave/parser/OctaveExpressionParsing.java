@@ -185,6 +185,10 @@ public class OctaveExpressionParsing extends OctaveParsing {
     //skipLineBreak();
     while (OctaveTokenTypes.COLON == myPsiBuilder.getTokenType()) {
       feedMatches(OctaveTokenTypes.COLON, "Error: colon");
+      if(myPsiBuilder.getTokenType() == OctaveTokenTypes.END_KEYWORD) {
+        feedMatches(OctaveTokenTypes.END_KEYWORD, "Error: end keyword");
+        continue;
+      }
       parseUnaryExpression();
       sliceExpression.done(OctaveElementTypes.SLICE_EXPRESSION);
       sliceExpression = sliceExpression.precede();

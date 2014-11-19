@@ -29,7 +29,7 @@ X(guess==offState) = -1;
 X(guess==onState)  = +1;
 Xinit = X;
 figure();
-imagesc(y);colormap gray; axis square;
+imagesc(y);colormap gray;   axis square;
 fig = figure();
 J = 5;
 avgX = zeros(M,N);

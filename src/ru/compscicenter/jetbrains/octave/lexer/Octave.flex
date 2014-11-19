@@ -63,11 +63,13 @@ FLOAT_NUMBER=({POINT_FLOAT})|({EXPONENT_FLOAT})|({EXPONENT_HEX})
 
 COMPLEX_NUMBER=(({FLOAT_NUMBER})|({INT_PART}))+[iI]
 
-OPTIONS = "short"|"long"|"short e"|"long e"|"short E"|"long E"|"short g"|"long g"|"short eng"|"long eng"|"long G"|"short G"|"free"|"none"|"+ "{IDENTIFIER}|"- "{IDENTIFIER}|".+ "{IDENTIFIER}|".- "{IDENTIFIER}|"bank"|"native-hex"|"hex"|"native-bit"|"bit"|"rat"|"compact"|"loose"
+FORMAT_OPTIONS = "short"|"long"|"short e"|"long e"|"short E"|"long E"|"short g"|"long g"|"short eng"|"long eng"|"long G"|"short G"|"free"|"none"|"+ "{IDENTIFIER}|"- "{IDENTIFIER}|".+ "{IDENTIFIER}|".- "{IDENTIFIER}|"bank"|"native-hex"|"hex"|"native-bit"|"bit"|"rat"|"compact"|"loose"
+AXIS_OPTIONS = "square"|"equal"|"normal"|"auto"|"manual"|"tight"|"image"|"on"|"off"|"tic"|"label"|"nolabel"|"ij"|"xy"
 ON_OFF = "on"|"off"
 ON_OFF_ALL = "on"|"off"|"all"
 // todo all == ALL
-SIMPLE_KEYWORD = "more"({WHITE_SPACE}+{ON_OFF})+|"more"({WHITE_SPACE}+{ON_OFF})+|"format"({WHITE_SPACE}+{OPTIONS})+|"hold"({WHITE_SPACE}+{ON_OFF_ALL})+|"clf"|"clf"{WHITE_SPACE}+"reset"
+SIMPLE_KEYWORD = "more"({WHITE_SPACE}+{ON_OFF})+|"more"({WHITE_SPACE}+{ON_OFF})+|"format"({WHITE_SPACE}+{FORMAT_OPTIONS})+|"hold"({WHITE_SPACE}+{ON_OFF_ALL})+|"clf"|"clf"{WHITE_SPACE}+"reset"|"axis"({WHITE_SPACE}+{AXIS_OPTIONS})+|"colormap"{WHITE_SPACE}+{IDENTIFIER}?
+
 
 NEXT_LINE = [\n]
 SPASE = [\ ]
