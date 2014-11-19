@@ -2,6 +2,7 @@ package ru.compscicenter.jetbrains.octave.parser;
 
 import com.intellij.lang.PsiBuilder;
 import com.intellij.psi.tree.IElementType;
+import org.apache.xerces.dom.ElementNSImpl;
 import ru.compscicenter.jetbrains.octave.lexer.OctaveTokenTypes;
 
 /**
@@ -84,6 +85,9 @@ public class OctaveStatementParsing extends OctaveParsing {
     else if (currentToken == OctaveTokenTypes.CLASSDEF_KEYWORD) {
       parseClassdefStatement();
     }
+    else if (currentToken == OctaveTokenTypes.CLEAR_FUNCTION) {
+      parseClearFunction();
+    }
     else if (currentToken == OctaveTokenTypes.METHODS_KEYWORD) {
       parseMethodStatement();
     }
@@ -104,12 +108,25 @@ public class OctaveStatementParsing extends OctaveParsing {
     }
   }
 
+  private void parseClearFunction() {
+    feedMatches(OctaveTokenTypes.CLEAR_FUNCTION, "Error: clear");
+    while(!OctaveTokenTypes.SET_END_EXPRESSION.contains(myPsiBuilder.getTokenType())) {
+      getContext().getExpressionParser().parsePrimaryExpression();
+    }
+    feedMatches(OctaveTokenTypes.SET_END_EXPRESSION, "Error: end clear");
+  }
+
   private void parseReturnStatement() {
 
     final PsiBuilder.Marker returnExpression = myPsiBuilder.mark();
     feedMatches(OctaveTokenTypes.RETURN_KEYWORD, "Error: return");
-    skipLineBreak();
-    parseExpression();
+    //skipLineBreak();
+    if(!OctaveTokenTypes.SET_END_EXPRESSION.contains(myPsiBuilder.getTokenType())) {
+      parseExpression();
+    }
+    else {
+      feedMatches(OctaveTokenTypes.SET_END_EXPRESSION, "Error: end expression");
+    }
     returnExpression.done(OctaveElementTypes.RETURN_STATEMENT);
   }
 

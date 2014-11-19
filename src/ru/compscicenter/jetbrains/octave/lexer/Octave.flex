@@ -65,7 +65,9 @@ COMPLEX_NUMBER=(({FLOAT_NUMBER})|({INT_PART}))+[iI]
 
 OPTIONS = "short"|"long"|"short e"|"long e"|"short E"|"long E"|"short g"|"long g"|"short eng"|"long eng"|"long G"|"short G"|"free"|"none"|"+ "{IDENTIFIER}|"- "{IDENTIFIER}|".+ "{IDENTIFIER}|".- "{IDENTIFIER}|"bank"|"native-hex"|"hex"|"native-bit"|"bit"|"rat"|"compact"|"loose"
 ON_OFF = "on"|"off"
-SIMPLE_KEYWORD = "more"({WHITE_SPACE}+{ON_OFF})+|"more"({WHITE_SPACE}+{ON_OFF})+|"format"({WHITE_SPACE}+{OPTIONS})+
+ON_OFF_ALL = "on"|"off"|"all"
+// todo all == ALL
+SIMPLE_KEYWORD = "more"({WHITE_SPACE}+{ON_OFF})+|"more"({WHITE_SPACE}+{ON_OFF})+|"format"({WHITE_SPACE}+{OPTIONS})+|"hold"({WHITE_SPACE}+{ON_OFF_ALL})+
 
 NEXT_LINE = [\n]
 SPASE = [\ ]
@@ -240,7 +242,7 @@ SPASE = [\ ]
 "global"                    { return OctaveTokenTypes.GLOBAL_KEYWORD; }
 "return"                    { return OctaveTokenTypes.RETURN_KEYWORD; }
 
-
+"clear"                     { return OctaveTokenTypes.CLEAR_FUNCTION; }
 
 
 {IDENTIFIER}                { return OctaveTokenTypes.IDENTIFIER; }

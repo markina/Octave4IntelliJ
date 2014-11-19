@@ -149,7 +149,9 @@ public interface OctaveTokenTypes {
   public static final IElementType UNWIND_PROTECT_CLEANUP_KEYWORD = new OctaveElementType("UNWIND_PROTECT_CLEANUP_KEYWORD");
   public static final IElementType WHILE_KEYWORD = new OctaveElementType("WHILE_KEYWORD");
 
+
   public static final IElementType SIMPLE_KEYWORD = new OctaveElementType("SIMPLE_KEYWORD");
+  public static final IElementType CLEAR_FUNCTION = new OctaveElementType("CLEAR_FUNCTION");
 
   // relational
   public static final IElementType LT = new OctaveElementType("LT");
