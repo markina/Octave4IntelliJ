@@ -20,7 +20,6 @@ public class OctaveParsing {
   public static final String EXPRESSION_EXPECTED = "Expression expected";
 
   public static int numberOfNesting = 0;
-  public Stack<IElementType> stack = new Stack<IElementType>();
 
   public TokenSet currentEndExpression = OctaveTokenTypes.SET_END_EXPRESSION;
 
@@ -49,6 +48,7 @@ public class OctaveParsing {
     return false;
   }
 
+
   public void feedMatches(final IElementType token, final String message) {
     LOG.assertTrue(myPsiBuilder.getTokenType() == token, message);
     myPsiBuilder.advanceLexer();
@@ -70,7 +70,8 @@ public class OctaveParsing {
   }
 
   public void skipLineBreak() {
-    while (OctaveTokenTypes.SET_SPACES.contains(myPsiBuilder.getTokenType())) {
+    while (OctaveTokenTypes.SET_SPACES.contains(myPsiBuilder.getTokenType()) ||
+           OctaveTokenTypes.SET_END_EXPRESSION.contains(myPsiBuilder.getTokenType())) {
       myPsiBuilder.advanceLexer();
     }
   }

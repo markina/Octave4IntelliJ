@@ -25,7 +25,7 @@ addpath(thisDir);
 
 %% include directories
 %include  = @(d, varargin)addpath(genpathPMTK(d, isMatlab), varargin{:}); 
-include  = @(d)addpath(genpathPMTK(d)); 
+
 include(fullfile(thisDir, 'projects')); 
 include(fullfile(thisDir, 'pmtkTools')); 
 include(fullfile(thisDir, 'matlabTools')); 

@@ -118,6 +118,7 @@ SPASE = [\ ]
 ".**="                       { return OctaveTokenTypes.OPERATION_DOT_POWER_EQ; }
 
 "(:)"                       { return OctaveTokenTypes.ALL_COLON; }
+"{:}"                       { return OctaveTokenTypes.ALL_COLON; }
 
 //dot operation
 "./"                        {return OctaveTokenTypes.DOT_DIVISION; }

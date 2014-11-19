@@ -31,10 +31,23 @@ public class FromGithubTest extends ParsingTestCase {
     doTest(true);
   }
 
-  public void test4() {
+  //todo
+  // public void test4() {
+  //  doTest(true);
+  //}
+
+  //todo
+  //public void test4_5() {
+  //  doTest(true);
+  //}
+
+  public void test5() {
     doTest(true);
   }
 
+  public void test6() {
+    doTest(true);
+  }
 
 }
 
