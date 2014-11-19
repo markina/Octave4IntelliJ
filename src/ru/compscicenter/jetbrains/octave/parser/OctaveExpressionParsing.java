@@ -272,6 +272,10 @@ public class OctaveExpressionParsing extends OctaveParsing {
       parseInBracketsExpression();
       return true;
     }
+    if (currentToken == OctaveTokenTypes.SIMPLE_KEYWORD) {
+      feedMatches(OctaveTokenTypes.SIMPLE_KEYWORD, "Error: simple keyword");
+      return true;
+    }
     if (currentToken == OctaveTokenTypes.INTEGER_LITERAL) {
       buildTokenElement(OctaveElementTypes.INTEGER_LITERAL);
       return true;

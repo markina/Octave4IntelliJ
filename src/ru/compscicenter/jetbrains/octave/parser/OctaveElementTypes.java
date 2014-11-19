@@ -1,5 +1,6 @@
 package ru.compscicenter.jetbrains.octave.parser;
 
+import com.intellij.psi.tree.IElementType;
 import ru.compscicenter.jetbrains.octave.psi.api.OctaveAssignmentStatement;
 import ru.compscicenter.jetbrains.octave.psi.api.impl.*;
 import ru.compscicenter.jetbrains.octave.psi.stubs.OctaveAssignmentElementType;

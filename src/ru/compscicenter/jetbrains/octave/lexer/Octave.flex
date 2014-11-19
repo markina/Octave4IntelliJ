@@ -63,6 +63,10 @@ FLOAT_NUMBER=({POINT_FLOAT})|({EXPONENT_FLOAT})|({EXPONENT_HEX})
 
 COMPLEX_NUMBER=(({FLOAT_NUMBER})|({INT_PART}))+[iI]
 
+OPTIONS = "short"|"long"|"short e"|"long e"|"short E"|"long E"|"short g"|"long g"|"short eng"|"long eng"|"long G"|"short G"|"free"|"none"|"+ "{IDENTIFIER}|"- "{IDENTIFIER}|".+ "{IDENTIFIER}|".- "{IDENTIFIER}|"bank"|"native-hex"|"hex"|"native-bit"|"bit"|"rat"|"compact"|"loose"
+ON_OFF = "on"|"off"
+SIMPLE_KEYWORD = "more"({WHITE_SPACE}+{ON_OFF})+|"more"({WHITE_SPACE}+{ON_OFF})+|"format"({WHITE_SPACE}+{OPTIONS})+
+
 NEXT_LINE = [\n]
 SPASE = [\ ]
 
@@ -89,7 +93,7 @@ SPASE = [\ ]
 {COMPLEX_NUMBER}            { return OctaveTokenTypes.COMPLEX_LITERAL; }
 
 
-
+{SIMPLE_KEYWORD}            { return OctaveTokenTypes.SIMPLE_KEYWORD; }
 
 
 "++"                        { return OctaveTokenTypes.INCREMENT; }
@@ -234,6 +238,9 @@ SPASE = [\ ]
 
 "global"                    { return OctaveTokenTypes.GLOBAL_KEYWORD; }
 "return"                    { return OctaveTokenTypes.RETURN_KEYWORD; }
+
+
+
 
 {IDENTIFIER}                { return OctaveTokenTypes.IDENTIFIER; }
 
