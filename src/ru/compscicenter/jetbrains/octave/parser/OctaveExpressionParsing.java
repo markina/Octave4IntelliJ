@@ -35,17 +35,17 @@ public class OctaveExpressionParsing extends OctaveParsing {
       //  expression.done(OctaveElementTypes.EXPRESSION);
       //  return;
       //}
-      if (OctaveTokenTypes.SET_NUMBER_LITERAL.contains(myPsiBuilder.getTokenType())) {
-        expression.done(OctaveElementTypes.EXPRESSION);
-        return;
-      }
+      //if (OctaveTokenTypes.SET_NUMBER_LITERAL.contains(myPsiBuilder.getTokenType())) {
+      //  expression.done(OctaveElementTypes.EXPRESSION);
+      //  return;
+      //}
       if (numberOfNesting == 0) {
         checkMatches(OctaveTokenTypes.SET_END_EXPRESSION, "end statement expected");
-        expression.done(OctaveElementTypes.EXPRESSION);
+        expression.drop();
         skipLineBreak();
         return;
       }
-      expression.done(OctaveElementTypes.EXPRESSION);
+      expression.drop();
       return;
     }
     expression.drop();
@@ -65,14 +65,13 @@ public class OctaveExpressionParsing extends OctaveParsing {
         orExpression.done(OctaveElementTypes.BINARY_EXPRESSION);
         orExpression = orExpression.precede();
       }
-      orExpression.drop();
+      orExpression.done(OctaveElementTypes.EXPRESSION);
       return true;
     }
     else {
       orExpression.drop();
       return false;
     }
-
   }
 
   private boolean parseAndExpression() {
@@ -255,19 +254,12 @@ public class OctaveExpressionParsing extends OctaveParsing {
   }
 
 
-
   public boolean parsePrimaryExpression() {
     if (myPsiBuilder == null) {
       return false;
     }
     IElementType currentToken = myPsiBuilder.getTokenType();
-    if (currentToken == OctaveTokenTypes.IDENTIFIER) {
-      buildTokenElement(OctaveElementTypes.REFERENCE_EXPRESSION);
-      skipIncrementDecrement();
-      skipApostrophe();
-      parseInBracketsExpression();
-      return true;
-    }
+
     if (currentToken == OctaveTokenTypes.SIMPLE_KEYWORD) {
       feedMatches(OctaveTokenTypes.SIMPLE_KEYWORD, "Error: simple keyword");
       return true;
@@ -300,7 +292,35 @@ public class OctaveExpressionParsing extends OctaveParsing {
       buildTokenElement(OctaveElementTypes.BOOLEAN_LITERAL);
       return true;
     }
+    return parseIdentifier();
+  }
+
+  private boolean parseIdentifier() {
+    if (myPsiBuilder.getTokenType() == OctaveTokenTypes.IDENTIFIER) {
+      buildTokenElement(OctaveElementTypes.REFERENCE_EXPRESSION);
+
+      if (myPsiBuilder.getTokenType() == OctaveTokenTypes.DOT) {
+        if (parseDotOperator()) {
+          skipIncrementDecrement();
+          skipApostrophe();
+          parseInBracketsExpression();
+          return true;
+        }
+        else {
+          return false;
+        }
+      }
+      skipIncrementDecrement();
+      skipApostrophe();
+      parseInBracketsExpression();
+      return true;
+    }
     return parseInBracketsExpression();
+  }
+
+  private boolean parseDotOperator() {
+    feedMatches(OctaveTokenTypes.DOT, "Error: dot");
+    return parseIdentifier();
   }
 
   private boolean parseInBracketsExpression() {
@@ -319,14 +339,22 @@ public class OctaveExpressionParsing extends OctaveParsing {
       else if (currentToken == OctaveTokenTypes.LBRACE) {
         parseBraceExpression();
       }
-
+      if (myPsiBuilder.getTokenType() == OctaveTokenTypes.DOT) {
+        if (parseDotOperator()) {
+          skipIncrementDecrement();
+          skipApostrophe();
+          parseInBracketsExpression();
+          return true;
+        }
+        else {
+          return false;
+        }
+      }
       skipApostrophe();
       return true;
     }
     return false;
   }
-
-
 
   private void parseBraceExpression() {
     final PsiBuilder.Marker bracketExpression = myPsiBuilder.mark();

@@ -87,9 +87,6 @@ public class ExpressionTest extends ParsingTestCase {
     doTest(true);
   }
 
-  public void testSemicolonInBrackets() {
-    doTest(true);
-  }
 
   public void testSemicolonInBrace() {
     doTest(true);
@@ -107,7 +104,15 @@ public class ExpressionTest extends ParsingTestCase {
     doTest(true);
   }
 
+  public void testDotOperatorWithConst() {
+    doTest(true);
+  }
+
   public void testStringLiteral() {
+    doTest(true);
+  }
+
+  public void testSemicolonInPar() {
     doTest(true);
   }
 

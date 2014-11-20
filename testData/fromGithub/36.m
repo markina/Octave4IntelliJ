@@ -44,3 +44,5 @@ plotClassifier(X1, y, model.w, str, model.nHidden);
 printPmtkFigure(sprintf('mlpClassifH%d', nhidden));
 end
 
+blueSeq = [1.5;
+]/3;
