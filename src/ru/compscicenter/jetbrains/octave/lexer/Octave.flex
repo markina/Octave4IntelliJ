@@ -67,7 +67,6 @@ FORMAT_OPTIONS = "short"|"long"|"short e"|"long e"|"short E"|"long E"|"short g"|
 AXIS_OPTIONS = "square"|"equal"|"normal"|"auto"|"manual"|"tight"|"image"|"on"|"off"|"tic"|"label"|"nolabel"|"ij"|"xy"
 ON_OFF = "on"|"off"
 ON_OFF_ALL = "on"|"off"|"all"
-// todo all == ALL
 SIMPLE_KEYWORD = "more"({WHITE_SPACE}+{ON_OFF})+|"more"({WHITE_SPACE}+{ON_OFF})+|"format"({WHITE_SPACE}+{FORMAT_OPTIONS})+|"hold"({WHITE_SPACE}+{ON_OFF_ALL})+|"clf"|"clf"{WHITE_SPACE}+"reset"|"axis"({WHITE_SPACE}+{AXIS_OPTIONS})+|"colormap"{WHITE_SPACE}+{IDENTIFIER}?
 
 
@@ -167,16 +166,16 @@ SPASE = [\ ]
 
 
 // special constants
-"NA"                        { return OctaveTokenTypes.NA_KEYWORD; }
-"inf"                       { return OctaveTokenTypes.INF_KEYWORD; }
-"Inf"                       { return OctaveTokenTypes.INF_KEYWORD; }
-"NaN"                       { return OctaveTokenTypes.NAN_KEYWORD; }
-"nan"                       { return OctaveTokenTypes.NAN_KEYWORD; }
-"e"                         { return OctaveTokenTypes.E_KEYWORD; }
-"pi"                        { return OctaveTokenTypes.PI_KEYWORD; }
-"eps"                       { return OctaveTokenTypes.EPS_KEYWORD; }
-"realmax"                   { return OctaveTokenTypes.REALMAX_KEYWORD; }
-"realmin"                   { return OctaveTokenTypes.REALMIN_KEYWORD; }
+//"NA"                        { return OctaveTokenTypes.NA_KEYWORD; }
+//"inf"                       { return OctaveTokenTypes.INF_KEYWORD; }
+//"Inf"                       { return OctaveTokenTypes.INF_KEYWORD; }
+//"NaN"                       { return OctaveTokenTypes.NAN_KEYWORD; }
+//"nan"                       { return OctaveTokenTypes.NAN_KEYWORD; }
+//"e"                         { return OctaveTokenTypes.E_KEYWORD; }
+//"pi"                        { return OctaveTokenTypes.PI_KEYWORD; }
+//"eps"                       { return OctaveTokenTypes.EPS_KEYWORD; }
+//"realmax"                   { return OctaveTokenTypes.REALMAX_KEYWORD; }
+//"realmin"                   { return OctaveTokenTypes.REALMIN_KEYWORD; }
 
 
 // logical constants
