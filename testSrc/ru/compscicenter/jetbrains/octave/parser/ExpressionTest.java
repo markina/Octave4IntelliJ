@@ -112,6 +112,11 @@ public class ExpressionTest extends ParsingTestCase {
     doTest(true);
   }
 
+  public void testStringLiteral2() {
+    doTest(true);
+  }
+
+
   public void testSemicolonInPar() {
     doTest(true);
   }

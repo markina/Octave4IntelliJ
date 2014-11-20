@@ -87,7 +87,31 @@ SPASE = [\ ]
 [\t]                        { return OctaveTokenTypes.TAB; }
 [\f]                        { return OctaveTokenTypes.FORMFEED; }
 
-{STRING}                    { return OctaveTokenTypes.STRING; }
+{STRING}                    { for(int i = zzCurrentPos-1; i >= 0; i--) {
+                                            if(('a' <= zzBuffer.charAt(i) && zzBuffer.charAt(i) <= 'z')
+                                              || ('A' <= zzBuffer.charAt(i) && zzBuffer.charAt(i) <= 'Z')
+                                              || zzBuffer.charAt(i) == ')'
+                                              || zzBuffer.charAt(i) == '}'
+                                              || zzBuffer.charAt(i) == ']'
+                                              ) {
+                                              zzMarkedPos = zzCurrentPos + 1;
+                                              return OctaveTokenTypes.APOSTROPHE;
+                                            }
+                                            if(zzBuffer.charAt(i) == '='
+                                              || zzBuffer.charAt(i) == '<'
+                                              || zzBuffer.charAt(i) == '>'
+                                              || zzBuffer.charAt(i) == '('
+                                              || zzBuffer.charAt(i) == '{'
+                                              || zzBuffer.charAt(i) == '['
+                                              || zzBuffer.charAt(i) == ','
+                                              || zzBuffer.charAt(i) == ';'
+                                              || zzBuffer.charAt(i) == ':'
+                                              //todo add
+                                              ) {
+                                              break;
+                                            }
+                                          }
+                                          return OctaveTokenTypes.STRING; }
 
 // numeric constants
 {HEX_INTEGER}               { return OctaveTokenTypes.HEX_INTEGER; }
@@ -165,7 +189,7 @@ SPASE = [\ ]
 
 
 
-// special constants
+// special constants // todo t.static ??
 //"NA"                        { return OctaveTokenTypes.NA_KEYWORD; }
 //"inf"                       { return OctaveTokenTypes.INF_KEYWORD; }
 //"Inf"                       { return OctaveTokenTypes.INF_KEYWORD; }
