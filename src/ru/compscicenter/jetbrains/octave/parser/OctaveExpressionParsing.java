@@ -17,6 +17,10 @@ public class OctaveExpressionParsing extends OctaveParsing {
   public void parseExpression() {
     //skipLineBreak();
     final PsiBuilder.Marker expression = myPsiBuilder.mark();
+
+    if(myPsiBuilder.getTokenType() == OctaveTokenTypes.PERSISTENT_KEYWORD) {
+      feedMatches(OctaveTokenTypes.PERSISTENT_KEYWORD, "Error: persistent");
+    }
     if (parseOrExpression()) {
       if (OctaveTokenTypes.SET_EQ_OR_OPERATION_EQ.contains(myPsiBuilder.getTokenType())) {
         feedMatches(OctaveTokenTypes.SET_EQ_OR_OPERATION_EQ, "Error: eq expected");

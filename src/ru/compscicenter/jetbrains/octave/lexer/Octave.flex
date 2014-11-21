@@ -76,7 +76,17 @@ NEXT_LINE = [\n]
 SPASE = [\ ]
 
 %{
+private IElementType getTypeOrIdentifier(IElementType typeConstWord) {
+  if (zzCurrentPos - 1 >= 0 && zzBuffer.charAt(zzCurrentPos - 1) != '.') {
+    return typeConstWord;
+  }
+  else {
+    return OctaveTokenTypes.IDENTIFIER;
+  }
+}
+
 private Stack<IElementType> myExpectedBracketsStack = new Stack<IElementType>();
+
 %}
 
 %%
@@ -96,11 +106,14 @@ private Stack<IElementType> myExpectedBracketsStack = new Stack<IElementType>();
 {STRING}                    {if (!myExpectedBracketsStack.empty()
                                   && (myExpectedBracketsStack.peek() == OctaveTokenTypes.LBRACKET
                                   || myExpectedBracketsStack.peek() == OctaveTokenTypes.LBRACE)) {
-                                if (zzBuffer.charAt(zzCurrentPos - 1) == ' ') {
+                                if (zzCurrentPos - 1 >= 0 && zzBuffer.charAt(zzCurrentPos - 1) == ' ') {
                                   return OctaveTokenTypes.STRING;
                                 }
                               }
                               for (int i = zzCurrentPos - 1; i >= 0; i--) {
+                                if (zzBuffer.charAt(i) == '\n') {
+                                  return OctaveTokenTypes.STRING;
+                                }
                                 if (('a' <= zzBuffer.charAt(i) && zzBuffer.charAt(i) <= 'z')
                                     || ('A' <= zzBuffer.charAt(i) && zzBuffer.charAt(i) <= 'Z')
                                     || zzBuffer.charAt(i) == ')'
@@ -148,9 +161,9 @@ private Stack<IElementType> myExpectedBracketsStack = new Stack<IElementType>();
 "|="                        { return OctaveTokenTypes.OPERATION_OR_EQ; }
 "*="                        { return OctaveTokenTypes.OPERATION_MULT_EQ; }
 "/="                        { return OctaveTokenTypes.OPERATION_DIV_EQ; }
-"\\="                        { return OctaveTokenTypes.OPERATION_LEFT_DIV_EQ; }
+"\\="                       { return OctaveTokenTypes.OPERATION_LEFT_DIV_EQ; }
 "^="                        { return OctaveTokenTypes.OPERATION_POWER_EQ; }
-"**="                        { return OctaveTokenTypes.OPERATION_POWER_EQ; }
+"**="                       { return OctaveTokenTypes.OPERATION_POWER_EQ; }
 
 ".+="                       { return OctaveTokenTypes.OPERATION_DOT_PLUS_EQ; }
 ".-="                       { return OctaveTokenTypes.OPERATION_DOT_MINUS_EQ; }
@@ -222,21 +235,21 @@ private Stack<IElementType> myExpectedBracketsStack = new Stack<IElementType>();
 
 
 // special constants // todo t.static ??
-//"NA"                        { return OctaveTokenTypes.NA_KEYWORD; }
-//"inf"                       { return OctaveTokenTypes.INF_KEYWORD; }
-//"Inf"                       { return OctaveTokenTypes.INF_KEYWORD; }
-//"NaN"                       { return OctaveTokenTypes.NAN_KEYWORD; }
-//"nan"                       { return OctaveTokenTypes.NAN_KEYWORD; }
-//"e"                         { return OctaveTokenTypes.E_KEYWORD; }
-//"pi"                        { return OctaveTokenTypes.PI_KEYWORD; }
-//"eps"                       { return OctaveTokenTypes.EPS_KEYWORD; }
-//"realmax"                   { return OctaveTokenTypes.REALMAX_KEYWORD; }
-//"realmin"                   { return OctaveTokenTypes.REALMIN_KEYWORD; }
+"NA"                        { return getTypeOrIdentifier(OctaveTokenTypes.NA_KEYWORD); }
+"inf"                       { return getTypeOrIdentifier(OctaveTokenTypes.INF_KEYWORD); }
+"Inf"                       { return getTypeOrIdentifier(OctaveTokenTypes.INF_KEYWORD); }
+"NaN"                       { return getTypeOrIdentifier(OctaveTokenTypes.NAN_KEYWORD); }
+"nan"                       { return getTypeOrIdentifier(OctaveTokenTypes.NAN_KEYWORD); }
+"e"                         { return getTypeOrIdentifier(OctaveTokenTypes.E_KEYWORD); }
+"pi"                        { return getTypeOrIdentifier(OctaveTokenTypes.PI_KEYWORD); }
+"eps"                       { return getTypeOrIdentifier(OctaveTokenTypes.EPS_KEYWORD); }
+"realmax"                   { return getTypeOrIdentifier(OctaveTokenTypes.REALMAX_KEYWORD); }
+"realmin"                   { return getTypeOrIdentifier(OctaveTokenTypes.REALMIN_KEYWORD); }
 
 
 // logical constants
-"true"                      { return OctaveTokenTypes.TRUE_KEYWORD; }
-"false"                     { return OctaveTokenTypes.FALSE_KEYWORD; }
+"true"                      { return getTypeOrIdentifier(OctaveTokenTypes.TRUE_KEYWORD); }
+"false"                     { return getTypeOrIdentifier(OctaveTokenTypes.FALSE_KEYWORD); }
 
 // relational
 "<"                         { return OctaveTokenTypes.LT; }
@@ -256,50 +269,56 @@ private Stack<IElementType> myExpectedBracketsStack = new Stack<IElementType>();
 "&&"                        { return OctaveTokenTypes.DOUBLE_AND; }
 
 
-"break"                     { return OctaveTokenTypes.BREAK_KEYWORD; }
-"case"                      { return OctaveTokenTypes.CASE_KEYWORD; }
-"catch"                     { return OctaveTokenTypes.CATCH_KEYWORD; }
-"classdef"                  { return OctaveTokenTypes.CLASSDEF_KEYWORD; }
-"continue"                  { return OctaveTokenTypes.CONTINUE_KEYWORD; }
-"do"                        { return OctaveTokenTypes.DO_KEYWORD; }
-"else"                      { return OctaveTokenTypes.ELSE_KEYWORD; }
-"elseif"                    { return OctaveTokenTypes.ELSEIF_KEYWORD; }
-"end"                       { return OctaveTokenTypes.END_KEYWORD; }
-"end_try_catch"             { return OctaveTokenTypes.END_TRY_CATCH_KEYWORD; }
-"end_unwind_protect"        { return OctaveTokenTypes.END_UNWIND_PROTECT_KEYWORD; }
-"endclassdef"               { return OctaveTokenTypes.ENDCLASSDEF_KEYWORD; }
-"endenumeration"            { return OctaveTokenTypes.ENDENUMERATION_KEYWORD; }
-"endfor"                    { return OctaveTokenTypes.ENDFOR_KEYWORD; }
-"endfunction"               { return OctaveTokenTypes.ENDFUNCTION_KEYWORD; }
-"endif"                     { return OctaveTokenTypes.ENDIF_KEYWORD; }
-"endmethods"                { return OctaveTokenTypes.ENDMETHODS_KEYWORD; }
-"endparfor"                 { return OctaveTokenTypes.ENDPARFOR_KEYWORD; }
-"endswitch"                 { return OctaveTokenTypes.ENDSWITCH_KEYWORD; }
-"endwhile"                  { return OctaveTokenTypes.ENDWHILE_KEYWORD; }
-"enumeration"               { return OctaveTokenTypes.ENUMERATION_KEYWORD; }
-"for"                       { return OctaveTokenTypes.FOR_KEYWORD; }
-"function"                  { return OctaveTokenTypes.FUNCTION_KEYWORD; }
-"if"                        { return OctaveTokenTypes.IF_KEYWORD; }
-"methods"                   { return OctaveTokenTypes.METHODS_KEYWORD; }
-"try"                       { return OctaveTokenTypes.TRY_KEYWORD; }
-"until"                     { return OctaveTokenTypes.UNTIL_KEYWORD; }
-"unwind_protect"            { return OctaveTokenTypes.UNWIND_PROTECT_KEYWORD; }
-"unwind_protect_cleanup"    { return OctaveTokenTypes.UNWIND_PROTECT_CLEANUP_KEYWORD; }
-"while"                     { return OctaveTokenTypes.WHILE_KEYWORD; }
-"endevents"                 { return OctaveTokenTypes.ENDEVENTS_KEYWORD; }
-"events"                    { return OctaveTokenTypes.EVENTS_KEYWORD; }
-"endproperties"             { return OctaveTokenTypes.ENDPROPERTIES_KEYWORD; }
-"properties"                { return OctaveTokenTypes.PROPERTIES_KEYWORD; }
-"otherwise"                 { return OctaveTokenTypes.OTHERWISE_KEYWORD; }
-"parfor"                    { return OctaveTokenTypes.PARFOR_KEYWORD; }
-"switch"                    { return OctaveTokenTypes.SWITCH_KEYWORD; }
-"persistent"                { return OctaveTokenTypes.PERSISTENT_KEYWORD; }
-"static"                    { return OctaveTokenTypes.STATIC_KEYWORD; }
+"break"                     { return getTypeOrIdentifier(OctaveTokenTypes.BREAK_KEYWORD); }
+"case"                      { return getTypeOrIdentifier(OctaveTokenTypes.CASE_KEYWORD); }
+"catch"                     { return getTypeOrIdentifier(OctaveTokenTypes.CATCH_KEYWORD); }
+"classdef"                  { return getTypeOrIdentifier(OctaveTokenTypes.CLASSDEF_KEYWORD); }
+"continue"                  { return getTypeOrIdentifier(OctaveTokenTypes.CONTINUE_KEYWORD); }
+"do"                        { return getTypeOrIdentifier(OctaveTokenTypes.DO_KEYWORD); }
+"else"                      { return getTypeOrIdentifier(OctaveTokenTypes.ELSE_KEYWORD); }
+"elseif"                    { return getTypeOrIdentifier(OctaveTokenTypes.ELSEIF_KEYWORD); }
+"end"                       {  if (zzCurrentPos - 1 >= 0 && zzBuffer.charAt(zzCurrentPos - 1) != ':'
+                                    && zzCurrentPos + 3 < zzBuffer.length() && zzBuffer.charAt(zzCurrentPos + 3) != ':') {
+                                  return getTypeOrIdentifier(OctaveTokenTypes.END_KEYWORD);
+                                }
+                                else {
+                                  return OctaveTokenTypes.IDENTIFIER;
+                                } }
+"end_try_catch"             { return getTypeOrIdentifier(OctaveTokenTypes.END_TRY_CATCH_KEYWORD); }
+"end_unwind_protect"        { return getTypeOrIdentifier(OctaveTokenTypes.END_UNWIND_PROTECT_KEYWORD); }
+"endclassdef"               { return getTypeOrIdentifier(OctaveTokenTypes.ENDCLASSDEF_KEYWORD); }
+"endenumeration"            { return getTypeOrIdentifier(OctaveTokenTypes.ENDENUMERATION_KEYWORD); }
+"endfor"                    { return getTypeOrIdentifier(OctaveTokenTypes.ENDFOR_KEYWORD); }
+"endfunction"               { return getTypeOrIdentifier(OctaveTokenTypes.ENDFUNCTION_KEYWORD); }
+"endif"                     { return getTypeOrIdentifier(OctaveTokenTypes.ENDIF_KEYWORD); }
+"endmethods"                { return getTypeOrIdentifier(OctaveTokenTypes.ENDMETHODS_KEYWORD); }
+"endparfor"                 { return getTypeOrIdentifier(OctaveTokenTypes.ENDPARFOR_KEYWORD); }
+"endswitch"                 { return getTypeOrIdentifier(OctaveTokenTypes.ENDSWITCH_KEYWORD); }
+"endwhile"                  { return getTypeOrIdentifier(OctaveTokenTypes.ENDWHILE_KEYWORD); }
+"enumeration"               { return getTypeOrIdentifier(OctaveTokenTypes.ENUMERATION_KEYWORD); }
+"for"                       { return getTypeOrIdentifier(OctaveTokenTypes.FOR_KEYWORD); }
+"function"                  { return getTypeOrIdentifier(OctaveTokenTypes.FUNCTION_KEYWORD); }
+"if"                        { return getTypeOrIdentifier(OctaveTokenTypes.IF_KEYWORD); }
+"methods"                   { return getTypeOrIdentifier(OctaveTokenTypes.METHODS_KEYWORD); }
+"try"                       { return getTypeOrIdentifier(OctaveTokenTypes.TRY_KEYWORD); }
+"until"                     { return getTypeOrIdentifier(OctaveTokenTypes.UNTIL_KEYWORD); }
+"unwind_protect"            { return getTypeOrIdentifier(OctaveTokenTypes.UNWIND_PROTECT_KEYWORD); }
+"unwind_protect_cleanup"    { return getTypeOrIdentifier(OctaveTokenTypes.UNWIND_PROTECT_CLEANUP_KEYWORD); }
+"while"                     { return getTypeOrIdentifier(OctaveTokenTypes.WHILE_KEYWORD); }
+"endevents"                 { return getTypeOrIdentifier(OctaveTokenTypes.ENDEVENTS_KEYWORD); }
+"events"                    { return getTypeOrIdentifier(OctaveTokenTypes.EVENTS_KEYWORD); }
+"endproperties"             { return getTypeOrIdentifier(OctaveTokenTypes.ENDPROPERTIES_KEYWORD); }
+"properties"                { return getTypeOrIdentifier(OctaveTokenTypes.PROPERTIES_KEYWORD); }
+"otherwise"                 { return getTypeOrIdentifier(OctaveTokenTypes.OTHERWISE_KEYWORD); }
+"parfor"                    { return getTypeOrIdentifier(OctaveTokenTypes.PARFOR_KEYWORD); }
+"switch"                    { return getTypeOrIdentifier(OctaveTokenTypes.SWITCH_KEYWORD); }
+"persistent"                { return getTypeOrIdentifier(OctaveTokenTypes.PERSISTENT_KEYWORD); }
+"static"                    { return getTypeOrIdentifier(OctaveTokenTypes.STATIC_KEYWORD); }
 
-"global"                    { return OctaveTokenTypes.GLOBAL_KEYWORD; }
-"return"                    { return OctaveTokenTypes.RETURN_KEYWORD; }
+"global"                    { return getTypeOrIdentifier(OctaveTokenTypes.GLOBAL_KEYWORD); }
+"return"                    { return getTypeOrIdentifier(OctaveTokenTypes.RETURN_KEYWORD); }
 
-"clear"                     { return OctaveTokenTypes.CLEAR_FUNCTION; }
+"clear"                     { return getTypeOrIdentifier(OctaveTokenTypes.CLEAR_FUNCTION); }
 
 
 {IDENTIFIER}                { return OctaveTokenTypes.IDENTIFIER; }
