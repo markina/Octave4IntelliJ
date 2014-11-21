@@ -77,7 +77,7 @@ SPASE = [\ ]
 
 %{
 private IElementType getTypeOrIdentifier(IElementType typeConstWord) {
-  if (zzCurrentPos - 1 >= 0 && zzBuffer.charAt(zzCurrentPos - 1) != '.') {
+  if (zzCurrentPos - 1 < 0 || (zzCurrentPos - 1 >= 0 && zzBuffer.charAt(zzCurrentPos - 1) != '.')) {
     return typeConstWord;
   }
   else {
@@ -277,8 +277,10 @@ private Stack<IElementType> myExpectedBracketsStack = new Stack<IElementType>();
 "do"                        { return getTypeOrIdentifier(OctaveTokenTypes.DO_KEYWORD); }
 "else"                      { return getTypeOrIdentifier(OctaveTokenTypes.ELSE_KEYWORD); }
 "elseif"                    { return getTypeOrIdentifier(OctaveTokenTypes.ELSEIF_KEYWORD); }
-"end"                       {  if (zzCurrentPos - 1 >= 0 && zzBuffer.charAt(zzCurrentPos - 1) != ':'
-                                    && zzCurrentPos + 3 < zzBuffer.length() && zzBuffer.charAt(zzCurrentPos + 3) != ':') {
+"end"                       {
+                                if (zzCurrentPos - 1 < 0 || zzCurrentPos + 3 >= zzBuffer.length() ||
+                                    (zzCurrentPos - 1 >= 0 && zzBuffer.charAt(zzCurrentPos - 1) != ':'
+                                    && zzCurrentPos + 3 < zzBuffer.length() && zzBuffer.charAt(zzCurrentPos + 3) != ':')) {
                                   return getTypeOrIdentifier(OctaveTokenTypes.END_KEYWORD);
                                 }
                                 else {
