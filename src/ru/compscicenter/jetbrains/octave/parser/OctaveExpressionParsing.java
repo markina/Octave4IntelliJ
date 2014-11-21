@@ -25,20 +25,6 @@ public class OctaveExpressionParsing extends OctaveParsing {
         expression.done(OctaveElementTypes.ASSIGNMENT_STATEMENT);
         return;
       }
-      //if (OctaveTokenTypes.SET_LEFT_BRACKETS.contains(myPsiBuilder.getTokenType())) {
-      //  //parseOrExpression();
-      //  expression.drop();
-      //  //expression.done(OctaveElementTypes.EXPRESSION);
-      //  return;
-      //}
-      //if (isNullOrMatches(OctaveTokenTypes.SET_RITHT_BRACKETS)) {
-      //  expression.done(OctaveElementTypes.EXPRESSION);
-      //  return;
-      //}
-      //if (OctaveTokenTypes.SET_NUMBER_LITERAL.contains(myPsiBuilder.getTokenType())) {
-      //  expression.done(OctaveElementTypes.EXPRESSION);
-      //  return;
-      //}
       if (numberOfNesting == 0) {
         checkMatches(OctaveTokenTypes.SET_END_EXPRESSION, "end statement expected");
         expression.drop();

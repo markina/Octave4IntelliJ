@@ -65,7 +65,7 @@ public interface OctaveTokenTypes {
   public static final IElementType HEX_INTEGER = new OctaveElementType("HEX_INTEGER");
 
   public static final TokenSet SET_NUMBER_LITERAL = TokenSet.create(
-    INTEGER_LITERAL, FLOAT_NUMBER_LITERAL, COMPLEX_LITERAL, HEX_INTEGER
+    INTEGER_LITERAL, FLOAT_NUMBER_LITERAL, COMPLEX_LITERAL, HEX_INTEGER, STRING
   );
 
 

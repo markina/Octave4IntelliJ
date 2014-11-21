@@ -5,6 +5,8 @@ import com.intellij.psi.tree.IElementType;
 import ru.compscicenter.jetbrains.octave.lexer.OctaveTokenTypes;
 import com.intellij.psi.TokenType;
 
+import java.util.Stack;
+
 %%
 
 %class OctaveLexer
@@ -73,6 +75,10 @@ SIMPLE_KEYWORD = "more"({WHITE_SPACE}+{ON_OFF})+|"more"({WHITE_SPACE}+{ON_OFF})+
 NEXT_LINE = [\n]
 SPASE = [\ ]
 
+%{
+private Stack<IElementType> myExpectedBracketsStack = new Stack<IElementType>();
+%}
+
 %%
 
 <YYINITIAL> {
@@ -87,31 +93,40 @@ SPASE = [\ ]
 [\t]                        { return OctaveTokenTypes.TAB; }
 [\f]                        { return OctaveTokenTypes.FORMFEED; }
 
-{STRING}                    { for(int i = zzCurrentPos-1; i >= 0; i--) {
-                                            if(('a' <= zzBuffer.charAt(i) && zzBuffer.charAt(i) <= 'z')
-                                              || ('A' <= zzBuffer.charAt(i) && zzBuffer.charAt(i) <= 'Z')
-                                              || zzBuffer.charAt(i) == ')'
-                                              || zzBuffer.charAt(i) == '}'
-                                              || zzBuffer.charAt(i) == ']'
-                                              ) {
-                                              zzMarkedPos = zzCurrentPos + 1;
-                                              return OctaveTokenTypes.APOSTROPHE;
-                                            }
-                                            if(zzBuffer.charAt(i) == '='
-                                              || zzBuffer.charAt(i) == '<'
-                                              || zzBuffer.charAt(i) == '>'
-                                              || zzBuffer.charAt(i) == '('
-                                              || zzBuffer.charAt(i) == '{'
-                                              || zzBuffer.charAt(i) == '['
-                                              || zzBuffer.charAt(i) == ','
-                                              || zzBuffer.charAt(i) == ';'
-                                              || zzBuffer.charAt(i) == ':'
-                                              //todo add
-                                              ) {
-                                              break;
-                                            }
-                                          }
-                                          return OctaveTokenTypes.STRING; }
+{STRING}                    {if (!myExpectedBracketsStack.empty()
+                                  && (myExpectedBracketsStack.peek() == OctaveTokenTypes.LBRACKET
+                                  || myExpectedBracketsStack.peek() == OctaveTokenTypes.LBRACE)) {
+                                if (zzBuffer.charAt(zzCurrentPos - 1) == ' ') {
+                                  return OctaveTokenTypes.STRING;
+                                }
+                              }
+                              for (int i = zzCurrentPos - 1; i >= 0; i--) {
+                                if (('a' <= zzBuffer.charAt(i) && zzBuffer.charAt(i) <= 'z')
+                                    || ('A' <= zzBuffer.charAt(i) && zzBuffer.charAt(i) <= 'Z')
+                                    || zzBuffer.charAt(i) == ')'
+                                    || zzBuffer.charAt(i) == '}'
+                                    || zzBuffer.charAt(i) == ']'
+                                  ) {
+                                  zzMarkedPos = zzCurrentPos + 1;
+
+                                  return OctaveTokenTypes.APOSTROPHE;
+                                }
+                                if (zzBuffer.charAt(i) == '='
+                                    || zzBuffer.charAt(i) == '<'
+                                    || zzBuffer.charAt(i) == '>'
+                                    || zzBuffer.charAt(i) == '('
+                                    || zzBuffer.charAt(i) == '{'
+                                    || zzBuffer.charAt(i) == '['
+                                    || zzBuffer.charAt(i) == ','
+                                    || zzBuffer.charAt(i) == ';'
+                                    || zzBuffer.charAt(i) == ':'
+                                  //todo add
+                                  ) {
+                                  break;
+                                }
+                              }
+                              return OctaveTokenTypes.STRING;
+                            }
 
 // numeric constants
 {HEX_INTEGER}               { return OctaveTokenTypes.HEX_INTEGER; }
@@ -165,12 +180,29 @@ SPASE = [\ ]
 "."                         { return OctaveTokenTypes.DOT; }
 
 // grouping
-"("                         { return OctaveTokenTypes.LPAR; }
-")"                         { return OctaveTokenTypes.RPAR; }
-"["                         { return OctaveTokenTypes.LBRACKET; }
-"]"                         { return OctaveTokenTypes.RBRACKET; }
-"{"                         { return OctaveTokenTypes.LBRACE; }
-"}"                         { return OctaveTokenTypes.RBRACE; }
+"("                         { myExpectedBracketsStack.add(OctaveTokenTypes.LPAR);
+                              return OctaveTokenTypes.LPAR; }
+
+")"                         { if(!myExpectedBracketsStack.empty() && myExpectedBracketsStack.peek() == OctaveTokenTypes.LPAR) {
+                                myExpectedBracketsStack.pop();
+                              }
+                              return OctaveTokenTypes.RPAR; }
+
+"["                         { myExpectedBracketsStack.add(OctaveTokenTypes.LBRACKET);
+                              return OctaveTokenTypes.LBRACKET; }
+
+"]"                         { if(!myExpectedBracketsStack.empty() && myExpectedBracketsStack.peek() == OctaveTokenTypes.LBRACKET) {
+                                myExpectedBracketsStack.pop();
+                              }
+                              return OctaveTokenTypes.RBRACKET; }
+
+"{"                         { myExpectedBracketsStack.add(OctaveTokenTypes.LBRACE);
+                              return OctaveTokenTypes.LBRACE; }
+
+"}"                         { if(!myExpectedBracketsStack.empty() && myExpectedBracketsStack.peek() == OctaveTokenTypes.LBRACE) {
+                                myExpectedBracketsStack.pop();
+                              }
+                              return OctaveTokenTypes.RBRACE; }
 
 
 //arithmetic
