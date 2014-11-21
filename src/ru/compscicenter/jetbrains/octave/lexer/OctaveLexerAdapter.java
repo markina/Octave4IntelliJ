@@ -9,6 +9,6 @@ import java.io.Reader;
  */
 public class OctaveLexerAdapter extends FlexAdapter {
   public OctaveLexerAdapter() {
-    super(new OctaveLexer((Reader) null));
+    super(new OctaveLexer((Reader)null));
   }
 }

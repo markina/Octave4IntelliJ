@@ -64,13 +64,16 @@ public interface OctaveTokenTypes {
   public static final IElementType COMPLEX_LITERAL = new OctaveElementType("COMPLEX_LITERAL");
   public static final IElementType HEX_INTEGER = new OctaveElementType("HEX_INTEGER");
 
-  public static final TokenSet SET_NUMBER_LITERAL = TokenSet.create(
+  public static final TokenSet SET_STRING_NUMBER_LITERAL = TokenSet.create(
     INTEGER_LITERAL, FLOAT_NUMBER_LITERAL, COMPLEX_LITERAL, HEX_INTEGER, STRING
   );
 
+  public static final TokenSet SET_NUMERIC_LITERAL = TokenSet.create(
+    INTEGER_LITERAL, FLOAT_NUMBER_LITERAL, COMPLEX_LITERAL, HEX_INTEGER
+  );
 
-  public static final IElementType DOT_DIVISION = new OctaveElementType("DOT_DIVISION");
-  public static final IElementType DOT_LEFT_DIVISION = new OctaveElementType("DOT_LEFT_DIVISION");
+  public static final IElementType DOT_DIVISION = new OctaveElementType("DOT_DIVISION"); // ./
+  public static final IElementType DOT_LEFT_DIVISION = new OctaveElementType("DOT_LEFT_DIVISION"); // .\
   public static final IElementType DOT_MULTIPLICATION = new OctaveElementType("DOT_MULTIPLICATION");
   public static final IElementType DOT_PLUS = new OctaveElementType("DOT_PLUS");
   public static final IElementType DOT_MINUS = new OctaveElementType("DOT_MINUS");
@@ -89,9 +92,9 @@ public interface OctaveTokenTypes {
   public static final IElementType ALL_COLON = new OctaveElementType("ALL_COLON");  // (:)
 
 
-  public static final IElementType INCREMENT = new OctaveElementType("INCREMENT");
-  public static final IElementType DECREMENT = new OctaveElementType("DECREMENT");
-  public static final IElementType OPERATION_PLUS_EQ = new OctaveElementType("OPERATION_PLUS_EQ");
+  public static final IElementType INCREMENT = new OctaveElementType("INCREMENT");       // ++
+  public static final IElementType DECREMENT = new OctaveElementType("DECREMENT");       // --
+  public static final IElementType OPERATION_PLUS_EQ = new OctaveElementType("OPERATION_PLUS_EQ");   // +=
   public static final IElementType OPERATION_AND_EQ = new OctaveElementType("OPERATION_PLUS_EQ");
   public static final IElementType OPERATION_OR_EQ = new OctaveElementType("OPERATION_PLUS_EQ");
   public static final IElementType OPERATION_MINUS_EQ = new OctaveElementType("OPERATION_MINUS_EQ");
@@ -149,7 +152,6 @@ public interface OctaveTokenTypes {
   public static final IElementType UNWIND_PROTECT_CLEANUP_KEYWORD = new OctaveElementType("UNWIND_PROTECT_CLEANUP_KEYWORD");
   public static final IElementType WHILE_KEYWORD = new OctaveElementType("WHILE_KEYWORD");
 
-
   public static final IElementType SIMPLE_KEYWORD = new OctaveElementType("SIMPLE_KEYWORD");
   public static final IElementType CLEAR_FUNCTION = new OctaveElementType("CLEAR_FUNCTION");
 
@@ -177,17 +179,6 @@ public interface OctaveTokenTypes {
   public static final TokenSet SET_ENDPROPERTIES_KEYWORDS = TokenSet.create(ENDPROPERTIES_KEYWORD, END_KEYWORD);
   public static final TokenSet SET_ENDEVENTS_KEYWORDS = TokenSet.create(ENDEVENTS_KEYWORD, END_KEYWORD);
 
-  public static final TokenSet SET_INNER_KEYWORDS = TokenSet.create(
-    CASE_KEYWORD, CATCH_KEYWORD, ELSE_KEYWORD, ELSEIF_KEYWORD,
-    UNWIND_PROTECT_CLEANUP_KEYWORD, UNTIL_KEYWORD, OTHERWISE_KEYWORD,
-    RPAR, RBRACKET, RBRACE);
-  public static final TokenSet SET_END_KEYWORDS = TokenSet.create(
-    END_KEYWORD, END_TRY_CATCH_KEYWORD, END_UNWIND_PROTECT_KEYWORD, ENDCLASSDEF_KEYWORD,
-    ENDENUMERATION_KEYWORD, ENDEVENTS_KEYWORD, ENDFOR_KEYWORD, ENDFUNCTION_KEYWORD,
-    ENDIF_KEYWORD, ENDMETHODS_KEYWORD, ENDPARFOR_KEYWORD, ENDPROPERTIES_KEYWORD,
-    ENDSWITCH_KEYWORD);
-
-  public static final TokenSet SET_PUNCTUATION = TokenSet.create(COMMA, SEMICOLON, DOT, CRLF);
   public static final TokenSet SET_SPACES = TokenSet.create(SPACE, TAB, FORMFEED, LINE_BREAK);
   public static final TokenSet SET_END_EXPRESSION = TokenSet.create(COMMA, SEMICOLON, CRLF, LINE_BREAK);
   public static final TokenSet SET_CASE_OR_OTHERWISE = TokenSet.create(CASE_KEYWORD, OTHERWISE_KEYWORD);
@@ -210,4 +201,21 @@ public interface OctaveTokenTypes {
   public static final TokenSet SET_RITHT_BRACKETS = TokenSet.create(RPAR, RBRACE, RBRACKET);
   public static final TokenSet SET_LEFT_BRACKETS = TokenSet.create(LPAR, LBRACE, LBRACKET);
   public static final TokenSet BOOLEAN_WORD = TokenSet.create(TRUE_KEYWORD, FALSE_KEYWORD);
+  public static final TokenSet SET_KEYWORD = TokenSet.create(
+    BREAK_KEYWORD, CASE_KEYWORD, CATCH_KEYWORD, CLASSDEF_KEYWORD, CONTINUE_KEYWORD, DO_KEYWORD, ELSE_KEYWORD, ELSEIF_KEYWORD,
+    END_KEYWORD, END_TRY_CATCH_KEYWORD, END_UNWIND_PROTECT_KEYWORD, ENDCLASSDEF_KEYWORD, ENDENUMERATION_KEYWORD, ENDEVENTS_KEYWORD,
+    ENDFOR_KEYWORD, ENDFUNCTION_KEYWORD, ENDIF_KEYWORD, ENDMETHODS_KEYWORD, ENDPARFOR_KEYWORD, ENDPROPERTIES_KEYWORD,
+    ENDSWITCH_KEYWORD, ENDWHILE_KEYWORD, ENUMERATION_KEYWORD, EVENTS_KEYWORD, FOR_KEYWORD, FUNCTION_KEYWORD, GLOBAL_KEYWORD,
+    IF_KEYWORD, METHODS_KEYWORD, OTHERWISE_KEYWORD, PARFOR_KEYWORD, PERSISTENT_KEYWORD, PROPERTIES_KEYWORD, RETURN_KEYWORD,
+    STATIC_KEYWORD, SWITCH_KEYWORD, TRY_KEYWORD, UNTIL_KEYWORD, UNWIND_PROTECT_KEYWORD, UNWIND_PROTECT_CLEANUP_KEYWORD,
+    WHILE_KEYWORD
+  );
+
+  public static final TokenSet OPERATORS = TokenSet.create(
+    DOT_DIVISION, DOT_LEFT_DIVISION, DOT_MULTIPLICATION, DOT_PLUS, DOT_MINUS, DOT_POWER, MINUS, PLUS, MULTIPLICATION, DIVISION,
+    LEFT_DIVISION, POWER, TILDE, COLON, AT, APOSTROPHE, ALL_COLON, INCREMENT, DECREMENT, OPERATION_PLUS_EQ, OPERATION_AND_EQ,
+    OPERATION_OR_EQ, OPERATION_MINUS_EQ, OPERATION_MULT_EQ, OPERATION_DIV_EQ, OPERATION_LEFT_DIV_EQ, OPERATION_POWER_EQ,
+    OPERATION_DOT_PLUS_EQ, OPERATION_DOT_MINUS_EQ, OPERATION_DOT_MULT_EQ, OPERATION_DOT_DIV_EQ, OPERATION_DOT_LEFT_DIV_EQ,
+    OPERATION_DOT_POWER_EQ, NOT, OR, AND, DOUBLE_OR, DOUBLE_AND, LT, GT, EQEQ, GE, LE, NOTEQ
+  );
 }

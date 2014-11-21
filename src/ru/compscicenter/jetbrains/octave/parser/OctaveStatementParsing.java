@@ -2,7 +2,6 @@ package ru.compscicenter.jetbrains.octave.parser;
 
 import com.intellij.lang.PsiBuilder;
 import com.intellij.psi.tree.IElementType;
-import org.apache.xerces.dom.ElementNSImpl;
 import ru.compscicenter.jetbrains.octave.lexer.OctaveTokenTypes;
 
 /**
@@ -178,7 +177,7 @@ public class OctaveStatementParsing extends OctaveParsing {
 
   private void parseMethodsName() {
     final PsiBuilder.Marker methodsNameExpression = myPsiBuilder.mark();
-    parseExpression(); //todo
+    parseExpression();
     methodsNameExpression.done(OctaveElementTypes.METHODS_NAME_STATEMENT);
   }
 
@@ -198,7 +197,7 @@ public class OctaveStatementParsing extends OctaveParsing {
 
   private void parseClassName() {
     final PsiBuilder.Marker classNameExpression = myPsiBuilder.mark();
-    parseExpression(); //todo
+    parseExpression();
     classNameExpression.done(OctaveElementTypes.CLASS_NAME_STATEMENT);
   }
 
@@ -219,7 +218,7 @@ public class OctaveStatementParsing extends OctaveParsing {
 
   private void parseFunctionName() {
     final PsiBuilder.Marker functionNameExpression = myPsiBuilder.mark();
-    parseExpression(); //todo
+    parseExpression();
     functionNameExpression.done(OctaveElementTypes.FUNCTION_NAME_STATEMENT);
   }
 
@@ -282,7 +281,7 @@ public class OctaveStatementParsing extends OctaveParsing {
   private void parseCaseStatement() {
     final PsiBuilder.Marker caseStatement = myPsiBuilder.mark();
     checkMatches(OctaveTokenTypes.SET_CASE_OR_OTHERWISE, "case_or_otherwise expected");
-    parseExpression(); // todo
+    parseExpression();
     while (!isNullOrMatches(OctaveTokenTypes.SET_ENDSWITCH_KEYWORDS) && !isNullOrMatches(OctaveTokenTypes.SET_CASE_OR_OTHERWISE)) {
       parseExpressionStatement();
     }
@@ -291,7 +290,7 @@ public class OctaveStatementParsing extends OctaveParsing {
 
   private void parseSwitchParameter() {
     final PsiBuilder.Marker switchParameterExpression = myPsiBuilder.mark();
-    parseExpression(); //todo
+    parseExpression();
     switchParameterExpression.done(OctaveElementTypes.SWITCH_PARAMETER_STATEMENT);
   }
 
@@ -332,7 +331,7 @@ public class OctaveStatementParsing extends OctaveParsing {
 
   private void parseForEnumerateExpression() {
     final PsiBuilder.Marker enumerateExpression = myPsiBuilder.mark();
-    parseExpression(); //todo
+    parseExpression();
     enumerateExpression.done(OctaveElementTypes.ENUMERATE_STATEMENT);
   }
 
@@ -388,7 +387,7 @@ public class OctaveStatementParsing extends OctaveParsing {
 
   private void parseConditionExpression() {
     final PsiBuilder.Marker conditionExpression = myPsiBuilder.mark();
-    parseExpression(); //todo
+    parseExpression();
     conditionExpression.done(OctaveElementTypes.CONDITION_STATEMENT);
   }
 }

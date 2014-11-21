@@ -2,7 +2,6 @@ package ru.compscicenter.jetbrains.octave.parser;
 
 import com.intellij.lang.PsiBuilder;
 import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.tree.TokenSet;
 import ru.compscicenter.jetbrains.octave.lexer.OctaveTokenTypes;
 
 /**
@@ -234,7 +233,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
       return false;
     }
 
-    skipApostrophe(); //todo change with string literal
+    skipApostrophe();
     memberExpression.drop();
     return true;
   }
@@ -352,7 +351,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
       if (!isNullOrMatches(OctaveTokenTypes.RBRACE)
           && !isNullOrMatches(OctaveTokenTypes.IDENTIFIER)
           && !isNullOrMatches(OctaveTokenTypes.SET_LEFT_BRACKETS)
-          && !OctaveTokenTypes.SET_NUMBER_LITERAL.contains(myPsiBuilder.getTokenType())) {
+          && !OctaveTokenTypes.SET_STRING_NUMBER_LITERAL.contains(myPsiBuilder.getTokenType())) {
         checkMatches(OctaveTokenTypes.SET_END_EXPRESSION, "end expression expecteed");
       }
     }
@@ -372,7 +371,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
       if (!isNullOrMatches(OctaveTokenTypes.RBRACKET)
           && !isNullOrMatches(OctaveTokenTypes.IDENTIFIER)
           && !isNullOrMatches(OctaveTokenTypes.SET_LEFT_BRACKETS)
-          && !OctaveTokenTypes.SET_NUMBER_LITERAL.contains(myPsiBuilder.getTokenType())) {
+          && !OctaveTokenTypes.SET_STRING_NUMBER_LITERAL.contains(myPsiBuilder.getTokenType())) {
         checkMatches(OctaveTokenTypes.SET_END_EXPRESSION, "end expression expecteed");
       }
     }
