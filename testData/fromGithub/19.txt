@@ -291,7 +291,12 @@ Octave File
           Octave:EXPRESSION
             Octave:REFERENCE_EXPRESSION
               PsiElement(Octave:IDENTIFIER)('y')
-            PsiElement(Octave:ALL_COLON)('(:)')
+            Octave:PAR_EXPRESSION
+              PsiElement(Octave:LPAR)('(')
+              Octave:EXPRESSION
+                Octave:SLICE_EXPRESSION
+                  PsiElement(Octave:COLON)(':')
+              PsiElement(Octave:RPAR)(')')
           PsiElement(Octave:COMMA)(',')
           PsiWhiteSpace(' ')
           Octave:EXPRESSION
@@ -931,8 +936,8 @@ Octave File
                   Octave:REFERENCE_EXPRESSION
                     PsiElement(Octave:IDENTIFIER)('p1')
                 PsiElement(Octave:PLUS)('+')
-                Octave:REFERENCE_EXPRESSION
-                  PsiElement(Octave:IDENTIFIER)('eps')
+                Octave:CONST
+                  PsiElement(Octave:EPS_KEYWORD)('eps')
             PsiElement(Octave:RPAR)(')')
     PsiElement(Octave:SEMICOLON)(';')
     PsiElement(Octave:LINE_BREAK)('\n')

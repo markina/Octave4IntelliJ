@@ -18,7 +18,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
     //skipLineBreak();
     final PsiBuilder.Marker expression = myPsiBuilder.mark();
 
-    if(myPsiBuilder.getTokenType() == OctaveTokenTypes.PERSISTENT_KEYWORD) {
+    if (myPsiBuilder.getTokenType() == OctaveTokenTypes.PERSISTENT_KEYWORD) {
       feedMatches(OctaveTokenTypes.PERSISTENT_KEYWORD, "Error: persistent");
     }
     if (parseAnonymousFunctionExpression()) {
@@ -26,36 +26,40 @@ public class OctaveExpressionParsing extends OctaveParsing {
         feedMatches(OctaveTokenTypes.SET_EQ_OR_OPERATION_EQ, "Error: eq expected");
         parseAnonymousFunctionExpression();
         expression.done(OctaveElementTypes.ASSIGNMENT_STATEMENT);
-        return;
+        return true;
       }
       if (numberOfNesting == 0) {
         checkMatches(OctaveTokenTypes.SET_END_EXPRESSION, "end statement expected");
         expression.drop();
         skipLineBreak();
-        return;
+        return true;
       }
       expression.drop();
-      return;
+      return true;
     }
     expression.drop();
     myPsiBuilder.error("Expression expected");
     myPsiBuilder.advanceLexer();
+    return false;
   }
 
 
   private boolean parseAnonymousFunctionExpression() {
-    if(myPsiBuilder.getTokenType() != OctaveTokenTypes.AT) {
+    if (myPsiBuilder.getTokenType() != OctaveTokenTypes.AT) {
       return parseOrExpression();
     }
     PsiBuilder.Marker anonymousFunctionExpression = myPsiBuilder.mark();
     feedMatches(OctaveTokenTypes.AT, "Error: at");
-    while(!OctaveTokenTypes.SET_END_EXPRESSION.contains(myPsiBuilder.getTokenType())) {
-      if(!parseExpression()) {
-        anonymousFunctionExpression.drop();
-        return false;
-      }
+
+    numberOfNesting++;
+    while (!OctaveTokenTypes.SET_END_EXPRESSION.contains(myPsiBuilder.getTokenType())
+      && !OctaveTokenTypes.SET_RITHT_BRACKETS.contains(myPsiBuilder.getTokenType())) {
+      parseExpression();
     }
-    anonymousFunctionExpression.done(OctaveElementTypes.ANONYMOUS_FUNCTION); ///
+    numberOfNesting--;
+    anonymousFunctionExpression.done(OctaveElementTypes.ANONYMOUS_FUNCTION);
+    return true;
+
   }
 
   private boolean parseOrExpression() {

@@ -172,9 +172,6 @@ private Stack<IElementType> myExpectedBracketsStack = new Stack<IElementType>();
 ".^="                       { return OctaveTokenTypes.OPERATION_DOT_POWER_EQ; }
 ".**="                       { return OctaveTokenTypes.OPERATION_DOT_POWER_EQ; }
 
-"(:)"                       { return OctaveTokenTypes.ALL_COLON; }
-"{:}"                       { return OctaveTokenTypes.ALL_COLON; }
-
 //dot operation
 "./"                        {return OctaveTokenTypes.DOT_DIVISION; }
 ".*"                        {return OctaveTokenTypes.DOT_MULTIPLICATION; }
