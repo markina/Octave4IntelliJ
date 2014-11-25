@@ -21,14 +21,9 @@ CRLF= \n|\r|\r\n
 
 WHITE_SPACE=[\ \t\f]
 
-END_OF_LINE_COMMENT=("%"|"#")[^\r\n]*
-NO_END_COMMENT = ("#"([^}]))|([^#])
-COMMENT_BLOCK="#{"({NO_END_COMMENT})*("#}")
-NO_END_COMMENT_2 = ("%"([^}]))|([^%])
-COMMENT_BLOCK_2 = "%{"({NO_END_COMMENT_2})*("%}")
-
-//todo #{ dfdf #} df
-
+END_OF_LINE_COMMENT=("%"|"#")[^{\r\n]+[^\r\n]*
+COMMENT_BLOCK = "#{" [^#] ~"#}" | "#{" "#"+ "}"
+COMMENT_BLOCK_2 = "%{" [^%] ~"%}" | "%{" "%"+ "}"
 
 LETTER = [a-zA-Z]|[:unicode_uppercase_letter:]|[:unicode_lowercase_letter:]|[:unicode_titlecase_letter:]|[:unicode_modifier_letter:]|[:unicode_other_letter:]|[:unicode_letter_number:]
 
@@ -96,7 +91,7 @@ private Stack<IElementType> myExpectedBracketsStack = new Stack<IElementType>();
 {COMMENT_BLOCK_2}           { return OctaveTokenTypes.COMMENT; }
 {END_OF_LINE_COMMENT}       { return OctaveTokenTypes.COMMENT; }
 
-"...\n"                     { return OctaveTokenTypes.SPACE; }
+"..."{WHITE_SPACE}*"\n"     { return OctaveTokenTypes.SPACE; }
 
 {NEXT_LINE}*                { return OctaveTokenTypes.LINE_BREAK; }
 {SPASE}*                    { return OctaveTokenTypes.SPACE; }
