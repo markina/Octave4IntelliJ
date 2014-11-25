@@ -327,19 +327,18 @@ public class OctaveExpressionParsing extends OctaveParsing {
   }
 
   private boolean parseInBracketsExpression() {
-    IElementType currentToken = myPsiBuilder.getTokenType();
-    if (currentToken == OctaveTokenTypes.ALL_COLON) {
-      feedMatches(OctaveTokenTypes.ALL_COLON, "Error: all colon");
+    if (!OctaveTokenTypes.SET_LEFT_BRACKETS.contains(myPsiBuilder.getTokenType())) {
+      return false;
     }
 
-    if (OctaveTokenTypes.SET_LEFT_BRACKETS.contains(currentToken)) {
-      if (currentToken == OctaveTokenTypes.LPAR) {
+    while (OctaveTokenTypes.SET_LEFT_BRACKETS.contains(myPsiBuilder.getTokenType())) {
+      if (myPsiBuilder.getTokenType() == OctaveTokenTypes.LPAR) {
         parseParExpression();
       }
-      else if (currentToken == OctaveTokenTypes.LBRACKET) {
+      else if (myPsiBuilder.getTokenType() == OctaveTokenTypes.LBRACKET) {
         parseBracketExpression();
       }
-      else if (currentToken == OctaveTokenTypes.LBRACE) {
+      else if (myPsiBuilder.getTokenType() == OctaveTokenTypes.LBRACE) {
         parseBraceExpression();
       }
       if (myPsiBuilder.getTokenType() == OctaveTokenTypes.DOT) {
@@ -347,16 +346,14 @@ public class OctaveExpressionParsing extends OctaveParsing {
           skipIncrementDecrement();
           skipApostrophe();
           parseInBracketsExpression();
-          return true;
         }
         else {
           return false;
         }
       }
       skipApostrophe();
-      return true;
     }
-    return false;
+    return true;
   }
 
   private void parseBraceExpression() {

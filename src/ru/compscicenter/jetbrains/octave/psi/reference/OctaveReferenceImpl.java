@@ -1,10 +1,8 @@
 package ru.compscicenter.jetbrains.octave.psi.reference;
 
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.*;
 import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.util.IncorrectOperationException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.compscicenter.jetbrains.octave.psi.api.OctaveAssignmentStatement;
@@ -17,7 +15,6 @@ import java.util.List;
  * Created by Markina Margarita on 11.11.14.
  */
 public class OctaveReferenceImpl extends PsiReferenceBase {
-  private static final Logger LOG = Logger.getInstance(OctaveReferenceImpl.class.getName());
 
   public OctaveReferenceImpl(OctaveReferenceExpression expression) {
     super(expression);

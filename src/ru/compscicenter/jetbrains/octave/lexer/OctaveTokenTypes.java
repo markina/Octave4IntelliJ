@@ -89,8 +89,6 @@ public interface OctaveTokenTypes {
   public static final IElementType COLON = new OctaveElementType("COLON");  // :
   public static final IElementType AT = new OctaveElementType("AT");  // @
   public static final IElementType APOSTROPHE = new OctaveElementType("APOSTROPHE");  // '
-  public static final IElementType ALL_COLON = new OctaveElementType("ALL_COLON");  // (:)
-
 
   public static final IElementType INCREMENT = new OctaveElementType("INCREMENT");       // ++
   public static final IElementType DECREMENT = new OctaveElementType("DECREMENT");       // --
@@ -214,7 +212,7 @@ public interface OctaveTokenTypes {
 
   public static final TokenSet OPERATORS = TokenSet.create(
     DOT_DIVISION, DOT_LEFT_DIVISION, DOT_MULTIPLICATION, DOT_PLUS, DOT_MINUS, DOT_POWER, MINUS, PLUS, MULTIPLICATION, DIVISION,
-    LEFT_DIVISION, POWER, TILDE, COLON, AT, APOSTROPHE, ALL_COLON, INCREMENT, DECREMENT, OPERATION_PLUS_EQ, OPERATION_AND_EQ,
+    LEFT_DIVISION, POWER, TILDE, COLON, AT, APOSTROPHE, INCREMENT, DECREMENT, OPERATION_PLUS_EQ, OPERATION_AND_EQ,
     OPERATION_OR_EQ, OPERATION_MINUS_EQ, OPERATION_MULT_EQ, OPERATION_DIV_EQ, OPERATION_LEFT_DIV_EQ, OPERATION_POWER_EQ,
     OPERATION_DOT_PLUS_EQ, OPERATION_DOT_MINUS_EQ, OPERATION_DOT_MULT_EQ, OPERATION_DOT_DIV_EQ, OPERATION_DOT_LEFT_DIV_EQ,
     OPERATION_DOT_POWER_EQ, NOT, OR, AND, DOUBLE_OR, DOUBLE_AND, LT, GT, EQEQ, GE, LE, NOTEQ
