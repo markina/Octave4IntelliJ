@@ -21,7 +21,7 @@ CRLF= \n|\r|\r\n
 
 WHITE_SPACE=[\ \t\f]
 
-END_OF_LINE_COMMENT=("%"|"#")[^{\r\n]+[^\r\n]*
+END_OF_LINE_COMMENT=(("%"|"#")[^{\r\n]+[^\r\n]*)|("%\n")|("#\n")
 COMMENT_BLOCK = "#{" [^#] ~"#}" | "#{" "#"+ "}"
 COMMENT_BLOCK_2 = "%{" [^%] ~"%}" | "%{" "%"+ "}"
 
