@@ -3,8 +3,6 @@ package ru.compscicenter.jetbrains.octave.parser;
 import com.intellij.testFramework.ParsingTestCase;
 import com.intellij.testFramework.TestDataPath;
 
-import java.io.IOException;
-
 /**
  * Created by Markina Margarita on 11.11.14.
  */
@@ -30,21 +28,10 @@ public class FromGithubTest extends ParsingTestCase {
     return y.toString();
   }
 
-  //public void test6() {
-  //  doTest(true);
-  //}
-
-  //public void test7() {
-  //  //setName("test7");
-  //  System.out.print(getTestName(true));
-  //  doTest(true);
-  //
-  //}
-
   public void test() {
-    for (int i = 1; i <= 36; i++) {
+    for (int i = 1; i <= 44; i++) {
       y = i;
-      //System.out.print(getTestName(true));
+
       doTest(true);
     }
   }

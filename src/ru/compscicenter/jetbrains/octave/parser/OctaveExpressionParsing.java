@@ -263,10 +263,6 @@ public class OctaveExpressionParsing extends OctaveParsing {
     }
     IElementType currentToken = myPsiBuilder.getTokenType();
 
-    if (currentToken == OctaveTokenTypes.SIMPLE_KEYWORD) {
-      feedMatches(OctaveTokenTypes.SIMPLE_KEYWORD, "Error: simple keyword");
-      return true;
-    }
     if (currentToken == OctaveTokenTypes.INTEGER_LITERAL) {
       buildTokenElement(OctaveElementTypes.INTEGER_LITERAL);
       return true;
@@ -295,12 +291,20 @@ public class OctaveExpressionParsing extends OctaveParsing {
       buildTokenElement(OctaveElementTypes.BOOLEAN_LITERAL);
       return true;
     }
-    return parseIdentifier();
+    if(parseIdentifier()) {
+      while(numberOfNesting == 0 && myPsiBuilder.getTokenType() == OctaveTokenTypes.IDENTIFIER) {
+        parseIdentifier();
+      }
+      return true;
+    }
+    return false;
   }
 
   private boolean parseIdentifier() {
     if (myPsiBuilder.getTokenType() == OctaveTokenTypes.IDENTIFIER) {
       buildTokenElement(OctaveElementTypes.REFERENCE_EXPRESSION);
+
+
 
       if (myPsiBuilder.getTokenType() == OctaveTokenTypes.DOT) {
         if (parseDotOperator()) {

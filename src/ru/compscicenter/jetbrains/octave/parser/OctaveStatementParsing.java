@@ -72,9 +72,6 @@ public class OctaveStatementParsing extends OctaveParsing {
     else if (currentToken == OctaveTokenTypes.CLASSDEF_KEYWORD) {
       parseClassdefStatement();
     }
-    else if (currentToken == OctaveTokenTypes.CLEAR_FUNCTION) {
-      parseClearFunction();
-    }
     else if (currentToken == OctaveTokenTypes.METHODS_KEYWORD) {
       parseMethodStatement();
     }
@@ -93,14 +90,6 @@ public class OctaveStatementParsing extends OctaveParsing {
     else {
       parseExpression();
     }
-  }
-
-  private void parseClearFunction() {
-    feedMatches(OctaveTokenTypes.CLEAR_FUNCTION, "Error: clear");
-    while(!OctaveTokenTypes.SET_END_EXPRESSION.contains(myPsiBuilder.getTokenType())) {
-      getContext().getExpressionParser().parsePrimaryExpression();
-    }
-    feedMatches(OctaveTokenTypes.SET_END_EXPRESSION, "Error: end clear");
   }
 
   private void parseReturnStatement() {
