@@ -257,16 +257,29 @@ public class OctaveStatementParsing extends OctaveParsing {
     final PsiBuilder.Marker switchExpression = myPsiBuilder.mark();
     feedMatches(OctaveTokenTypes.SWITCH_KEYWORD, "Error: switch");
     parseSwitchParameter();
-    while (!isNullOrMatches(OctaveTokenTypes.SET_ENDSWITCH_KEYWORDS)) {
+    while (!isNullOrMatches(OctaveTokenTypes.SET_ENDSWITCH_KEYWORDS) && !isNullOrMatches(OctaveTokenTypes.OTHERWISE_KEYWORD)) {
+      skipLineBreak();
       parseCaseStatement();
+    }
+    if(isNullOrMatches(OctaveTokenTypes.OTHERWISE_KEYWORD)) {
+      parseOtherwiseStatement();
     }
     checkMatches(OctaveTokenTypes.SET_ENDSWITCH_KEYWORDS, "endswitch expected");
     switchExpression.done(OctaveElementTypes.SWITCH_STATEMENT);
   }
 
+  private void parseOtherwiseStatement() {
+    final PsiBuilder.Marker caseStatement = myPsiBuilder.mark();
+    checkMatches(OctaveTokenTypes.OTHERWISE_KEYWORD, "otherwise expected");
+    while (!isNullOrMatches(OctaveTokenTypes.SET_ENDSWITCH_KEYWORDS)) {
+      parseExpressionStatement();
+    }
+    caseStatement.done(OctaveElementTypes.CASE_STATEMENT);
+  }
+
   private void parseCaseStatement() {
     final PsiBuilder.Marker caseStatement = myPsiBuilder.mark();
-    checkMatches(OctaveTokenTypes.SET_CASE_OR_OTHERWISE, "case_or_otherwise expected"); ///todo remove otherwise
+    checkMatches(OctaveTokenTypes.CASE_KEYWORD, "case_ expected"); 
     parseExpression();
     while (!isNullOrMatches(OctaveTokenTypes.SET_ENDSWITCH_KEYWORDS) && !isNullOrMatches(OctaveTokenTypes.SET_CASE_OR_OTHERWISE)) {
       parseExpressionStatement();
