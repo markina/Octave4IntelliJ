@@ -63,7 +63,7 @@ SPASE = [\ ]
 
 %{
 private IElementType getTypeOrIdentifier(IElementType typeConstWord) {
-  if (zzCurrentPos - 1 < 0 || (zzCurrentPos - 1 >= 0 && zzBuffer.charAt(zzCurrentPos - 1) != '.')) {
+  if (zzStartRead - 1 < 0 || (zzStartRead - 1 >= 0 && zzBuffer.charAt(zzStartRead - 1) != '.')) {
     return typeConstWord;
   }
   else {
@@ -89,43 +89,46 @@ private Stack<IElementType> myExpectedBracketsStack = new Stack<>();
 [\t]                        { return OctaveTokenTypes.TAB; }
 [\f]                        { return OctaveTokenTypes.FORMFEED; }
 
-{STRING}                    {if (!myExpectedBracketsStack.empty()
-                                  && (myExpectedBracketsStack.peek() == OctaveTokenTypes.LBRACKET
-                                  || myExpectedBracketsStack.peek() == OctaveTokenTypes.LBRACE)) {
-                                if (zzCurrentPos - 1 >= 0 && zzBuffer.charAt(zzCurrentPos - 1) == ' ') {
-                                  return OctaveTokenTypes.STRING;
-                                }
-                              }
-                              for (int i = zzCurrentPos - 1; i >= 0; i--) {
-                                if (zzBuffer.charAt(i) == '\n') {
-                                  return OctaveTokenTypes.STRING;
-                                }
-                                if (('a' <= zzBuffer.charAt(i) && zzBuffer.charAt(i) <= 'z')
-                                    || ('A' <= zzBuffer.charAt(i) && zzBuffer.charAt(i) <= 'Z')
-                                    || zzBuffer.charAt(i) == ')'
-                                    || zzBuffer.charAt(i) == '}'
-                                    || zzBuffer.charAt(i) == ']'
-                                  ) {
-                                  zzMarkedPos = zzCurrentPos + 1;
-
-                                  return OctaveTokenTypes.APOSTROPHE;
-                                }
-                                if (zzBuffer.charAt(i) == '='
-                                    || zzBuffer.charAt(i) == '<'
-                                    || zzBuffer.charAt(i) == '>'
-                                    || zzBuffer.charAt(i) == '('
-                                    || zzBuffer.charAt(i) == '{'
-                                    || zzBuffer.charAt(i) == '['
-                                    || zzBuffer.charAt(i) == ','
-                                    || zzBuffer.charAt(i) == ';'
-                                    || zzBuffer.charAt(i) == ':'
-                                  //todo add
-                                  ) {
-                                  break;
-                                }
-                              }
-                              return OctaveTokenTypes.STRING;
-                            }
+{STRING}                    {
+                                        if (zzStartRead - 1 < 0) {
+                                          return OctaveTokenTypes.STRING;
+                                        }
+                                        if (!myExpectedBracketsStack.empty()
+                                            && (myExpectedBracketsStack.peek() == OctaveTokenTypes.LBRACKET
+                                                || myExpectedBracketsStack.peek() == OctaveTokenTypes.LBRACE)) {
+                                          if (zzStartRead - 1 >= 0 && zzBuffer.charAt(zzStartRead - 1) == ' ') {
+                                            return OctaveTokenTypes.STRING;
+                                          }
+                                        }
+                                        for (int i = zzStartRead - 1; i >= 0; i--) {
+                                          if (zzBuffer.charAt(i) == '\n') {
+                                            return OctaveTokenTypes.STRING;
+                                          }
+                                          if (('a' <= zzBuffer.charAt(i) && zzBuffer.charAt(i) <= 'z')
+                                              || ('A' <= zzBuffer.charAt(i) && zzBuffer.charAt(i) <= 'Z')
+                                              || zzBuffer.charAt(i) == ')'
+                                              || zzBuffer.charAt(i) == '}'
+                                              || zzBuffer.charAt(i) == ']'
+                                            ) {
+                                            zzMarkedPos = zzStartRead + 1;
+                                            return OctaveTokenTypes.APOSTROPHE;
+                                          }
+                                          if (zzBuffer.charAt(i) == '='
+                                              || zzBuffer.charAt(i) == '<'
+                                              || zzBuffer.charAt(i) == '>'
+                                              || zzBuffer.charAt(i) == '('
+                                              || zzBuffer.charAt(i) == '{'
+                                              || zzBuffer.charAt(i) == '['
+                                              || zzBuffer.charAt(i) == ','
+                                              || zzBuffer.charAt(i) == ';'
+                                              || zzBuffer.charAt(i) == ':'
+                                            //todo add
+                                            ) {
+                                            break;
+                                          }
+                                        }
+                                        return OctaveTokenTypes.STRING;
+                                      }
 
 // numeric constants
 {HEX_INTEGER}               { return OctaveTokenTypes.HEX_INTEGER; }
@@ -162,9 +165,9 @@ private Stack<IElementType> myExpectedBracketsStack = new Stack<>();
 ".+"                        {return OctaveTokenTypes.DOT_PLUS; }
 ".-"                        {return OctaveTokenTypes.DOT_MINUS; }
 ".^"                        {return OctaveTokenTypes.DOT_POWER; }
-".**"                        {return OctaveTokenTypes.DOT_POWER; }
-".\\"                         { return OctaveTokenTypes.DOT_LEFT_DIVISION; }
-// todo ".'"                         { return OctaveTokenTypes.DOT_APOSTROPHE; }
+".**"                       {return OctaveTokenTypes.DOT_POWER; }
+".\\"                       { return OctaveTokenTypes.DOT_LEFT_DIVISION; }
+".'"                        { return OctaveTokenTypes.APOSTROPHE; }
 
 
 
@@ -259,9 +262,9 @@ private Stack<IElementType> myExpectedBracketsStack = new Stack<>();
 "else"                      { return getTypeOrIdentifier(OctaveTokenTypes.ELSE_KEYWORD); }
 "elseif"                    { return getTypeOrIdentifier(OctaveTokenTypes.ELSEIF_KEYWORD); }
 "end"                       {
-                                if (zzCurrentPos - 1 < 0 || zzCurrentPos + 3 >= zzBuffer.length() ||
-                                    (zzCurrentPos - 1 >= 0 && zzBuffer.charAt(zzCurrentPos - 1) != ':'
-                                    && zzCurrentPos + 3 < zzBuffer.length() && zzBuffer.charAt(zzCurrentPos + 3) != ':')) {
+                                if (zzStartRead - 1 < 0 || zzStartRead + 3 >= zzBuffer.length() ||
+                                    (zzStartRead - 1 >= 0 && zzBuffer.charAt(zzStartRead - 1) != ':'
+                                    && zzStartRead + 3 < zzBuffer.length() && zzBuffer.charAt(zzStartRead + 3) != ':')) {
                                   return getTypeOrIdentifier(OctaveTokenTypes.END_KEYWORD);
                                 }
                                 else {

@@ -25,7 +25,28 @@ public class OctaveLexerTest extends TestCase {
 
   public void testAllColon() throws IOException {
     doTest("(:)",
-           "[(:), Octave:ALL_COLON]");
+           "[(, Octave:LPAR]",
+           "[:, Octave:COLON]",
+           "[), Octave:RPAR]");
+  }
+
+  public void testPiIdentifier() throws IOException {
+    doTest("a.pi",
+           "[a, Octave:IDENTIFIER]",
+           "[., Octave:DOT]",
+           "[pi, Octave:IDENTIFIER]");
+  }
+
+  public void testPiNotIdentifier() throws IOException {
+    doTest("a=pi",
+           "[a, Octave:IDENTIFIER]",
+           "[=, Octave:EQ]",
+           "[pi, Octave:PI_KEYWORD]");
+  }
+
+  public void testPi() throws IOException {
+    doTest("pi",
+           "[pi, Octave:PI_KEYWORD]");
   }
 
   public void testNumericFloat() throws IOException {
@@ -153,8 +174,9 @@ public class OctaveLexerTest extends TestCase {
   }
 
   public void testFunction() throws IOException {
-    doTest("hex2dec\"12b\"",
-           "[hex2dec, Octave:IDENTIFIER]",
+    doTest("hc=\"12b\"",
+           "[hc, Octave:IDENTIFIER]",
+           "[=, Octave:EQ]",
            "[\"12b\", Octave:STRING]");
   }
 
