@@ -260,13 +260,13 @@ public class OctaveStatementParsing extends OctaveParsing {
     while (!isNullOrMatches(OctaveTokenTypes.SET_ENDSWITCH_KEYWORDS)) {
       parseCaseStatement();
     }
-    checkMatches(OctaveTokenTypes.SET_ENDWHILE_KEYWORDS, "endwhile expected");
+    checkMatches(OctaveTokenTypes.SET_ENDSWITCH_KEYWORDS, "endswitch expected");
     switchExpression.done(OctaveElementTypes.SWITCH_STATEMENT);
   }
 
   private void parseCaseStatement() {
     final PsiBuilder.Marker caseStatement = myPsiBuilder.mark();
-    checkMatches(OctaveTokenTypes.SET_CASE_OR_OTHERWISE, "case_or_otherwise expected");
+    checkMatches(OctaveTokenTypes.SET_CASE_OR_OTHERWISE, "case_or_otherwise expected"); ///todo remove otherwise
     parseExpression();
     while (!isNullOrMatches(OctaveTokenTypes.SET_ENDSWITCH_KEYWORDS) && !isNullOrMatches(OctaveTokenTypes.SET_CASE_OR_OTHERWISE)) {
       parseExpressionStatement();

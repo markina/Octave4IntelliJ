@@ -5,6 +5,7 @@ import com.intellij.psi.*;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.jetbrains.octave.psi.api.OctaveAssignmentStatement;
 import com.jetbrains.octave.psi.api.OctaveReferenceExpression;
+import com.jetbrains.octave.psi.api.impl.OctaveAssignmentStatementImpl;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -22,17 +23,21 @@ public class OctaveReferenceImpl extends PsiReferenceBase {
     final List<ResolveResult> result = new ArrayList<>();
     final String name = myElement.getText();
     if (name == null) return ResolveResult.EMPTY_ARRAY;
-
     final PsiFile file = myElement.getContainingFile();
-    final OctaveAssignmentStatement[] statements = PsiTreeUtil.getChildrenOfType(file, OctaveAssignmentStatement.class);
-    if (statements != null) {
-      for (OctaveAssignmentStatement statement : statements) {
+
+    int myPlace = myElement.getTextOffset();
+
+    PsiTreeUtil.processElements(file, element -> {
+      if(element instanceof OctaveAssignmentStatementImpl) {
+        OctaveAssignmentStatement statement = (OctaveAssignmentStatement)element;
         final PsiElement assignee = statement.getAssignee();
-        if (assignee != null && assignee.getText().equals(name)) {
+        if (assignee != null && assignee.getText().equals(myElement.getText())) {
           result.add(new PsiElementResolveResult(assignee));
         }
       }
-    }
+
+      return true;
+    });
 
     return result.toArray(new ResolveResult[result.size()]);
   }
@@ -48,7 +53,13 @@ public class OctaveReferenceImpl extends PsiReferenceBase {
   @Override
   public PsiElement resolve() {
     final ResolveResult[] results = multiResolve(false);
-    return results.length >= 1 ? results[0].getElement() : null;
+    int i = results.length - 1;
+    for(; i >= 0; i--) {
+      if(results[i].getElement().getTextOffset() < myElement.getTextOffset()) {
+        break;
+      }
+    }
+    return i >= 0 ? results[i].getElement() : null;
   }
 
   @NotNull
