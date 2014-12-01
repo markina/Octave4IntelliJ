@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
-public class OctaveHighlighter extends SyntaxHighlighterBase{
+public class OctaveHighlighter extends SyntaxHighlighterBase {
   private static final Map<IElementType, TextAttributesKey> ATTRIBUTES = new HashMap<>();
 
   static {
@@ -24,17 +24,17 @@ public class OctaveHighlighter extends SyntaxHighlighterBase{
 
     ATTRIBUTES.put(OctaveTokenTypes.LPAR, OctaveSyntaxHighlighterColors.PAR);
     ATTRIBUTES.put(OctaveTokenTypes.RPAR, OctaveSyntaxHighlighterColors.PAR);
-    
+
     ATTRIBUTES.put(OctaveTokenTypes.LBRACE, OctaveSyntaxHighlighterColors.BRACES);
     ATTRIBUTES.put(OctaveTokenTypes.RBRACE, OctaveSyntaxHighlighterColors.BRACES);
-    
+
     ATTRIBUTES.put(OctaveTokenTypes.LBRACKET, OctaveSyntaxHighlighterColors.BRACKETS);
     ATTRIBUTES.put(OctaveTokenTypes.RBRACKET, OctaveSyntaxHighlighterColors.BRACKETS);
-    
+
     ATTRIBUTES.put(OctaveTokenTypes.COMMA, OctaveSyntaxHighlighterColors.COMMA);
     ATTRIBUTES.put(OctaveTokenTypes.DOT, OctaveSyntaxHighlighterColors.DOT);
     ATTRIBUTES.put(OctaveTokenTypes.SEMICOLON, OctaveSyntaxHighlighterColors.SEMICOLON);
-    
+
     ATTRIBUTES.put(OctaveTokenTypes.COMMENT, OctaveSyntaxHighlighterColors.COMMENT);
 
     ATTRIBUTES.put(OctaveTokenTypes.BAD_CHARACTER, OctaveSyntaxHighlighterColors.BAD_CHARACTER);

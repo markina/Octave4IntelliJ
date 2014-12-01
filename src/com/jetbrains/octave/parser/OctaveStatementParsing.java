@@ -279,7 +279,7 @@ public class OctaveStatementParsing extends OctaveParsing {
 
   private void parseCaseStatement() {
     final PsiBuilder.Marker caseStatement = myPsiBuilder.mark();
-    checkMatches(OctaveTokenTypes.CASE_KEYWORD, "case_ expected"); 
+    checkMatches(OctaveTokenTypes.CASE_KEYWORD, "case_ expected");
     parseExpression();
     while (!isNullOrMatches(OctaveTokenTypes.SET_ENDSWITCH_KEYWORDS) && !isNullOrMatches(OctaveTokenTypes.SET_CASE_OR_OTHERWISE)) {
       parseExpressionStatement();
