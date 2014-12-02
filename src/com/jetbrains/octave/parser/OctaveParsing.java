@@ -13,6 +13,7 @@ public class OctaveParsing {
 
   public static final Logger LOG = Logger.getInstance(OctaveParsing.class.getName());
   public static final String EXPRESSION_EXPECTED = "Expression expected";
+  public static final String END_EXPRESSION_EXPECTED = "',', ';' or '\\n' expected";
 
   public static int numberOfNesting = 0;
 

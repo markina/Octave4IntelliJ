@@ -7,6 +7,8 @@ import com.jetbrains.octave.lexer.OctaveTokenTypes;
 public class OctaveExpressionParsing extends OctaveParsing {
 
 
+
+
   public OctaveExpressionParsing(OctaveParserContext context) {
     super(context);
   }
@@ -15,6 +17,9 @@ public class OctaveExpressionParsing extends OctaveParsing {
     //skipLineBreak();
     final PsiBuilder.Marker expression = myPsiBuilder.mark();
 
+    if (myPsiBuilder.getTokenType() == OctaveTokenTypes.GLOBAL_KEYWORD) {
+      feedMatches(OctaveTokenTypes.GLOBAL_KEYWORD, "Error: global");
+    }
     if (myPsiBuilder.getTokenType() == OctaveTokenTypes.PERSISTENT_KEYWORD) {
       feedMatches(OctaveTokenTypes.PERSISTENT_KEYWORD, "Error: persistent");
     }
@@ -26,7 +31,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
         return true;
       }
       if (numberOfNesting == 0) {
-        checkMatches(OctaveTokenTypes.SET_END_EXPRESSION, "end statement expected");
+        checkMatches(OctaveTokenTypes.SET_END_EXPRESSION, END_EXPRESSION_EXPECTED);
         expression.drop();
         skipLineBreak();
         return true;
@@ -35,7 +40,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
       return true;
     }
     expression.drop();
-    myPsiBuilder.error("Expression expected");
+    myPsiBuilder.error(EXPRESSION_EXPECTED);
     myPsiBuilder.advanceLexer();
     return false;
   }
@@ -44,7 +49,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
   private boolean parseAnonymousFunctionExpression() {
     if (myPsiBuilder.getTokenType() != OctaveTokenTypes.AT) {
       if(!parseOrExpression()) {
-        myPsiBuilder.error("Expression expected");
+        myPsiBuilder.error(EXPRESSION_EXPECTED);
         myPsiBuilder.advanceLexer();
         return false;
       }
@@ -61,12 +66,13 @@ public class OctaveExpressionParsing extends OctaveParsing {
       anonymousFunctionExpression.done(OctaveElementTypes.ANONYMOUS_FUNCTION);
       return true;
     }
-
-    parseParExpression();
+    if(myPsiBuilder.getTokenType() == OctaveTokenTypes.LPAR) {
+      parseParExpression();
+    }
     if(!OctaveTokenTypes.SET_END_EXPRESSION.contains(myPsiBuilder.getTokenType())) {
       if(!parseOrExpression()) {
         anonymousFunctionExpression.drop();
-        myPsiBuilder.error("Expression expected");
+        myPsiBuilder.error("Expression anonymous functions");
         myPsiBuilder.advanceLexer();
         return false;
       }
@@ -81,7 +87,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
       while (OctaveTokenTypes.SET_OR_OPERATIONS.contains(myPsiBuilder.getTokenType())) {
         feedMatches(OctaveTokenTypes.SET_OR_OPERATIONS, "Error: or operation");
         if (!parseAndExpression()) {
-          myPsiBuilder.error("Expression expected");
+          myPsiBuilder.error(EXPRESSION_EXPECTED);
         }
         orExpression.done(OctaveElementTypes.BINARY_EXPRESSION);
         orExpression = orExpression.precede();
@@ -103,7 +109,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
       while (OctaveTokenTypes.SET_AND_OPERATIONS.contains(myPsiBuilder.getTokenType())) {
         feedMatches(OctaveTokenTypes.SET_AND_OPERATIONS, "Error: and operation");
         if (!parseNotExpression()) {
-          myPsiBuilder.error("Expression expected");
+          myPsiBuilder.error(EXPRESSION_EXPECTED);
         }
 
         andExpression.done(OctaveElementTypes.BINARY_EXPRESSION);
@@ -379,7 +385,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
           && !isNullOrMatches(OctaveTokenTypes.IDENTIFIER)
           && !isNullOrMatches(OctaveTokenTypes.SET_LEFT_BRACKETS)
           && !OctaveTokenTypes.SET_STRING_NUMBER_LITERAL.contains(myPsiBuilder.getTokenType())) {
-        checkMatches(OctaveTokenTypes.SET_END_EXPRESSION, "end expression expecteed");
+        checkMatches(OctaveTokenTypes.SET_END_EXPRESSION, END_EXPRESSION_EXPECTED);
       }
       skipLineBreak();
     }
@@ -401,7 +407,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
           && !isNullOrMatches(OctaveTokenTypes.IDENTIFIER)
           && !isNullOrMatches(OctaveTokenTypes.SET_LEFT_BRACKETS)
           && !OctaveTokenTypes.SET_STRING_NUMBER_LITERAL.contains(myPsiBuilder.getTokenType())) {
-        checkMatches(OctaveTokenTypes.SET_END_EXPRESSION, "end expression expecteed");
+        checkMatches(OctaveTokenTypes.SET_END_EXPRESSION, END_EXPRESSION_EXPECTED);
       }
       skipLineBreak();
     }
@@ -421,7 +427,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
       if (!isNullOrMatches(OctaveTokenTypes.RPAR)
           && !isNullOrMatches(OctaveTokenTypes.IDENTIFIER)
           && !isNullOrMatches(OctaveTokenTypes.SET_LEFT_BRACKETS)) {
-        checkMatches(OctaveTokenTypes.SET_END_EXPRESSION, "end expression expected in pars");
+        checkMatches(OctaveTokenTypes.SET_END_EXPRESSION, END_EXPRESSION_EXPECTED);
       }
       skipLineBreak();
     }
@@ -431,5 +437,3 @@ public class OctaveExpressionParsing extends OctaveParsing {
     return true;
   }
 }
-// todo (for)
-// todo a(eof)
