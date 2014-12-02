@@ -113,6 +113,9 @@ public class ExpressionTest extends ParsingTestCase {
     doTest(true);
   }
 
+  public void testAnonymousFunction() {
+    doTest(true);
+  }
 
   public void testSemicolonInPar() {
     doTest(true);

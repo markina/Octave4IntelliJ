@@ -26,7 +26,7 @@ public class FromGithubTest extends ParsingTestCase {
   }
 
   public void test() {
-    for (int i = 1; i <= 44; i++) {
+    for (int i = 1; i <= 48; i++) {
       y = i;
 
       doTest(true);

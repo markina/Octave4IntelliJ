@@ -48,13 +48,17 @@ public class OctaveExpressionParsing extends OctaveParsing {
     PsiBuilder.Marker anonymousFunctionExpression = myPsiBuilder.mark();
     feedMatches(OctaveTokenTypes.AT, "Error: at");
 
-    numberOfNesting++;
-    parsePrimaryExpression();
-    while (!OctaveTokenTypes.SET_END_EXPRESSION.contains(myPsiBuilder.getTokenType())
-           && !OctaveTokenTypes.SET_RITHT_BRACKETS.contains(myPsiBuilder.getTokenType())) {
-      parseExpression();
+
+    if(myPsiBuilder.getTokenType() == OctaveTokenTypes.IDENTIFIER) {
+      buildTokenElement(OctaveElementTypes.REFERENCE_EXPRESSION);
+      anonymousFunctionExpression.done(OctaveElementTypes.ANONYMOUS_FUNCTION);
+      return true;
     }
-    numberOfNesting--;
+
+    parseParExpression();
+    if(!OctaveTokenTypes.SET_END_EXPRESSION.contains(myPsiBuilder.getTokenType())) {
+      parseOrExpression();
+    }
     anonymousFunctionExpression.done(OctaveElementTypes.ANONYMOUS_FUNCTION);
     return true;
   }
@@ -223,11 +227,11 @@ public class OctaveExpressionParsing extends OctaveParsing {
 
   private boolean parsePowerExpression() {
     PsiBuilder.Marker powerExpression = myPsiBuilder.mark();
-    if (!parseMemberExpression()) {
+    if (!parsePrimaryExpression()) {
       powerExpression.drop();
       return false;
     }
-    //skipLineBreak();
+    skipApostrophe();
     if (OctaveTokenTypes.POWER_OPERATIONS.contains(myPsiBuilder.getTokenType())) {
       feedMatches(OctaveTokenTypes.POWER_OPERATIONS, "Error: power");
       if (!parseUnaryExpression()) {
@@ -240,19 +244,6 @@ public class OctaveExpressionParsing extends OctaveParsing {
     }
     return true;
   }
-
-  private boolean parseMemberExpression() {
-    PsiBuilder.Marker memberExpression = myPsiBuilder.mark();
-    if (!parsePrimaryExpression()) {
-      memberExpression.drop();
-      return false;
-    }
-
-    skipApostrophe();
-    memberExpression.drop();
-    return true;
-  }
-
 
   public boolean parsePrimaryExpression() {
     if (myPsiBuilder == null) {
@@ -300,8 +291,6 @@ public class OctaveExpressionParsing extends OctaveParsing {
   private boolean parseIdentifier() {
     if (myPsiBuilder.getTokenType() == OctaveTokenTypes.IDENTIFIER) {
       buildTokenElement(OctaveElementTypes.REFERENCE_EXPRESSION);
-
-
 
       if (myPsiBuilder.getTokenType() == OctaveTokenTypes.DOT) {
         if (parseDotOperator()) {
@@ -363,7 +352,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
     feedMatches(OctaveTokenTypes.LBRACE, "Error: left brace");
     skipLineBreak();
     while (!isNullOrMatches(OctaveTokenTypes.RBRACE)) {
-      parseExpression();
+      parseAnonymousFunctionExpression();
       if (!isNullOrMatches(OctaveTokenTypes.RBRACE)
           && !isNullOrMatches(OctaveTokenTypes.IDENTIFIER)
           && !isNullOrMatches(OctaveTokenTypes.SET_LEFT_BRACKETS)
@@ -384,7 +373,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
     feedMatches(OctaveTokenTypes.LBRACKET, "Error: left bracket");
     skipLineBreak();
     while (!isNullOrMatches(OctaveTokenTypes.RBRACKET)) {
-      parseExpression();
+      parseAnonymousFunctionExpression();
       if (!isNullOrMatches(OctaveTokenTypes.RBRACKET)
           && !isNullOrMatches(OctaveTokenTypes.IDENTIFIER)
           && !isNullOrMatches(OctaveTokenTypes.SET_LEFT_BRACKETS)
@@ -404,7 +393,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
     feedMatches(OctaveTokenTypes.LPAR, "Error: right par");
     skipLineBreak();
     while (!isNullOrMatches(OctaveTokenTypes.RPAR)) {
-      parseExpression();
+      parseAnonymousFunctionExpression();
       if (!isNullOrMatches(OctaveTokenTypes.RPAR)
           && !isNullOrMatches(OctaveTokenTypes.IDENTIFIER)
           && !isNullOrMatches(OctaveTokenTypes.SET_LEFT_BRACKETS)) {

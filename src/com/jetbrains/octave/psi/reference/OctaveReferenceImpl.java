@@ -20,6 +20,8 @@ public class OctaveReferenceImpl extends PsiReferenceBase {
 
   @NotNull
   public ResolveResult[] multiResolve(boolean incompleteCode) {
+    /// todo dot reference
+
     final List<ResolveResult> result = new ArrayList<>();
     final String name = myElement.getText();
     if (name == null) return ResolveResult.EMPTY_ARRAY;
@@ -35,7 +37,6 @@ public class OctaveReferenceImpl extends PsiReferenceBase {
           result.add(new PsiElementResolveResult(assignee));
         }
       }
-
       return true;
     });
 
