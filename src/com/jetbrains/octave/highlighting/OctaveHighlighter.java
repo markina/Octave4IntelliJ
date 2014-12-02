@@ -16,6 +16,7 @@ public class OctaveHighlighter extends SyntaxHighlighterBase {
 
   static {
     fillMap(ATTRIBUTES, OctaveTokenTypes.SET_KEYWORD, OctaveSyntaxHighlighterColors.KEYWORD);
+    fillMap(ATTRIBUTES, OctaveTokenTypes.SET_CONST, OctaveSyntaxHighlighterColors.KEYWORD);
 
     fillMap(ATTRIBUTES, OctaveTokenTypes.OPERATORS, OctaveSyntaxHighlighterColors.OPERATORS);
 

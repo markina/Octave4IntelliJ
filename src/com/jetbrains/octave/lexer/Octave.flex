@@ -4,6 +4,9 @@ import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
 
 import java.util.Stack;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 %%
 
@@ -62,16 +65,54 @@ NEXT_LINE = [\n]
 SPASE = [\ ]
 
 %{
-private IElementType getTypeOrIdentifier(IElementType typeConstWord) {
-  if (zzStartRead - 1 < 0 || (zzStartRead - 1 >= 0 && zzBuffer.charAt(zzStartRead - 1) != '.')) {
-    return typeConstWord;
-  }
-  else {
+private IElementType getTypeOrIdentifier(IElementType typeKeyWord) {
+  if(!myExpectedBracketsStack.empty()) {
     return OctaveTokenTypes.IDENTIFIER;
   }
+  for(int i = zzMarkedPos; i < zzBuffer.length(); i++) {
+    if(setCharactersAfterIdentifier.contains(zzBuffer.charAt(i))) {
+      return OctaveTokenTypes.IDENTIFIER;
+    }
+    if(zzBuffer.charAt(i) == ' ') {
+      continue;
+    }
+    if(zzBuffer.charAt(i) == '\n') {
+      return typeKeyWord;
+    }
+    if((zzBuffer.charAt(i) >= 'a'
+      && zzBuffer.charAt(i) <= 'z')
+      || (zzBuffer.charAt(i) >= 'A'
+       && zzBuffer.charAt(i) <= 'Z'))
+      {
+      return typeKeyWord;
+    }
+    break;
+  }
+
+  if (zzStartRead - 1 >= 0 && zzBuffer.charAt(zzStartRead - 1) == '.') {
+    return OctaveTokenTypes.IDENTIFIER;
+  }
+  else {
+    return typeKeyWord;
+  }
+}
+private IElementType getConstOrIdentifier(IElementType typeConstWord) {
+  for(int i = zzMarkedPos; i < zzBuffer.length(); i++) {
+    if(zzBuffer.charAt(i) == '='
+        || zzBuffer.charAt(i) == '.') {
+          return OctaveTokenTypes.IDENTIFIER;
+        }
+    if(zzBuffer.charAt(i) == ' ') {
+      continue;
+    }
+    break;
+  }
+    return typeConstWord;
 }
 
 private Stack<IElementType> myExpectedBracketsStack = new Stack<>();
+private Set<Character> setCharactersAfterIdentifier = new HashSet<>(Arrays.asList('=', '}', ']', ')', '.', '/', '\\', '*', '^', '&', '|', ':', '@', '<', '>'));
+private Set<Character> setCharactersBeforeStringLiteral = new HashSet<>(Arrays.asList('=', ',', ';', '{', '[', '(', '/', '\\', '+', '-', '*', '^', '&', '|', '~', ':', '@', '<', '>', '!'));
 
 %}
 
@@ -83,14 +124,14 @@ private Stack<IElementType> myExpectedBracketsStack = new Stack<>();
 {END_OF_LINE_COMMENT}       { return OctaveTokenTypes.COMMENT; }
 
 "..."{WHITE_SPACE}*"\n"     { return OctaveTokenTypes.SPACE; }
+"..."                       { return OctaveTokenTypes.SPACE; }
 
 {NEXT_LINE}*                { return OctaveTokenTypes.LINE_BREAK; }
 {SPASE}*                    { return OctaveTokenTypes.SPACE; }
 [\t]                        { return OctaveTokenTypes.TAB; }
 [\f]                        { return OctaveTokenTypes.FORMFEED; }
 
-{STRING}                    {
-                                        if (zzStartRead - 1 < 0) {
+{STRING}                    { if (zzStartRead - 1 < 0) {
                                           return OctaveTokenTypes.STRING;
                                         }
                                         if (!myExpectedBracketsStack.empty()
@@ -102,7 +143,10 @@ private Stack<IElementType> myExpectedBracketsStack = new Stack<>();
                                         }
                                         for (int i = zzStartRead - 1; i >= 0; i--) {
                                           if (zzBuffer.charAt(i) == '\n') {
-                                            return OctaveTokenTypes.STRING;
+                                            break;
+                                          }
+                                          if (zzBuffer.charAt(i) == ' ') {
+                                            break;
                                           }
                                           if (('a' <= zzBuffer.charAt(i) && zzBuffer.charAt(i) <= 'z')
                                               || ('A' <= zzBuffer.charAt(i) && zzBuffer.charAt(i) <= 'Z')
@@ -113,22 +157,13 @@ private Stack<IElementType> myExpectedBracketsStack = new Stack<>();
                                             zzMarkedPos = zzStartRead + 1;
                                             return OctaveTokenTypes.APOSTROPHE;
                                           }
-                                          if (zzBuffer.charAt(i) == '='
-                                              || zzBuffer.charAt(i) == '<'
-                                              || zzBuffer.charAt(i) == '>'
-                                              || zzBuffer.charAt(i) == '('
-                                              || zzBuffer.charAt(i) == '{'
-                                              || zzBuffer.charAt(i) == '['
-                                              || zzBuffer.charAt(i) == ','
-                                              || zzBuffer.charAt(i) == ';'
-                                              || zzBuffer.charAt(i) == ':'
-                                            //todo add
-                                            ) {
+                                          if (setCharactersBeforeStringLiteral.contains(zzBuffer.charAt(i))) {
                                             break;
                                           }
                                         }
                                         return OctaveTokenTypes.STRING;
                                       }
+
 
 // numeric constants
 {HEX_INTEGER}               { return OctaveTokenTypes.HEX_INTEGER; }
@@ -219,21 +254,18 @@ private Stack<IElementType> myExpectedBracketsStack = new Stack<>();
 
 
 // special constants
-"NA"                        { return getTypeOrIdentifier(OctaveTokenTypes.NA_KEYWORD); }
-"inf"                       { return getTypeOrIdentifier(OctaveTokenTypes.INF_KEYWORD); }
-"Inf"                       { return getTypeOrIdentifier(OctaveTokenTypes.INF_KEYWORD); }
-"NaN"                       { return getTypeOrIdentifier(OctaveTokenTypes.NAN_KEYWORD); }
-"nan"                       { return getTypeOrIdentifier(OctaveTokenTypes.NAN_KEYWORD); }
-"e"                         { return getTypeOrIdentifier(OctaveTokenTypes.E_KEYWORD); }
-"pi"                        { return getTypeOrIdentifier(OctaveTokenTypes.PI_KEYWORD); }
-"eps"                       { return getTypeOrIdentifier(OctaveTokenTypes.EPS_KEYWORD); }
-"realmax"                   { return getTypeOrIdentifier(OctaveTokenTypes.REALMAX_KEYWORD); }
-"realmin"                   { return getTypeOrIdentifier(OctaveTokenTypes.REALMIN_KEYWORD); }
-
-
-// logical constants
-"true"                      { return getTypeOrIdentifier(OctaveTokenTypes.TRUE_KEYWORD); }
-"false"                     { return getTypeOrIdentifier(OctaveTokenTypes.FALSE_KEYWORD); }
+"NA"                        { return getConstOrIdentifier(OctaveTokenTypes.NA_KEYWORD); }
+"inf"                       { return getConstOrIdentifier(OctaveTokenTypes.INF_KEYWORD); }
+"Inf"                       { return getConstOrIdentifier(OctaveTokenTypes.INF_KEYWORD); }
+"NaN"                       { return getConstOrIdentifier(OctaveTokenTypes.NAN_KEYWORD); }
+"nan"                       { return getConstOrIdentifier(OctaveTokenTypes.NAN_KEYWORD); }
+"e"                         { return getConstOrIdentifier(OctaveTokenTypes.E_KEYWORD); }
+"pi"                        { return getConstOrIdentifier(OctaveTokenTypes.PI_KEYWORD); }
+"eps"                       { return getConstOrIdentifier(OctaveTokenTypes.EPS_KEYWORD); }
+"realmax"                   { return getConstOrIdentifier(OctaveTokenTypes.REALMAX_KEYWORD); }
+"realmin"                   { return getConstOrIdentifier(OctaveTokenTypes.REALMIN_KEYWORD); }
+"true"                      { return getConstOrIdentifier(OctaveTokenTypes.TRUE_KEYWORD); }
+"false"                     { return getConstOrIdentifier(OctaveTokenTypes.FALSE_KEYWORD); }
 
 // relational
 "<"                         { return OctaveTokenTypes.LT; }
@@ -301,7 +333,6 @@ private Stack<IElementType> myExpectedBracketsStack = new Stack<>();
 "switch"                    { return getTypeOrIdentifier(OctaveTokenTypes.SWITCH_KEYWORD); }
 "persistent"                { return getTypeOrIdentifier(OctaveTokenTypes.PERSISTENT_KEYWORD); }
 "static"                    { return getTypeOrIdentifier(OctaveTokenTypes.STATIC_KEYWORD); }
-
 "global"                    { return getTypeOrIdentifier(OctaveTokenTypes.GLOBAL_KEYWORD); }
 "return"                    { return getTypeOrIdentifier(OctaveTokenTypes.RETURN_KEYWORD); }
 
