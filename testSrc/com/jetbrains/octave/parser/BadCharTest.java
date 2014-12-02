@@ -20,4 +20,8 @@ public class BadCharTest extends ParsingTestCase {
   public void testBadChar() {
     doTest(true);
   }
+
+  public void testBadFor() {
+    doTest(true);
+  }
 }
