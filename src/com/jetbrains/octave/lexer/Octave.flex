@@ -264,7 +264,8 @@ private Stack<IElementType> myExpectedBracketsStack = new Stack<>();
 "end"                       {
                                 if (zzStartRead - 1 < 0 || zzStartRead + 3 >= zzBuffer.length() ||
                                     (zzStartRead - 1 >= 0 && zzBuffer.charAt(zzStartRead - 1) != ':'
-                                    && zzStartRead + 3 < zzBuffer.length() && zzBuffer.charAt(zzStartRead + 3) != ':')) {
+                                    && zzStartRead + 3 < zzBuffer.length() && zzBuffer.charAt(zzStartRead + 3) != ':')
+                                    && myExpectedBracketsStack.empty()) {
                                   return getTypeOrIdentifier(OctaveTokenTypes.END_KEYWORD);
                                 }
                                 else {

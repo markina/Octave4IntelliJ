@@ -124,4 +124,8 @@ public class ExpressionTest extends ParsingTestCase {
   public void testAt() {
     doTest(true);
   }
+
+  public void testEnd() {
+    doTest(true);
+  }
 }
