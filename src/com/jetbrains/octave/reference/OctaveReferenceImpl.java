@@ -1,16 +1,22 @@
 package com.jetbrains.octave.reference;
 
+import com.intellij.codeInsight.lookup.LookupElement;
+import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.*;
 import com.intellij.psi.util.PsiTreeUtil;
+import com.jetbrains.octave.OctaveIcons;
 import com.jetbrains.octave.psi.api.OctaveAssignmentStatement;
 import com.jetbrains.octave.psi.api.OctaveReferenceExpression;
 import com.jetbrains.octave.psi.api.impl.OctaveAssignmentStatementImpl;
+import com.jetbrains.octave.psi.api.impl.OctaveReferenceExpressionImpl;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class OctaveReferenceImpl extends PsiReferenceBase {
 
@@ -26,8 +32,6 @@ public class OctaveReferenceImpl extends PsiReferenceBase {
     final String name = myElement.getText();
     if (name == null) return ResolveResult.EMPTY_ARRAY;
     final PsiFile file = myElement.getContainingFile();
-
-    int myPlace = myElement.getTextOffset();
 
     PsiTreeUtil.processElements(file, element -> {
       if(element instanceof OctaveAssignmentStatementImpl) {
@@ -66,7 +70,33 @@ public class OctaveReferenceImpl extends PsiReferenceBase {
   @NotNull
   @Override
   public Object[] getVariants() {
-    return new Object[0];
+    List<LookupElement> variants = new ArrayList<>();
+
+    final String name = myElement.getText();
+    if (name == null) return LookupElement.EMPTY_ARRAY;
+    final PsiFile file = myElement.getContainingFile();
+
+    Set<String> setNameIdentifier = new HashSet<>();
+
+    PsiTreeUtil.processElements(file, element -> {
+      if (element instanceof OctaveReferenceExpressionImpl) {
+        OctaveReferenceExpression statement = (OctaveReferenceExpressionImpl)element;
+        String nameIdentifier = statement.getText();
+
+        setNameIdentifier.add(nameIdentifier);
+      }
+      return true;
+    });
+
+
+    for (String nameIdentifier : setNameIdentifier) {
+      variants.add(LookupElementBuilder.create(nameIdentifier).
+                     withIcon(OctaveIcons.VARIABLE).
+                     withTypeText(nameIdentifier)
+      );
+    }
+
+    return variants.toArray();
   }
 
   @Override
