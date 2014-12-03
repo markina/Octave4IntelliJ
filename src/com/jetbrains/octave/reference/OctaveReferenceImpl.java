@@ -1,4 +1,4 @@
-package com.jetbrains.octave.psi.reference;
+package com.jetbrains.octave.reference;
 
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.*;
