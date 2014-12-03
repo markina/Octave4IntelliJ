@@ -89,12 +89,17 @@ private IElementType getTypeOrIdentifier(IElementType typeKeyWord) {
     break;
   }
 
-  if (zzStartRead - 1 >= 0 && zzBuffer.charAt(zzStartRead - 1) == '.') {
-    return OctaveTokenTypes.IDENTIFIER;
+  for(int i = zzStartRead - 1; i >= 0; i--) {
+    if(zzBuffer.charAt(i) == ' ') {
+      continue;
+    }
+    if(zzBuffer.charAt(i) == '='
+       || zzBuffer.charAt(i) == '.') {
+      return OctaveTokenTypes.IDENTIFIER;
+    }
+    break;
   }
-  else {
-    return typeKeyWord;
-  }
+  return typeKeyWord;
 }
 private IElementType getConstOrIdentifier(IElementType typeConstWord) {
   for(int i = zzMarkedPos; i < zzBuffer.length(); i++) {
@@ -107,7 +112,16 @@ private IElementType getConstOrIdentifier(IElementType typeConstWord) {
     }
     break;
   }
-    return typeConstWord;
+  for(int i = zzStartRead - 1; i >= 0; i--) {
+    if(zzBuffer.charAt(i) == ' ') {
+      continue;
+    }
+    if(zzBuffer.charAt(i) == '.') {
+      return OctaveTokenTypes.IDENTIFIER;
+    }
+    break;
+  }
+  return typeConstWord;
 }
 
 private Stack<IElementType> myExpectedBracketsStack = new Stack<>();
