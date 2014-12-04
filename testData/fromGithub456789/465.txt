@@ -1,0 +1,384 @@
+Octave File
+  PsiComment(Octave:COMMENT)('%% OLS  on the prostate data set')
+  PsiElement(Octave:LINE_BREAK)('\n')
+  PsiComment(Octave:COMMENT)('% Should match  table 3.3 on p63 of "Elements of statistical')
+  PsiElement(Octave:LINE_BREAK)('\n')
+  PsiComment(Octave:COMMENT)('% learning" 2nd edn')
+  PsiElement(Octave:LINE_BREAK)('\n')
+  PsiComment(Octave:COMMENT)('% (The OLS results should be identical  - the fact that they are not')
+  PsiElement(Octave:LINE_BREAK)('\n')
+  PsiComment(Octave:COMMENT)('% suggests something strange is going on - most likely to do with')
+  PsiElement(Octave:LINE_BREAK)('\n')
+  PsiComment(Octave:COMMENT)('% the offset term, which should be unregularized.)')
+  PsiElement(Octave:LINE_BREAK)('\n')
+  PsiComment(Octave:COMMENT)('% Used to debug prostateComparison')
+  PsiElement(Octave:LINE_BREAK)('\n\n')
+  PsiComment(Octave:COMMENT)('% This file is from pmtk3.googlecode.com')
+  PsiElement(Octave:LINE_BREAK)('\n\n\n')
+  Octave:ASSIGNMENT_STATEMENT
+    Octave:EXPRESSION
+      Octave:REFERENCE_EXPRESSION
+        PsiElement(Octave:IDENTIFIER)('data')
+    PsiWhiteSpace(' ')
+    PsiElement(Octave:EQ)('=')
+    PsiWhiteSpace(' ')
+    Octave:EXPRESSION
+      Octave:REFERENCE_EXPRESSION
+        PsiElement(Octave:IDENTIFIER)('loadData')
+      Octave:PAR_EXPRESSION
+        PsiElement(Octave:LPAR)('(')
+        Octave:EXPRESSION
+          Octave:STRING_LITERAL
+            PsiElement(Octave:STRING)(''prostate'')
+        PsiElement(Octave:RPAR)(')')
+  PsiElement(Octave:SEMICOLON)(';')
+  PsiElement(Octave:LINE_BREAK)('\n')
+  Octave:ASSIGNMENT_STATEMENT
+    Octave:EXPRESSION
+      Octave:REFERENCE_EXPRESSION
+        PsiElement(Octave:IDENTIFIER)('w')
+    PsiElement(Octave:EQ)('=')
+    Octave:EXPRESSION
+      Octave:BINARY_EXPRESSION
+        Octave:BRACKET_EXPRESSION
+          PsiElement(Octave:LBRACKET)('[')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('ones')
+            Octave:PAR_EXPRESSION
+              PsiElement(Octave:LPAR)('(')
+              Octave:EXPRESSION
+                Octave:INTEGER_LITERAL
+                  PsiElement(Octave:INTEGER_LITERAL)('67')
+              PsiElement(Octave:COMMA)(',')
+              Octave:EXPRESSION
+                Octave:INTEGER_LITERAL
+                  PsiElement(Octave:INTEGER_LITERAL)('1')
+              PsiElement(Octave:RPAR)(')')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('data')
+            PsiElement(Octave:DOT)('.')
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('Xtrain')
+          PsiElement(Octave:RBRACKET)(']')
+        PsiWhiteSpace(' ')
+        PsiElement(Octave:LEFT_DIVISION)('\')
+        PsiWhiteSpace(' ')
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('data')
+        PsiElement(Octave:DOT)('.')
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('ytrain')
+  PsiElement(Octave:LINE_BREAK)('\n\n')
+  Octave:ASSIGNMENT_STATEMENT
+    Octave:EXPRESSION
+      Octave:REFERENCE_EXPRESSION
+        PsiElement(Octave:IDENTIFIER)('data')
+    PsiWhiteSpace(' ')
+    PsiElement(Octave:EQ)('=')
+    PsiWhiteSpace(' ')
+    Octave:EXPRESSION
+      Octave:REFERENCE_EXPRESSION
+        PsiElement(Octave:IDENTIFIER)('loadData')
+      Octave:PAR_EXPRESSION
+        PsiElement(Octave:LPAR)('(')
+        Octave:EXPRESSION
+          Octave:STRING_LITERAL
+            PsiElement(Octave:STRING)(''prostate'')
+        PsiElement(Octave:RPAR)(')')
+  PsiElement(Octave:SEMICOLON)(';')
+  PsiElement(Octave:LINE_BREAK)('\n')
+  Octave:ASSIGNMENT_STATEMENT
+    Octave:EXPRESSION
+      Octave:REFERENCE_EXPRESSION
+        PsiElement(Octave:IDENTIFIER)('w')
+    PsiElement(Octave:EQ)('=')
+    Octave:EXPRESSION
+      Octave:BINARY_EXPRESSION
+        Octave:BRACKET_EXPRESSION
+          PsiElement(Octave:LBRACKET)('[')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('ones')
+            Octave:PAR_EXPRESSION
+              PsiElement(Octave:LPAR)('(')
+              Octave:EXPRESSION
+                Octave:INTEGER_LITERAL
+                  PsiElement(Octave:INTEGER_LITERAL)('67')
+              PsiElement(Octave:COMMA)(',')
+              Octave:EXPRESSION
+                Octave:INTEGER_LITERAL
+                  PsiElement(Octave:INTEGER_LITERAL)('1')
+              PsiElement(Octave:RPAR)(')')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('standardize')
+            Octave:PAR_EXPRESSION
+              PsiElement(Octave:LPAR)('(')
+              Octave:EXPRESSION
+                Octave:REFERENCE_EXPRESSION
+                  PsiElement(Octave:IDENTIFIER)('data')
+                PsiElement(Octave:DOT)('.')
+                Octave:REFERENCE_EXPRESSION
+                  PsiElement(Octave:IDENTIFIER)('Xtrain')
+              PsiElement(Octave:RPAR)(')')
+          PsiElement(Octave:RBRACKET)(']')
+        PsiWhiteSpace(' ')
+        PsiElement(Octave:LEFT_DIVISION)('\')
+        PsiWhiteSpace(' ')
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('data')
+        PsiElement(Octave:DOT)('.')
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('ytrain')
+  PsiElement(Octave:LINE_BREAK)('\n\n')
+  Octave:ASSIGNMENT_STATEMENT
+    Octave:EXPRESSION
+      Octave:REFERENCE_EXPRESSION
+        PsiElement(Octave:IDENTIFIER)('data')
+    PsiWhiteSpace(' ')
+    PsiElement(Octave:EQ)('=')
+    PsiWhiteSpace(' ')
+    Octave:EXPRESSION
+      Octave:REFERENCE_EXPRESSION
+        PsiElement(Octave:IDENTIFIER)('loadData')
+      Octave:PAR_EXPRESSION
+        PsiElement(Octave:LPAR)('(')
+        Octave:EXPRESSION
+          Octave:STRING_LITERAL
+            PsiElement(Octave:STRING)(''prostateStnd'')
+        PsiElement(Octave:RPAR)(')')
+  PsiElement(Octave:SEMICOLON)(';')
+  PsiElement(Octave:LINE_BREAK)('\n')
+  Octave:ASSIGNMENT_STATEMENT
+    Octave:EXPRESSION
+      Octave:REFERENCE_EXPRESSION
+        PsiElement(Octave:IDENTIFIER)('w')
+    PsiElement(Octave:EQ)('=')
+    Octave:EXPRESSION
+      Octave:BINARY_EXPRESSION
+        Octave:BRACKET_EXPRESSION
+          PsiElement(Octave:LBRACKET)('[')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('ones')
+            Octave:PAR_EXPRESSION
+              PsiElement(Octave:LPAR)('(')
+              Octave:EXPRESSION
+                Octave:INTEGER_LITERAL
+                  PsiElement(Octave:INTEGER_LITERAL)('67')
+              PsiElement(Octave:COMMA)(',')
+              Octave:EXPRESSION
+                Octave:INTEGER_LITERAL
+                  PsiElement(Octave:INTEGER_LITERAL)('1')
+              PsiElement(Octave:RPAR)(')')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('data')
+            PsiElement(Octave:DOT)('.')
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('Xtrain')
+          PsiElement(Octave:RBRACKET)(']')
+        PsiWhiteSpace(' ')
+        PsiElement(Octave:LEFT_DIVISION)('\')
+        PsiWhiteSpace(' ')
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('data')
+        PsiElement(Octave:DOT)('.')
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('ytrain')
+  PsiWhiteSpace('  ')
+  PsiComment(Octave:COMMENT)('% this one is closest')
+  PsiElement(Octave:LINE_BREAK)('\n\n\n')
+  Octave:ASSIGNMENT_STATEMENT
+    Octave:EXPRESSION
+      Octave:REFERENCE_EXPRESSION
+        PsiElement(Octave:IDENTIFIER)('pp')
+    PsiWhiteSpace(' ')
+    PsiElement(Octave:EQ)('=')
+    PsiWhiteSpace(' ')
+    Octave:EXPRESSION
+      Octave:REFERENCE_EXPRESSION
+        PsiElement(Octave:IDENTIFIER)('preprocessorCreate')
+      Octave:PAR_EXPRESSION
+        PsiElement(Octave:LPAR)('(')
+        Octave:EXPRESSION
+          Octave:STRING_LITERAL
+            PsiElement(Octave:STRING)(''addOnes'')
+        PsiElement(Octave:COMMA)(',')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:CONST
+            PsiElement(Octave:TRUE_KEYWORD)('true')
+        PsiElement(Octave:COMMA)(',')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:STRING_LITERAL
+            PsiElement(Octave:STRING)(''standardizeX'')
+        PsiElement(Octave:COMMA)(',')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:CONST
+            PsiElement(Octave:TRUE_KEYWORD)('true')
+        PsiElement(Octave:RPAR)(')')
+  PsiElement(Octave:SEMICOLON)(';')
+  PsiElement(Octave:LINE_BREAK)('\n')
+  Octave:ASSIGNMENT_STATEMENT
+    Octave:EXPRESSION
+      Octave:REFERENCE_EXPRESSION
+        PsiElement(Octave:IDENTIFIER)('model')
+    PsiWhiteSpace(' ')
+    PsiElement(Octave:EQ)('=')
+    PsiWhiteSpace(' ')
+    Octave:EXPRESSION
+      Octave:REFERENCE_EXPRESSION
+        PsiElement(Octave:IDENTIFIER)('linregFit')
+      Octave:PAR_EXPRESSION
+        PsiElement(Octave:LPAR)('(')
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('data')
+          PsiElement(Octave:DOT)('.')
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('Xtrain')
+        PsiElement(Octave:COMMA)(',')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('data')
+          PsiElement(Octave:DOT)('.')
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('ytrain')
+        PsiElement(Octave:COMMA)(',')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:STRING_LITERAL
+            PsiElement(Octave:STRING)(''lambda'')
+        PsiElement(Octave:COMMA)(',')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:INTEGER_LITERAL
+            PsiElement(Octave:INTEGER_LITERAL)('0')
+        PsiElement(Octave:COMMA)(',')
+        PsiWhiteSpace(' ')
+        PsiWhiteSpace('...\n')
+        PsiWhiteSpace('  ')
+        Octave:EXPRESSION
+          Octave:STRING_LITERAL
+            PsiElement(Octave:STRING)(''preproc'')
+        PsiElement(Octave:COMMA)(',')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('pp')
+        PsiElement(Octave:RPAR)(')')
+  PsiElement(Octave:SEMICOLON)(';')
+  PsiElement(Octave:LINE_BREAK)('\n')
+  Octave:EXPRESSION
+    Octave:REFERENCE_EXPRESSION
+      PsiElement(Octave:IDENTIFIER)('model')
+    PsiElement(Octave:DOT)('.')
+    Octave:REFERENCE_EXPRESSION
+      PsiElement(Octave:IDENTIFIER)('w')
+  PsiElement(Octave:LINE_BREAK)('\n')
+  Octave:ASSIGNMENT_STATEMENT
+    Octave:EXPRESSION
+      Octave:REFERENCE_EXPRESSION
+        PsiElement(Octave:IDENTIFIER)('yhat')
+    PsiWhiteSpace(' ')
+    PsiElement(Octave:EQ)('=')
+    PsiWhiteSpace(' ')
+    Octave:EXPRESSION
+      Octave:REFERENCE_EXPRESSION
+        PsiElement(Octave:IDENTIFIER)('linregPredict')
+      Octave:PAR_EXPRESSION
+        PsiElement(Octave:LPAR)('(')
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('model')
+        PsiElement(Octave:COMMA)(',')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('data')
+          PsiElement(Octave:DOT)('.')
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('Xtest')
+        PsiElement(Octave:RPAR)(')')
+  PsiElement(Octave:SEMICOLON)(';')
+  PsiElement(Octave:LINE_BREAK)('\n')
+  Octave:ASSIGNMENT_STATEMENT
+    Octave:EXPRESSION
+      Octave:REFERENCE_EXPRESSION
+        PsiElement(Octave:IDENTIFIER)('loss')
+    PsiWhiteSpace(' ')
+    PsiElement(Octave:EQ)('=')
+    PsiWhiteSpace(' ')
+    Octave:ANONYMOUS_FUNCTION
+      PsiElement(Octave:AT)('@')
+      Octave:PAR_EXPRESSION
+        PsiElement(Octave:LPAR)('(')
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('yhat')
+        PsiElement(Octave:COMMA)(',')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('ytest')
+        PsiElement(Octave:RPAR)(')')
+      PsiWhiteSpace(' ')
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('mean')
+        Octave:PAR_EXPRESSION
+          PsiElement(Octave:LPAR)('(')
+          Octave:EXPRESSION
+            Octave:BINARY_EXPRESSION
+              Octave:PAR_EXPRESSION
+                PsiElement(Octave:LPAR)('(')
+                Octave:EXPRESSION
+                  Octave:BINARY_EXPRESSION
+                    Octave:REFERENCE_EXPRESSION
+                      PsiElement(Octave:IDENTIFIER)('yhat')
+                    PsiWhiteSpace(' ')
+                    PsiElement(Octave:MINUS)('-')
+                    PsiWhiteSpace(' ')
+                    Octave:REFERENCE_EXPRESSION
+                      PsiElement(Octave:IDENTIFIER)('ytest')
+                PsiElement(Octave:RPAR)(')')
+              PsiElement(Octave:DOT_POWER)('.^')
+              Octave:INTEGER_LITERAL
+                PsiElement(Octave:INTEGER_LITERAL)('2')
+          PsiElement(Octave:RPAR)(')')
+  PsiElement(Octave:SEMICOLON)(';')
+  PsiWhiteSpace(' ')
+  PsiElement(Octave:LINE_BREAK)('\n')
+  Octave:ASSIGNMENT_STATEMENT
+    Octave:EXPRESSION
+      Octave:REFERENCE_EXPRESSION
+        PsiElement(Octave:IDENTIFIER)('mse')
+    PsiWhiteSpace(' ')
+    PsiElement(Octave:EQ)('=')
+    PsiWhiteSpace(' ')
+    Octave:EXPRESSION
+      Octave:REFERENCE_EXPRESSION
+        PsiElement(Octave:IDENTIFIER)('loss')
+      Octave:PAR_EXPRESSION
+        PsiElement(Octave:LPAR)('(')
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('yhat')
+        PsiElement(Octave:COMMA)(',')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('data')
+          PsiElement(Octave:DOT)('.')
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('ytest')
+        PsiElement(Octave:RPAR)(')')

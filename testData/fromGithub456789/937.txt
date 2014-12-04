@@ -1,0 +1,1539 @@
+Octave File
+  Octave:FUNCTION_STATEMENT
+    PsiElement(Octave:FUNCTION_KEYWORD)('function')
+    PsiWhiteSpace(' ')
+    Octave:FUNCTION_NAME_STATEMENT
+      Octave:ASSIGNMENT_STATEMENT
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('mrf')
+        PsiWhiteSpace(' ')
+        PsiElement(Octave:EQ)('=')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('mrfCreate')
+          Octave:PAR_EXPRESSION
+            PsiElement(Octave:LPAR)('(')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('G')
+            PsiElement(Octave:COMMA)(',')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('varargin')
+            PsiElement(Octave:RPAR)(')')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%% Create a markov random field')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% G is undirected graph, (an adjacency matrix) representing the node')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% topology. Currently the interface only accepts potentials')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% on nodes and edges, however support for general')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% clique potentials may be added later.')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%% Named Inputs')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%\n')
+    PsiComment(Octave:COMMENT)('% 'nodePots'           - a cell array of either tabularFactors or numeric')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                        matrices representing the node potentials. Use')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                        numeric matrices when parameter tying.')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                        Use must specify at least one nodePots ')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                        since this implicitly defines the nstates')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%\n')
+    PsiComment(Octave:COMMENT)('% 'edgePots'            - a cell array of either tabularFactors or numeric')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                        matrices representing the edge potentials. If numeric')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                        matrices are passed in, we assume these are all')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                        pairwise. Use numeric matrices when parameter')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                        tying the edges, (which is only supported in the')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                        pairwise case). If you specify numeric matrices,')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                        list them according to the linear indexing of G,')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                        i.e. so that the kth edge is the one')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                        between nodes i and j in this code:')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                        edges = find(tril(G));')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                        [i, j] = ind2sub(size(G), edges(k))')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%\n')
+    PsiComment(Octave:COMMENT)('% 'localCPDs'          - a cell array of local conditional probability')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                        distributions (structs), which 'hang' off of the')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                        nodes to handle (usually continuous) observations.')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                        See condGaussCpd, tabularCpd, noisyOrCpd')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%\n')
+    PsiComment(Octave:COMMENT)('% 'nodePotPointers'     - if specified, nodePots{nodePotPointers(j)} is used')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                        as the potential for node j.')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%\n')
+    PsiComment(Octave:COMMENT)('% 'edgePotPointers'     - if specified, edgePots{edgePotPointers(e)} is used')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                        as the potential for edge e, (see edge ordering')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                        note under edgePots above).')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%\n')
+    PsiComment(Octave:COMMENT)('% 'localCPDpointers'    - if specified, localCPDs{localCPDpointers(j)} is')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                        used as the localCPD whose parent is node j.')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%\n')
+    PsiComment(Octave:COMMENT)('% 'infEngine'          - an inference engine, one of the following: ')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                     {['jtree'], 'varelim', 'bp', 'enum', 'libdai*'}')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%\n')
+    PsiComment(Octave:COMMENT)('%                     libdai* - replace * with any valid libdai inference')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                     method or alias. Type 'help libdaiOptions' file for')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                     a full list. If you want to specify non-default')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                     config values, set them using')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                     'infEngArgs', {'*', '[name1=val1, name2=val2, ...]'}')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%\n')
+    PsiComment(Octave:COMMENT)('%\n')
+    PsiComment(Octave:COMMENT)('% 'infEngArgs'          - optional inf engine specific args - a cell array')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%\n')
+    PsiComment(Octave:COMMENT)('% 'precomputeJtree'     - [true] set to false if you don't want to precompute')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%                        the jtree.')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%\n')
+    PsiComment(Octave:COMMENT)('%%')
+    PsiElement(Octave:LINE_BREAK)('\n\n')
+    PsiComment(Octave:COMMENT)('% This file is from pmtk3.googlecode.com')
+    PsiElement(Octave:LINE_BREAK)('\n\n')
+    Octave:ASSIGNMENT_STATEMENT
+      Octave:EXPRESSION
+        Octave:BRACKET_EXPRESSION
+          PsiElement(Octave:LBRACKET)('[')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('nodePots')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('edgePots')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('localCPDs')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          PsiWhiteSpace('...\n')
+          PsiWhiteSpace('    ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('nodePotPointers')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('edgePotPointers')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('localCPDpointers')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          PsiWhiteSpace('...\n')
+          PsiWhiteSpace('    ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('infEngine')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('infEngArgs')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('precomputeJtree')
+          PsiElement(Octave:RBRACKET)(']')
+      PsiWhiteSpace(' ')
+      PsiElement(Octave:EQ)('=')
+      PsiWhiteSpace('    ')
+      PsiWhiteSpace('...\n')
+      PsiWhiteSpace('    ')
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('process_options')
+        Octave:PAR_EXPRESSION
+          PsiElement(Octave:LPAR)('(')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('varargin')
+          PsiWhiteSpace('       ')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          PsiWhiteSpace('...\n')
+          PsiWhiteSpace('    ')
+          Octave:EXPRESSION
+            Octave:STRING_LITERAL
+              PsiElement(Octave:STRING)(''nodePots'')
+          PsiWhiteSpace('           ')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:BRACKET_EXPRESSION
+              PsiElement(Octave:LBRACKET)('[')
+              PsiElement(Octave:RBRACKET)(']')
+          PsiWhiteSpace('      ')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          PsiWhiteSpace('...\n')
+          PsiWhiteSpace('    ')
+          Octave:EXPRESSION
+            Octave:STRING_LITERAL
+              PsiElement(Octave:STRING)(''edgePots'')
+          PsiWhiteSpace('           ')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:BRACKET_EXPRESSION
+              PsiElement(Octave:LBRACKET)('[')
+              PsiElement(Octave:RBRACKET)(']')
+          PsiWhiteSpace('      ')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          PsiWhiteSpace('...\n')
+          PsiWhiteSpace('    ')
+          Octave:EXPRESSION
+            Octave:STRING_LITERAL
+              PsiElement(Octave:STRING)(''localCPDs'')
+          PsiWhiteSpace('          ')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:BRACKET_EXPRESSION
+              PsiElement(Octave:LBRACKET)('[')
+              PsiElement(Octave:RBRACKET)(']')
+          PsiWhiteSpace('      ')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          PsiWhiteSpace('...\n')
+          PsiWhiteSpace('    ')
+          Octave:EXPRESSION
+            Octave:STRING_LITERAL
+              PsiElement(Octave:STRING)(''nodePotPointers'')
+          PsiWhiteSpace('    ')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:BRACKET_EXPRESSION
+              PsiElement(Octave:LBRACKET)('[')
+              PsiElement(Octave:RBRACKET)(']')
+          PsiWhiteSpace('      ')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          PsiWhiteSpace('...\n')
+          PsiWhiteSpace('    ')
+          Octave:EXPRESSION
+            Octave:STRING_LITERAL
+              PsiElement(Octave:STRING)(''edgePotPointers'')
+          PsiWhiteSpace('    ')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:BRACKET_EXPRESSION
+              PsiElement(Octave:LBRACKET)('[')
+              PsiElement(Octave:RBRACKET)(']')
+          PsiWhiteSpace('      ')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          PsiWhiteSpace('...\n')
+          PsiWhiteSpace('    ')
+          Octave:EXPRESSION
+            Octave:STRING_LITERAL
+              PsiElement(Octave:STRING)(''localCPDpointers'')
+          PsiWhiteSpace('   ')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:BRACKET_EXPRESSION
+              PsiElement(Octave:LBRACKET)('[')
+              PsiElement(Octave:RBRACKET)(']')
+          PsiWhiteSpace('      ')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          PsiWhiteSpace('...\n')
+          PsiWhiteSpace('    ')
+          Octave:EXPRESSION
+            Octave:STRING_LITERAL
+              PsiElement(Octave:STRING)(''infEngine'')
+          PsiWhiteSpace('          ')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:STRING_LITERAL
+              PsiElement(Octave:STRING)(''jtree'')
+          PsiWhiteSpace(' ')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          PsiWhiteSpace('...\n')
+          PsiWhiteSpace('    ')
+          Octave:EXPRESSION
+            Octave:STRING_LITERAL
+              PsiElement(Octave:STRING)(''infEngArgs'')
+          PsiWhiteSpace('         ')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:BRACE_EXPRESSION
+              PsiElement(Octave:LBRACE)('{')
+              PsiElement(Octave:RBRACE)('}')
+          PsiWhiteSpace('      ')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          PsiWhiteSpace('...\n')
+          PsiWhiteSpace('    ')
+          Octave:EXPRESSION
+            Octave:STRING_LITERAL
+              PsiElement(Octave:STRING)(''precomputeJtree'')
+          PsiWhiteSpace('    ')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:CONST
+              PsiElement(Octave:TRUE_KEYWORD)('true')
+          PsiElement(Octave:RPAR)(')')
+    PsiElement(Octave:SEMICOLON)(';')
+    PsiElement(Octave:LINE_BREAK)('\n\n')
+    Octave:ASSIGNMENT_STATEMENT
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('nodePots')
+      PsiWhiteSpace('  ')
+      PsiElement(Octave:EQ)('=')
+      PsiWhiteSpace(' ')
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('cellwrap')
+        Octave:PAR_EXPRESSION
+          PsiElement(Octave:LPAR)('(')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('nodePots')
+          PsiElement(Octave:RPAR)(')')
+    PsiElement(Octave:SEMICOLON)(';')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    Octave:ASSIGNMENT_STATEMENT
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('edgePots')
+      PsiWhiteSpace('  ')
+      PsiElement(Octave:EQ)('=')
+      PsiWhiteSpace(' ')
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('cellwrap')
+        Octave:PAR_EXPRESSION
+          PsiElement(Octave:LPAR)('(')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('edgePots')
+          PsiElement(Octave:RPAR)(')')
+    PsiElement(Octave:SEMICOLON)(';')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    Octave:ASSIGNMENT_STATEMENT
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('localCPDs')
+      PsiWhiteSpace(' ')
+      PsiElement(Octave:EQ)('=')
+      PsiWhiteSpace(' ')
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('cellwrap')
+        Octave:PAR_EXPRESSION
+          PsiElement(Octave:LPAR)('(')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('localCPDs')
+          PsiElement(Octave:RPAR)(')')
+    PsiElement(Octave:SEMICOLON)(';')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    Octave:ASSIGNMENT_STATEMENT
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('nnodes')
+      PsiWhiteSpace('    ')
+      PsiElement(Octave:EQ)('=')
+      PsiWhiteSpace(' ')
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('size')
+        Octave:PAR_EXPRESSION
+          PsiElement(Octave:LPAR)('(')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('G')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:INTEGER_LITERAL
+              PsiElement(Octave:INTEGER_LITERAL)('1')
+          PsiElement(Octave:RPAR)(')')
+    PsiElement(Octave:SEMICOLON)(';')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    Octave:ASSIGNMENT_STATEMENT
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('G')
+      PsiWhiteSpace(' ')
+      PsiElement(Octave:EQ)('=')
+      PsiWhiteSpace(' ')
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('mkSymmetric')
+        Octave:PAR_EXPRESSION
+          PsiElement(Octave:LPAR)('(')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('G')
+          PsiElement(Octave:RPAR)(')')
+    PsiElement(Octave:SEMICOLON)(';')
+    PsiElement(Octave:LINE_BREAK)('\n\n')
+    PsiComment(Octave:COMMENT)('%% set default values')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    Octave:IF_STATEMENT
+      PsiElement(Octave:IF_KEYWORD)('if')
+      PsiWhiteSpace(' ')
+      Octave:CONDITION_STATEMENT
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('isempty')
+          Octave:PAR_EXPRESSION
+            PsiElement(Octave:LPAR)('(')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('nodePotPointers')
+            PsiElement(Octave:RPAR)(')')
+        PsiElement(Octave:LINE_BREAK)('\n')
+      PsiWhiteSpace('    ')
+      Octave:IF_STATEMENT
+        PsiElement(Octave:IF_KEYWORD)('if')
+        PsiWhiteSpace(' ')
+        Octave:CONDITION_STATEMENT
+          Octave:EXPRESSION
+            Octave:BINARY_EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('numel')
+              Octave:PAR_EXPRESSION
+                PsiElement(Octave:LPAR)('(')
+                Octave:EXPRESSION
+                  Octave:REFERENCE_EXPRESSION
+                    PsiElement(Octave:IDENTIFIER)('nodePots')
+                PsiElement(Octave:RPAR)(')')
+              PsiWhiteSpace(' ')
+              PsiElement(Octave:EQEQ)('==')
+              PsiWhiteSpace(' ')
+              Octave:INTEGER_LITERAL
+                PsiElement(Octave:INTEGER_LITERAL)('1')
+          PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('        ')
+        Octave:ASSIGNMENT_STATEMENT
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('nodePotPointers')
+          PsiWhiteSpace(' ')
+          PsiElement(Octave:EQ)('=')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('ones')
+            Octave:PAR_EXPRESSION
+              PsiElement(Octave:LPAR)('(')
+              Octave:EXPRESSION
+                Octave:INTEGER_LITERAL
+                  PsiElement(Octave:INTEGER_LITERAL)('1')
+              PsiElement(Octave:COMMA)(',')
+              PsiWhiteSpace(' ')
+              Octave:EXPRESSION
+                Octave:REFERENCE_EXPRESSION
+                  PsiElement(Octave:IDENTIFIER)('nnodes')
+              PsiElement(Octave:RPAR)(')')
+        PsiElement(Octave:SEMICOLON)(';')
+        PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('    ')
+        PsiElement(Octave:ELSE_KEYWORD)('else')
+        PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('        ')
+        Octave:ASSIGNMENT_STATEMENT
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('nodePotPointers')
+          PsiWhiteSpace(' ')
+          PsiElement(Octave:EQ)('=')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:SLICE_EXPRESSION
+              Octave:INTEGER_LITERAL
+                PsiElement(Octave:INTEGER_LITERAL)('1')
+              PsiElement(Octave:COLON)(':')
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('nnodes')
+        PsiElement(Octave:SEMICOLON)(';')
+        PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('    ')
+        PsiElement(Octave:END_KEYWORD)('end')
+      PsiElement(Octave:LINE_BREAK)('\n')
+      PsiElement(Octave:END_KEYWORD)('end')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    Octave:IF_STATEMENT
+      PsiElement(Octave:IF_KEYWORD)('if')
+      PsiWhiteSpace(' ')
+      Octave:CONDITION_STATEMENT
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('isempty')
+          Octave:PAR_EXPRESSION
+            PsiElement(Octave:LPAR)('(')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('edgePotPointers')
+            PsiElement(Octave:RPAR)(')')
+        PsiElement(Octave:LINE_BREAK)('\n')
+      PsiWhiteSpace('    ')
+      Octave:IF_STATEMENT
+        PsiElement(Octave:IF_KEYWORD)('if')
+        PsiWhiteSpace(' ')
+        Octave:CONDITION_STATEMENT
+          Octave:EXPRESSION
+            Octave:BINARY_EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('numel')
+              Octave:PAR_EXPRESSION
+                PsiElement(Octave:LPAR)('(')
+                Octave:EXPRESSION
+                  Octave:REFERENCE_EXPRESSION
+                    PsiElement(Octave:IDENTIFIER)('edgePots')
+                PsiElement(Octave:RPAR)(')')
+              PsiWhiteSpace(' ')
+              PsiElement(Octave:EQEQ)('==')
+              PsiWhiteSpace(' ')
+              Octave:INTEGER_LITERAL
+                PsiElement(Octave:INTEGER_LITERAL)('1')
+          PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('        ')
+        Octave:ASSIGNMENT_STATEMENT
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('edgePotPointers')
+          PsiWhiteSpace(' ')
+          PsiElement(Octave:EQ)('=')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('ones')
+            Octave:PAR_EXPRESSION
+              PsiElement(Octave:LPAR)('(')
+              Octave:EXPRESSION
+                Octave:INTEGER_LITERAL
+                  PsiElement(Octave:INTEGER_LITERAL)('1')
+              PsiElement(Octave:COMMA)(',')
+              PsiWhiteSpace(' ')
+              Octave:EXPRESSION
+                Octave:REFERENCE_EXPRESSION
+                  PsiElement(Octave:IDENTIFIER)('nedges')
+                Octave:PAR_EXPRESSION
+                  PsiElement(Octave:LPAR)('(')
+                  Octave:EXPRESSION
+                    Octave:REFERENCE_EXPRESSION
+                      PsiElement(Octave:IDENTIFIER)('G')
+                  PsiElement(Octave:COMMA)(',')
+                  PsiWhiteSpace(' ')
+                  Octave:EXPRESSION
+                    Octave:CONST
+                      PsiElement(Octave:FALSE_KEYWORD)('false')
+                  PsiElement(Octave:RPAR)(')')
+              PsiElement(Octave:RPAR)(')')
+        PsiElement(Octave:SEMICOLON)(';')
+        PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('    ')
+        PsiElement(Octave:ELSE_KEYWORD)('else')
+        PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('        ')
+        Octave:ASSIGNMENT_STATEMENT
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('edgePotPointers')
+          PsiWhiteSpace(' ')
+          PsiElement(Octave:EQ)('=')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:SLICE_EXPRESSION
+              Octave:INTEGER_LITERAL
+                PsiElement(Octave:INTEGER_LITERAL)('1')
+              PsiElement(Octave:COLON)(':')
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('nedges')
+              Octave:PAR_EXPRESSION
+                PsiElement(Octave:LPAR)('(')
+                Octave:EXPRESSION
+                  Octave:REFERENCE_EXPRESSION
+                    PsiElement(Octave:IDENTIFIER)('G')
+                PsiElement(Octave:COMMA)(',')
+                PsiWhiteSpace(' ')
+                Octave:EXPRESSION
+                  Octave:CONST
+                    PsiElement(Octave:FALSE_KEYWORD)('false')
+                PsiElement(Octave:RPAR)(')')
+        PsiElement(Octave:SEMICOLON)(';')
+        PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('    ')
+        PsiElement(Octave:END_KEYWORD)('end')
+      PsiElement(Octave:LINE_BREAK)('\n')
+      PsiElement(Octave:END_KEYWORD)('end')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    Octave:IF_STATEMENT
+      PsiElement(Octave:IF_KEYWORD)('if')
+      PsiWhiteSpace(' ')
+      Octave:CONDITION_STATEMENT
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('isempty')
+          Octave:PAR_EXPRESSION
+            PsiElement(Octave:LPAR)('(')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('localCPDpointers')
+            PsiElement(Octave:RPAR)(')')
+        PsiElement(Octave:LINE_BREAK)('\n')
+      PsiWhiteSpace('    ')
+      Octave:IF_STATEMENT
+        PsiElement(Octave:IF_KEYWORD)('if')
+        PsiWhiteSpace(' ')
+        Octave:CONDITION_STATEMENT
+          Octave:EXPRESSION
+            Octave:BINARY_EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('numel')
+              Octave:PAR_EXPRESSION
+                PsiElement(Octave:LPAR)('(')
+                Octave:EXPRESSION
+                  Octave:REFERENCE_EXPRESSION
+                    PsiElement(Octave:IDENTIFIER)('localCPDs')
+                PsiElement(Octave:RPAR)(')')
+              PsiWhiteSpace(' ')
+              PsiElement(Octave:EQEQ)('==')
+              PsiWhiteSpace(' ')
+              Octave:INTEGER_LITERAL
+                PsiElement(Octave:INTEGER_LITERAL)('1')
+          PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('        ')
+        Octave:ASSIGNMENT_STATEMENT
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('localCPDpointers')
+          PsiWhiteSpace(' ')
+          PsiElement(Octave:EQ)('=')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('ones')
+            Octave:PAR_EXPRESSION
+              PsiElement(Octave:LPAR)('(')
+              Octave:EXPRESSION
+                Octave:INTEGER_LITERAL
+                  PsiElement(Octave:INTEGER_LITERAL)('1')
+              PsiElement(Octave:COMMA)(',')
+              PsiWhiteSpace(' ')
+              Octave:EXPRESSION
+                Octave:REFERENCE_EXPRESSION
+                  PsiElement(Octave:IDENTIFIER)('nnodes')
+              PsiElement(Octave:RPAR)(')')
+        PsiElement(Octave:SEMICOLON)(';')
+        PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('    ')
+        PsiElement(Octave:ELSE_KEYWORD)('else')
+        PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('        ')
+        Octave:ASSIGNMENT_STATEMENT
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('localCPDpointers')
+          PsiWhiteSpace(' ')
+          PsiElement(Octave:EQ)('=')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:SLICE_EXPRESSION
+              Octave:INTEGER_LITERAL
+                PsiElement(Octave:INTEGER_LITERAL)('1')
+              PsiElement(Octave:COLON)(':')
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('nnodes')
+        PsiElement(Octave:SEMICOLON)(';')
+        PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('    ')
+        PsiElement(Octave:END_KEYWORD)('end')
+      PsiElement(Octave:LINE_BREAK)('\n')
+      PsiElement(Octave:END_KEYWORD)('end')
+    PsiElement(Octave:LINE_BREAK)('\n\n')
+    PsiComment(Octave:COMMENT)('% we convert potentials (fixed number of them)')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% to factors (one per node/ edge)')
+    PsiElement(Octave:LINE_BREAK)('\n\n')
+    PsiComment(Octave:COMMENT)('%% convert any numeric matrices to tabular factors')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    Octave:IF_STATEMENT
+      PsiElement(Octave:IF_KEYWORD)('if')
+      PsiWhiteSpace(' ')
+      Octave:CONDITION_STATEMENT
+        Octave:EXPRESSION
+          Octave:PREFIX_EXPRESSION
+            PsiElement(Octave:TILDE)('~')
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('isempty')
+            Octave:PAR_EXPRESSION
+              PsiElement(Octave:LPAR)('(')
+              Octave:EXPRESSION
+                Octave:REFERENCE_EXPRESSION
+                  PsiElement(Octave:IDENTIFIER)('nodePots')
+              PsiElement(Octave:RPAR)(')')
+        PsiElement(Octave:SEMICOLON)(';')
+        PsiElement(Octave:LINE_BREAK)('\n')
+      PsiWhiteSpace('    ')
+      Octave:ASSIGNMENT_STATEMENT
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('nodeFactors')
+        PsiWhiteSpace(' ')
+        PsiElement(Octave:EQ)('=')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('nodePots')
+          Octave:PAR_EXPRESSION
+            PsiElement(Octave:LPAR)('(')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('nodePotPointers')
+            PsiElement(Octave:RPAR)(')')
+      PsiElement(Octave:SEMICOLON)(';')
+      PsiElement(Octave:LINE_BREAK)('\n')
+      PsiWhiteSpace('    ')
+      Octave:FOR_STATEMENT
+        PsiElement(Octave:FOR_KEYWORD)('for')
+        PsiWhiteSpace(' ')
+        Octave:ENUMERATE_STATEMENT
+          Octave:ASSIGNMENT_STATEMENT
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('f')
+            PsiElement(Octave:EQ)('=')
+            Octave:EXPRESSION
+              Octave:SLICE_EXPRESSION
+                Octave:INTEGER_LITERAL
+                  PsiElement(Octave:INTEGER_LITERAL)('1')
+                PsiElement(Octave:COLON)(':')
+                Octave:REFERENCE_EXPRESSION
+                  PsiElement(Octave:IDENTIFIER)('numel')
+                Octave:PAR_EXPRESSION
+                  PsiElement(Octave:LPAR)('(')
+                  Octave:EXPRESSION
+                    Octave:REFERENCE_EXPRESSION
+                      PsiElement(Octave:IDENTIFIER)('nodeFactors')
+                  PsiElement(Octave:RPAR)(')')
+        PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('        ')
+        Octave:IF_STATEMENT
+          PsiElement(Octave:IF_KEYWORD)('if')
+          PsiWhiteSpace(' ')
+          Octave:CONDITION_STATEMENT
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('isnumeric')
+              Octave:PAR_EXPRESSION
+                PsiElement(Octave:LPAR)('(')
+                Octave:EXPRESSION
+                  Octave:REFERENCE_EXPRESSION
+                    PsiElement(Octave:IDENTIFIER)('nodeFactors')
+                  Octave:BRACE_EXPRESSION
+                    PsiElement(Octave:LBRACE)('{')
+                    Octave:EXPRESSION
+                      Octave:REFERENCE_EXPRESSION
+                        PsiElement(Octave:IDENTIFIER)('f')
+                    PsiElement(Octave:RBRACE)('}')
+                PsiElement(Octave:RPAR)(')')
+            PsiElement(Octave:LINE_BREAK)('\n')
+          PsiWhiteSpace('            ')
+          Octave:ASSIGNMENT_STATEMENT
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('nodeFactors')
+              Octave:BRACE_EXPRESSION
+                PsiElement(Octave:LBRACE)('{')
+                Octave:EXPRESSION
+                  Octave:REFERENCE_EXPRESSION
+                    PsiElement(Octave:IDENTIFIER)('f')
+                PsiElement(Octave:RBRACE)('}')
+            PsiWhiteSpace(' ')
+            PsiElement(Octave:EQ)('=')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('tabularFactorCreate')
+              Octave:PAR_EXPRESSION
+                PsiElement(Octave:LPAR)('(')
+                Octave:EXPRESSION
+                  Octave:REFERENCE_EXPRESSION
+                    PsiElement(Octave:IDENTIFIER)('nodeFactors')
+                  Octave:BRACE_EXPRESSION
+                    PsiElement(Octave:LBRACE)('{')
+                    Octave:EXPRESSION
+                      Octave:REFERENCE_EXPRESSION
+                        PsiElement(Octave:IDENTIFIER)('f')
+                    PsiElement(Octave:RBRACE)('}')
+                PsiElement(Octave:COMMA)(',')
+                PsiWhiteSpace('  ')
+                Octave:EXPRESSION
+                  Octave:REFERENCE_EXPRESSION
+                    PsiElement(Octave:IDENTIFIER)('f')
+                PsiElement(Octave:RPAR)(')')
+          PsiElement(Octave:SEMICOLON)(';')
+          PsiElement(Octave:LINE_BREAK)('\n')
+          PsiWhiteSpace('        ')
+          PsiElement(Octave:END_KEYWORD)('end')
+        PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('    ')
+        PsiElement(Octave:END_KEYWORD)('end')
+      PsiElement(Octave:LINE_BREAK)('\n')
+      PsiElement(Octave:END_KEYWORD)('end')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    Octave:ASSIGNMENT_STATEMENT
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('nstates')
+      PsiWhiteSpace(' ')
+      PsiElement(Octave:EQ)('=')
+      PsiWhiteSpace(' ')
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('cellfun')
+        Octave:PAR_EXPRESSION
+          PsiElement(Octave:LPAR)('(')
+          Octave:ANONYMOUS_FUNCTION
+            PsiElement(Octave:AT)('@')
+            Octave:PAR_EXPRESSION
+              PsiElement(Octave:LPAR)('(')
+              Octave:EXPRESSION
+                Octave:REFERENCE_EXPRESSION
+                  PsiElement(Octave:IDENTIFIER)('f')
+              PsiElement(Octave:RPAR)(')')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('f')
+              PsiElement(Octave:DOT)('.')
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('sizes')
+              Octave:PAR_EXPRESSION
+                PsiElement(Octave:LPAR)('(')
+                Octave:EXPRESSION
+                  Octave:REFERENCE_EXPRESSION
+                    PsiElement(Octave:IDENTIFIER)('end')
+                PsiElement(Octave:RPAR)(')')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('nodeFactors')
+          PsiElement(Octave:RPAR)(')')
+    PsiElement(Octave:SEMICOLON)(';')
+    PsiWhiteSpace(' ')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    Octave:IF_STATEMENT
+      PsiElement(Octave:IF_KEYWORD)('if')
+      PsiWhiteSpace(' ')
+      Octave:CONDITION_STATEMENT
+        Octave:EXPRESSION
+          Octave:PREFIX_EXPRESSION
+            PsiElement(Octave:TILDE)('~')
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('isempty')
+            Octave:PAR_EXPRESSION
+              PsiElement(Octave:LPAR)('(')
+              Octave:EXPRESSION
+                Octave:REFERENCE_EXPRESSION
+                  PsiElement(Octave:IDENTIFIER)('edgePots')
+              PsiElement(Octave:RPAR)(')')
+        PsiElement(Octave:LINE_BREAK)('\n')
+      PsiWhiteSpace('    ')
+      Octave:ASSIGNMENT_STATEMENT
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('E')
+        PsiWhiteSpace(' ')
+        PsiElement(Octave:EQ)('=')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('find')
+          Octave:PAR_EXPRESSION
+            PsiElement(Octave:LPAR)('(')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('tril')
+              Octave:PAR_EXPRESSION
+                PsiElement(Octave:LPAR)('(')
+                Octave:EXPRESSION
+                  Octave:REFERENCE_EXPRESSION
+                    PsiElement(Octave:IDENTIFIER)('G')
+                PsiElement(Octave:RPAR)(')')
+            PsiElement(Octave:RPAR)(')')
+      PsiElement(Octave:SEMICOLON)(';')
+      PsiElement(Octave:LINE_BREAK)('\n')
+      PsiWhiteSpace('    ')
+      Octave:ASSIGNMENT_STATEMENT
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('sz')
+        PsiWhiteSpace(' ')
+        PsiElement(Octave:EQ)('=')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('size')
+          Octave:PAR_EXPRESSION
+            PsiElement(Octave:LPAR)('(')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('G')
+            PsiElement(Octave:RPAR)(')')
+      PsiElement(Octave:SEMICOLON)(';')
+      PsiElement(Octave:LINE_BREAK)('\n')
+      PsiWhiteSpace('    ')
+      Octave:ASSIGNMENT_STATEMENT
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('edgeFactors')
+        PsiWhiteSpace(' ')
+        PsiElement(Octave:EQ)('=')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('edgePots')
+          Octave:PAR_EXPRESSION
+            PsiElement(Octave:LPAR)('(')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('edgePotPointers')
+            PsiElement(Octave:RPAR)(')')
+      PsiElement(Octave:SEMICOLON)(';')
+      PsiElement(Octave:LINE_BREAK)('\n')
+      PsiWhiteSpace('    ')
+      Octave:FOR_STATEMENT
+        PsiElement(Octave:FOR_KEYWORD)('for')
+        PsiWhiteSpace(' ')
+        Octave:ENUMERATE_STATEMENT
+          Octave:ASSIGNMENT_STATEMENT
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('e')
+            PsiElement(Octave:EQ)('=')
+            Octave:EXPRESSION
+              Octave:SLICE_EXPRESSION
+                Octave:INTEGER_LITERAL
+                  PsiElement(Octave:INTEGER_LITERAL)('1')
+                PsiElement(Octave:COLON)(':')
+                Octave:REFERENCE_EXPRESSION
+                  PsiElement(Octave:IDENTIFIER)('numel')
+                Octave:PAR_EXPRESSION
+                  PsiElement(Octave:LPAR)('(')
+                  Octave:EXPRESSION
+                    Octave:REFERENCE_EXPRESSION
+                      PsiElement(Octave:IDENTIFIER)('edgeFactors')
+                  PsiElement(Octave:RPAR)(')')
+        PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('        ')
+        Octave:ASSIGNMENT_STATEMENT
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('fac')
+          PsiWhiteSpace(' ')
+          PsiElement(Octave:EQ)('=')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('edgeFactors')
+            Octave:BRACE_EXPRESSION
+              PsiElement(Octave:LBRACE)('{')
+              Octave:EXPRESSION
+                Octave:CONST
+                  PsiElement(Octave:E_KEYWORD)('e')
+              PsiElement(Octave:RBRACE)('}')
+        PsiElement(Octave:SEMICOLON)(';')
+        PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('        ')
+        Octave:IF_STATEMENT
+          PsiElement(Octave:IF_KEYWORD)('if')
+          PsiWhiteSpace(' ')
+          Octave:CONDITION_STATEMENT
+            Octave:EXPRESSION
+              Octave:BINARY_EXPRESSION
+                Octave:REFERENCE_EXPRESSION
+                  PsiElement(Octave:IDENTIFIER)('isnumeric')
+                Octave:PAR_EXPRESSION
+                  PsiElement(Octave:LPAR)('(')
+                  Octave:EXPRESSION
+                    Octave:REFERENCE_EXPRESSION
+                      PsiElement(Octave:IDENTIFIER)('fac')
+                  PsiElement(Octave:RPAR)(')')
+                PsiWhiteSpace(' ')
+                PsiElement(Octave:DOUBLE_AND)('&&')
+                PsiWhiteSpace(' ')
+                Octave:PREFIX_EXPRESSION
+                  PsiElement(Octave:TILDE)('~')
+                  Octave:REFERENCE_EXPRESSION
+                    PsiElement(Octave:IDENTIFIER)('isempty')
+                  Octave:PAR_EXPRESSION
+                    PsiElement(Octave:LPAR)('(')
+                    Octave:EXPRESSION
+                      Octave:REFERENCE_EXPRESSION
+                        PsiElement(Octave:IDENTIFIER)('fac')
+                    PsiElement(Octave:RPAR)(')')
+            PsiElement(Octave:LINE_BREAK)('\n')
+          PsiWhiteSpace('            ')
+          Octave:ASSIGNMENT_STATEMENT
+            Octave:EXPRESSION
+              Octave:BRACKET_EXPRESSION
+                PsiElement(Octave:LBRACKET)('[')
+                Octave:EXPRESSION
+                  Octave:REFERENCE_EXPRESSION
+                    PsiElement(Octave:IDENTIFIER)('i')
+                PsiElement(Octave:COMMA)(',')
+                PsiWhiteSpace(' ')
+                Octave:EXPRESSION
+                  Octave:REFERENCE_EXPRESSION
+                    PsiElement(Octave:IDENTIFIER)('j')
+                PsiElement(Octave:RBRACKET)(']')
+            PsiWhiteSpace(' ')
+            PsiElement(Octave:EQ)('=')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('ind2sub')
+              Octave:PAR_EXPRESSION
+                PsiElement(Octave:LPAR)('(')
+                Octave:EXPRESSION
+                  Octave:REFERENCE_EXPRESSION
+                    PsiElement(Octave:IDENTIFIER)('sz')
+                PsiElement(Octave:COMMA)(',')
+                PsiWhiteSpace(' ')
+                Octave:EXPRESSION
+                  Octave:REFERENCE_EXPRESSION
+                    PsiElement(Octave:IDENTIFIER)('E')
+                  Octave:PAR_EXPRESSION
+                    PsiElement(Octave:LPAR)('(')
+                    Octave:EXPRESSION
+                      Octave:CONST
+                        PsiElement(Octave:E_KEYWORD)('e')
+                    PsiElement(Octave:RPAR)(')')
+                PsiElement(Octave:RPAR)(')')
+          PsiElement(Octave:SEMICOLON)(';')
+          PsiElement(Octave:LINE_BREAK)('\n')
+          PsiWhiteSpace('            ')
+          Octave:ASSIGNMENT_STATEMENT
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('edgeFactors')
+              Octave:BRACE_EXPRESSION
+                PsiElement(Octave:LBRACE)('{')
+                Octave:EXPRESSION
+                  Octave:CONST
+                    PsiElement(Octave:E_KEYWORD)('e')
+                PsiElement(Octave:RBRACE)('}')
+            PsiWhiteSpace(' ')
+            PsiElement(Octave:EQ)('=')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('tabularFactorCreate')
+              Octave:PAR_EXPRESSION
+                PsiElement(Octave:LPAR)('(')
+                Octave:EXPRESSION
+                  Octave:REFERENCE_EXPRESSION
+                    PsiElement(Octave:IDENTIFIER)('fac')
+                PsiElement(Octave:COMMA)(',')
+                PsiWhiteSpace(' ')
+                Octave:EXPRESSION
+                  Octave:BRACKET_EXPRESSION
+                    PsiElement(Octave:LBRACKET)('[')
+                    Octave:EXPRESSION
+                      Octave:REFERENCE_EXPRESSION
+                        PsiElement(Octave:IDENTIFIER)('j')
+                    PsiWhiteSpace(' ')
+                    Octave:EXPRESSION
+                      Octave:REFERENCE_EXPRESSION
+                        PsiElement(Octave:IDENTIFIER)('i')
+                    PsiElement(Octave:RBRACKET)(']')
+                PsiElement(Octave:RPAR)(')')
+          PsiElement(Octave:SEMICOLON)(';')
+          PsiElement(Octave:LINE_BREAK)('\n')
+          PsiWhiteSpace('        ')
+          PsiElement(Octave:END_KEYWORD)('end')
+        PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('    ')
+        PsiElement(Octave:END_KEYWORD)('end')
+      PsiElement(Octave:LINE_BREAK)('\n')
+      PsiWhiteSpace('    ')
+      Octave:ASSIGNMENT_STATEMENT
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('edgeFactors')
+        PsiWhiteSpace(' ')
+        PsiElement(Octave:EQ)('=')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('removeEmpty')
+          Octave:PAR_EXPRESSION
+            PsiElement(Octave:LPAR)('(')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('edgeFactors')
+            PsiElement(Octave:RPAR)(')')
+      PsiElement(Octave:SEMICOLON)(';')
+      PsiElement(Octave:LINE_BREAK)('\n')
+      PsiElement(Octave:ELSE_KEYWORD)('else')
+      PsiElement(Octave:LINE_BREAK)('\n')
+      PsiWhiteSpace('  ')
+      Octave:ASSIGNMENT_STATEMENT
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('edgeFactors')
+        PsiWhiteSpace(' ')
+        PsiElement(Octave:EQ)('=')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:BRACE_EXPRESSION
+            PsiElement(Octave:LBRACE)('{')
+            PsiElement(Octave:RBRACE)('}')
+      PsiElement(Octave:SEMICOLON)(';')
+      PsiElement(Octave:LINE_BREAK)('\n')
+      PsiElement(Octave:END_KEYWORD)('end')
+    PsiElement(Octave:LINE_BREAK)('\n\n')
+    PsiComment(Octave:COMMENT)('%% save edge information')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    Octave:ASSIGNMENT_STATEMENT
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('nEdgeFacs')
+      PsiWhiteSpace('   ')
+      PsiElement(Octave:EQ)('=')
+      PsiWhiteSpace(' ')
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('numel')
+        Octave:PAR_EXPRESSION
+          PsiElement(Octave:LPAR)('(')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('edgeFactors')
+          PsiElement(Octave:RPAR)(')')
+    PsiElement(Octave:SEMICOLON)(';')
+    PsiWhiteSpace(' ')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    Octave:ASSIGNMENT_STATEMENT
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('edges')
+      PsiWhiteSpace('       ')
+      PsiElement(Octave:EQ)('=')
+      PsiWhiteSpace(' ')
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('cell')
+        Octave:PAR_EXPRESSION
+          PsiElement(Octave:LPAR)('(')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('nEdgeFacs')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:INTEGER_LITERAL
+              PsiElement(Octave:INTEGER_LITERAL)('1')
+          PsiElement(Octave:RPAR)(')')
+    PsiElement(Octave:SEMICOLON)(';')
+    PsiWhiteSpace(' ')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    Octave:ASSIGNMENT_STATEMENT
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('edgeLookup')
+      PsiWhiteSpace('  ')
+      PsiElement(Octave:EQ)('=')
+      PsiWhiteSpace(' ')
+      Octave:EXPRESSION
+        Octave:CONST
+          PsiElement(Octave:FALSE_KEYWORD)('false')
+    Octave:EXPRESSION
+      Octave:PAR_EXPRESSION
+        PsiElement(Octave:LPAR)('(')
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('nnodes')
+        PsiElement(Octave:COMMA)(',')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('nEdgeFacs')
+        PsiElement(Octave:RPAR)(')')
+    PsiElement(Octave:SEMICOLON)(';')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    Octave:FOR_STATEMENT
+      PsiElement(Octave:FOR_KEYWORD)('for')
+      PsiWhiteSpace(' ')
+      Octave:ENUMERATE_STATEMENT
+        Octave:ASSIGNMENT_STATEMENT
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('i')
+          PsiElement(Octave:EQ)('=')
+          Octave:EXPRESSION
+            Octave:SLICE_EXPRESSION
+              Octave:INTEGER_LITERAL
+                PsiElement(Octave:INTEGER_LITERAL)('1')
+              PsiElement(Octave:COLON)(':')
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('numel')
+              Octave:PAR_EXPRESSION
+                PsiElement(Octave:LPAR)('(')
+                Octave:EXPRESSION
+                  Octave:REFERENCE_EXPRESSION
+                    PsiElement(Octave:IDENTIFIER)('edgeFactors')
+                PsiElement(Octave:RPAR)(')')
+      PsiElement(Octave:LINE_BREAK)('\n')
+      PsiWhiteSpace('   ')
+      Octave:ASSIGNMENT_STATEMENT
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('dom')
+        PsiWhiteSpace('      ')
+        PsiElement(Octave:EQ)('=')
+        PsiWhiteSpace('  ')
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('edgeFactors')
+          Octave:BRACE_EXPRESSION
+            PsiElement(Octave:LBRACE)('{')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('i')
+            PsiElement(Octave:RBRACE)('}')
+          PsiElement(Octave:DOT)('.')
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('domain')
+      PsiElement(Octave:SEMICOLON)(';')
+      PsiWhiteSpace('  ')
+      PsiElement(Octave:LINE_BREAK)('\n')
+      PsiWhiteSpace('   ')
+      Octave:ASSIGNMENT_STATEMENT
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('edges')
+          Octave:BRACE_EXPRESSION
+            PsiElement(Octave:LBRACE)('{')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('i')
+            PsiElement(Octave:RBRACE)('}')
+        PsiWhiteSpace(' ')
+        PsiElement(Octave:EQ)('=')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('dom')
+      PsiElement(Octave:SEMICOLON)(';')
+      PsiWhiteSpace(' ')
+      PsiElement(Octave:LINE_BREAK)('\n')
+      PsiWhiteSpace('   ')
+      Octave:ASSIGNMENT_STATEMENT
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('edgeLookup')
+          Octave:PAR_EXPRESSION
+            PsiElement(Octave:LPAR)('(')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('dom')
+            PsiElement(Octave:COMMA)(',')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('i')
+            PsiElement(Octave:RPAR)(')')
+        PsiWhiteSpace(' ')
+        PsiElement(Octave:EQ)('=')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:CONST
+            PsiElement(Octave:TRUE_KEYWORD)('true')
+      PsiElement(Octave:SEMICOLON)(';')
+      PsiWhiteSpace(' ')
+      PsiElement(Octave:LINE_BREAK)('\n')
+      PsiElement(Octave:END_KEYWORD)('end')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%% combine node and edge factors into a cliqueGraph')
+    PsiElement(Octave:LINE_BREAK)('\n\n')
+    PsiComment(Octave:COMMENT)('% KPM 27Sep10: modified to handle possibly disconnected nodes')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    Octave:ASSIGNMENT_STATEMENT
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('cliqueGraph')
+      PsiWhiteSpace(' ')
+      PsiElement(Octave:EQ)('=')
+      PsiWhiteSpace(' ')
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('cliqueGraphCreate')
+        Octave:PAR_EXPRESSION
+          PsiElement(Octave:LPAR)('(')
+          Octave:EXPRESSION
+            Octave:BRACKET_EXPRESSION
+              PsiElement(Octave:LBRACKET)('[')
+              Octave:EXPRESSION
+                Octave:REFERENCE_EXPRESSION
+                  PsiElement(Octave:IDENTIFIER)('rowvec')
+                Octave:PAR_EXPRESSION
+                  PsiElement(Octave:LPAR)('(')
+                  Octave:EXPRESSION
+                    Octave:REFERENCE_EXPRESSION
+                      PsiElement(Octave:IDENTIFIER)('nodeFactors')
+                  PsiElement(Octave:RPAR)(')')
+              PsiWhiteSpace(' ')
+              Octave:EXPRESSION
+                Octave:REFERENCE_EXPRESSION
+                  PsiElement(Octave:IDENTIFIER)('rowvec')
+                Octave:PAR_EXPRESSION
+                  PsiElement(Octave:LPAR)('(')
+                  Octave:EXPRESSION
+                    Octave:REFERENCE_EXPRESSION
+                      PsiElement(Octave:IDENTIFIER)('edgeFactors')
+                  PsiElement(Octave:RPAR)(')')
+              PsiElement(Octave:RBRACKET)(']')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('nstates')
+          PsiElement(Octave:RPAR)(')')
+    PsiElement(Octave:SEMICOLON)(';')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%{\nif isempty(edgeFactors)\n   cliqueGraph = cliqueGraphCreate(nodeFactors, nstates, G);  \nelse\n    factors = edgeFactors;  \n    for f=1:nnodes\n        ndx = find(edgeLookup(f, :), 1);\n        factors{ndx} = tabularFactorMultiply(factors{ndx}, nodeFactors{f}); \n    end\n    cliqueGraph = cliqueGraphCreate(factors, nstates);  \nend\n%}')
+    PsiElement(Octave:LINE_BREAK)('\n\n')
+    PsiComment(Octave:COMMENT)('%% package')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    Octave:ASSIGNMENT_STATEMENT
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('mrf')
+      PsiWhiteSpace(' ')
+      PsiElement(Octave:EQ)('=')
+      PsiWhiteSpace(' ')
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('structure')
+        Octave:PAR_EXPRESSION
+          PsiElement(Octave:LPAR)('(')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('G')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('cliqueGraph')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('localCPDs')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('localCPDpointers')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          PsiWhiteSpace('...\n')
+          PsiWhiteSpace('    ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('localCPDpointers')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('infEngine')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('nnodes')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('edges')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('nstates')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          PsiWhiteSpace('...\n')
+          PsiWhiteSpace('    ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('nodePots')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('nodePotPointers')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('edgePots')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('edgePotPointers')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('infEngArgs')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          PsiWhiteSpace('...\n')
+          PsiWhiteSpace('    ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('nodeFactors')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('edgeFactors')
+          PsiElement(Octave:RPAR)(')')
+    PsiElement(Octave:SEMICOLON)(';')
+    PsiWhiteSpace(' ')
+    PsiElement(Octave:LINE_BREAK)('\n\n')
+    Octave:ASSIGNMENT_STATEMENT
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('mrf')
+        PsiElement(Octave:DOT)('.')
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('isdirected')
+      PsiWhiteSpace(' ')
+      PsiElement(Octave:EQ)('=')
+      PsiWhiteSpace(' ')
+      Octave:EXPRESSION
+        Octave:CONST
+          PsiElement(Octave:FALSE_KEYWORD)('false')
+    PsiElement(Octave:SEMICOLON)(';')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    Octave:ASSIGNMENT_STATEMENT
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('mrf')
+        PsiElement(Octave:DOT)('.')
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('modelType')
+      PsiWhiteSpace(' ')
+      PsiElement(Octave:EQ)('=')
+      PsiWhiteSpace(' ')
+      Octave:EXPRESSION
+        Octave:STRING_LITERAL
+          PsiElement(Octave:STRING)(''mrf'')
+    PsiElement(Octave:SEMICOLON)(';')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%% precompute jtree')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    Octave:IF_STATEMENT
+      PsiElement(Octave:IF_KEYWORD)('if')
+      PsiWhiteSpace(' ')
+      Octave:CONDITION_STATEMENT
+        Octave:EXPRESSION
+          Octave:BINARY_EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('strcmpi')
+            Octave:PAR_EXPRESSION
+              PsiElement(Octave:LPAR)('(')
+              Octave:EXPRESSION
+                Octave:REFERENCE_EXPRESSION
+                  PsiElement(Octave:IDENTIFIER)('infEngine')
+              PsiElement(Octave:COMMA)(',')
+              PsiWhiteSpace(' ')
+              Octave:EXPRESSION
+                Octave:STRING_LITERAL
+                  PsiElement(Octave:STRING)(''jtree'')
+              PsiElement(Octave:RPAR)(')')
+            PsiWhiteSpace(' ')
+            PsiElement(Octave:DOUBLE_AND)('&&')
+            PsiWhiteSpace(' ')
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('precomputeJtree')
+        PsiElement(Octave:LINE_BREAK)('\n')
+      PsiWhiteSpace('    ')
+      Octave:ASSIGNMENT_STATEMENT
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('mrf')
+          PsiElement(Octave:DOT)('.')
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('jtree')
+        PsiWhiteSpace(' ')
+        PsiElement(Octave:EQ)('=')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('jtreeCreate')
+          Octave:PAR_EXPRESSION
+            PsiElement(Octave:LPAR)('(')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('cliqueGraph')
+            PsiElement(Octave:RPAR)(')')
+      PsiElement(Octave:SEMICOLON)(';')
+      PsiElement(Octave:LINE_BREAK)('\n')
+      PsiElement(Octave:END_KEYWORD)('end')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiElement(Octave:END_KEYWORD)('end')

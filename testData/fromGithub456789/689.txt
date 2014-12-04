@@ -1,0 +1,826 @@
+Octave File
+  Octave:FUNCTION_STATEMENT
+    PsiElement(Octave:FUNCTION_KEYWORD)('function')
+    PsiWhiteSpace(' ')
+    Octave:FUNCTION_NAME_STATEMENT
+      Octave:ASSIGNMENT_STATEMENT
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('model')
+        PsiWhiteSpace(' ')
+        PsiElement(Octave:EQ)('=')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('svmlibFit')
+          Octave:PAR_EXPRESSION
+            PsiElement(Octave:LPAR)('(')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('X')
+            PsiElement(Octave:COMMA)(',')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('y')
+            PsiElement(Octave:COMMA)(',')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('C')
+            PsiElement(Octave:COMMA)(',')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('kernelParam')
+            PsiElement(Octave:COMMA)(',')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('kernelType')
+            PsiElement(Octave:COMMA)(',')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('varargin')
+            PsiElement(Octave:RPAR)(')')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% PMTK interface to libsvm')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% If RBF, the kernelParam is gamma in exp(-gamma ||X-X'||^2).')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%\n')
+    PsiComment(Octave:COMMENT)('%% Setup')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% (1) Download libsvm from')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%     http://www.csie.ntu.edu.tw/~cjlin/cgi-bin/libsvm.cgi?+http://www.csie.ntu.edu.tw/~cjlin/libsvm+zip')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% (2) unzip to e.g. C:\libsvm\')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% (3) (if linux, run make - windows executables already built)')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% (4) add the executables to your system path')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%     e.g. addtosystempath('C:\libsvm\libsvm-2.9\windows');')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%     note, addtosystempath does not persist between matlab sessions, so')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%     add this line to your startup.m file.')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% (5) (if linux, mexify by running libsvmMake.m - already done for windows)')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% (6) test the mex interface with libsvmTest.m')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%% libsvm options:')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% -s svm_type : set type of SVM (default 0)')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% \t0 -- C-SVC')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% \t1 -- nu-SVC')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% \t2 -- one-class SVM')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% \t3 -- epsilon-SVR')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% \t4 -- nu-SVR')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% -t kernel_type : set type of kernel function (default 2)')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% \t0 -- linear: u'*v')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% \t1 -- polynomial: (gamma*u'*v + coef0)^degree')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% \t2 -- radial basis function: exp(-gamma*|u-v|^2)')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% \t3 -- sigmoid: tanh(gamma*u'*v + coef0)')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% -d degree : set degree in kernel function (default 3)')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% -g gamma : set gamma in kernel function (default 1/num_features)')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% -r coef0 : set coef0 in kernel function (default 0)')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% -c cost : set the parameter C of C-SVC, epsilon-SVR, and nu-SVR (default 1)')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% -n nu : set the parameter nu of nu-SVC, one-class SVM, and nu-SVR (default 0.5)')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% -p epsilon : set the epsilon in loss function of epsilon-SVR (default 0.1)')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% -m cachesize : set cache memory size in MB (default 100)')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% -e epsilon : set tolerance of termination criterion (default 0.001)')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% -h shrinking: whether to use the shrinking heuristics, 0 or 1 (default 1)')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% -b probability_estimates: whether to train a SVC or SVR model for probability estimates, 0 or 1 (default 0)')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('% -wi weight: set the parameter C of class i to weight*C, for C-SVC (default 1)')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiComment(Octave:COMMENT)('%%')
+    PsiElement(Octave:LINE_BREAK)('\n\n')
+    PsiComment(Octave:COMMENT)('% This file is from pmtk3.googlecode.com')
+    PsiElement(Octave:LINE_BREAK)('\n\n')
+    Octave:ASSIGNMENT_STATEMENT
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('y')
+      PsiWhiteSpace(' ')
+      PsiElement(Octave:EQ)('=')
+      PsiWhiteSpace(' ')
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('colvec')
+        Octave:PAR_EXPRESSION
+          PsiElement(Octave:LPAR)('(')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('y')
+          PsiElement(Octave:RPAR)(')')
+    PsiElement(Octave:SEMICOLON)(';')
+    PsiWhiteSpace(' ')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    Octave:ASSIGNMENT_STATEMENT
+      Octave:EXPRESSION
+        Octave:BRACKET_EXPRESSION
+          PsiElement(Octave:LBRACKET)('[')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('shrink')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('epsilonTube')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('estProb')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('customOptions')
+          PsiElement(Octave:RBRACKET)(']')
+      PsiWhiteSpace(' ')
+      PsiElement(Octave:EQ)('=')
+      PsiWhiteSpace(' ')
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('process_options')
+        PsiWhiteSpace('...\n')
+        PsiWhiteSpace('    ')
+        Octave:PAR_EXPRESSION
+          PsiElement(Octave:LPAR)('(')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('varargin')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:STRING_LITERAL
+              PsiElement(Octave:STRING)(''shrink'')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:INTEGER_LITERAL
+              PsiElement(Octave:INTEGER_LITERAL)('0')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:STRING_LITERAL
+              PsiElement(Octave:STRING)(''epsilonTube'')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:FLOAT_NUMBER_LITERAL
+              PsiElement(Octave:FLOAT_NUMBER_LITERAL)('0.1')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:STRING_LITERAL
+              PsiElement(Octave:STRING)(''estProb'')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:INTEGER_LITERAL
+              PsiElement(Octave:INTEGER_LITERAL)('0')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:STRING_LITERAL
+              PsiElement(Octave:STRING)(''customOptions'')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:STRING_LITERAL
+              PsiElement(Octave:STRING)('''')
+          PsiElement(Octave:RPAR)(')')
+    PsiElement(Octave:SEMICOLON)(';')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    Octave:ASSIGNMENT_STATEMENT
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('shrinkSwitch')
+      PsiWhiteSpace(' ')
+      PsiElement(Octave:EQ)('=')
+      PsiWhiteSpace(' ')
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('sprintf')
+        Octave:PAR_EXPRESSION
+          PsiElement(Octave:LPAR)('(')
+          Octave:EXPRESSION
+            Octave:STRING_LITERAL
+              PsiElement(Octave:STRING)(''-h %d'')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('shrink')
+          PsiElement(Octave:RPAR)(')')
+    PsiElement(Octave:SEMICOLON)(';')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    Octave:ASSIGNMENT_STATEMENT
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('estProbSwitch')
+      PsiWhiteSpace(' ')
+      PsiElement(Octave:EQ)('=')
+      PsiWhiteSpace(' ')
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('sprintf')
+        Octave:PAR_EXPRESSION
+          PsiElement(Octave:LPAR)('(')
+          Octave:EXPRESSION
+            Octave:STRING_LITERAL
+              PsiElement(Octave:STRING)(''-b %d'')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('estProb')
+          PsiElement(Octave:RPAR)(')')
+    PsiElement(Octave:SEMICOLON)(';')
+    PsiElement(Octave:LINE_BREAK)('\n\n')
+    Octave:IF_STATEMENT
+      PsiElement(Octave:IF_KEYWORD)('if')
+      PsiWhiteSpace(' ')
+      Octave:CONDITION_STATEMENT
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('isempty')
+          Octave:PAR_EXPRESSION
+            PsiElement(Octave:LPAR)('(')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('customOptions')
+            PsiElement(Octave:RPAR)(')')
+        PsiElement(Octave:LINE_BREAK)('\n')
+      PsiWhiteSpace('    ')
+      Octave:IF_STATEMENT
+        PsiElement(Octave:IF_KEYWORD)('if')
+        PsiWhiteSpace(' ')
+        Octave:CONDITION_STATEMENT
+          Octave:EXPRESSION
+            Octave:BINARY_EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('nargin')
+              PsiWhiteSpace(' ')
+              PsiElement(Octave:LT)('<')
+              PsiWhiteSpace(' ')
+              Octave:INTEGER_LITERAL
+                PsiElement(Octave:INTEGER_LITERAL)('5')
+          PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('        ')
+        Octave:IF_STATEMENT
+          PsiElement(Octave:IF_KEYWORD)('if')
+          PsiWhiteSpace(' ')
+          Octave:CONDITION_STATEMENT
+            Octave:EXPRESSION
+              Octave:BINARY_EXPRESSION
+                Octave:REFERENCE_EXPRESSION
+                  PsiElement(Octave:IDENTIFIER)('nargin')
+                PsiWhiteSpace(' ')
+                PsiElement(Octave:LT)('<')
+                PsiWhiteSpace(' ')
+                Octave:INTEGER_LITERAL
+                  PsiElement(Octave:INTEGER_LITERAL)('4')
+            PsiElement(Octave:LINE_BREAK)('\n')
+          PsiWhiteSpace('            ')
+          Octave:ASSIGNMENT_STATEMENT
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('kernelType')
+            PsiWhiteSpace(' ')
+            PsiElement(Octave:EQ)('=')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:STRING_LITERAL
+                PsiElement(Octave:STRING)(''default'')
+          PsiElement(Octave:SEMICOLON)(';')
+          PsiElement(Octave:LINE_BREAK)('\n')
+          PsiWhiteSpace('        ')
+          PsiElement(Octave:ELSE_KEYWORD)('else')
+          PsiElement(Octave:LINE_BREAK)('\n')
+          PsiWhiteSpace('            ')
+          Octave:ASSIGNMENT_STATEMENT
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('kernelType')
+            PsiWhiteSpace(' ')
+            PsiElement(Octave:EQ)('=')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:STRING_LITERAL
+                PsiElement(Octave:STRING)(''rbf'')
+          PsiElement(Octave:SEMICOLON)(';')
+          PsiElement(Octave:LINE_BREAK)('\n')
+          PsiWhiteSpace('        ')
+          PsiElement(Octave:END_KEYWORD)('end')
+        PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('    ')
+        PsiElement(Octave:END_KEYWORD)('end')
+      PsiElement(Octave:LINE_BREAK)('\n')
+      PsiWhiteSpace('    ')
+      Octave:SWITCH_STATEMENT
+        PsiElement(Octave:SWITCH_KEYWORD)('switch')
+        PsiWhiteSpace(' ')
+        Octave:SWITCH_PARAMETER_STATEMENT
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('lower')
+            Octave:PAR_EXPRESSION
+              PsiElement(Octave:LPAR)('(')
+              Octave:EXPRESSION
+                Octave:REFERENCE_EXPRESSION
+                  PsiElement(Octave:IDENTIFIER)('kernelType')
+              PsiElement(Octave:RPAR)(')')
+          PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('        ')
+        Octave:CASE_STATEMENT
+          PsiElement(Octave:CASE_KEYWORD)('case')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:STRING_LITERAL
+              PsiElement(Octave:STRING)(''rbf'')
+          PsiElement(Octave:LINE_BREAK)('\n')
+          PsiWhiteSpace('            ')
+          Octave:ASSIGNMENT_STATEMENT
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('kernelSwitch')
+            PsiWhiteSpace(' ')
+            PsiElement(Octave:EQ)('=')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:STRING_LITERAL
+                PsiElement(Octave:STRING)(''-t 2'')
+          PsiElement(Octave:SEMICOLON)(';')
+          PsiElement(Octave:LINE_BREAK)('\n')
+          PsiWhiteSpace('            ')
+          Octave:ASSIGNMENT_STATEMENT
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('paramSwitch')
+            PsiWhiteSpace(' ')
+            PsiElement(Octave:EQ)('=')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('sprintf')
+              Octave:PAR_EXPRESSION
+                PsiElement(Octave:LPAR)('(')
+                Octave:EXPRESSION
+                  Octave:STRING_LITERAL
+                    PsiElement(Octave:STRING)(''-g %f'')
+                PsiElement(Octave:COMMA)(',')
+                PsiWhiteSpace(' ')
+                Octave:EXPRESSION
+                  Octave:REFERENCE_EXPRESSION
+                    PsiElement(Octave:IDENTIFIER)('kernelParam')
+                PsiElement(Octave:RPAR)(')')
+          PsiElement(Octave:SEMICOLON)(';')
+          PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('        ')
+        Octave:CASE_STATEMENT
+          PsiElement(Octave:CASE_KEYWORD)('case')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:STRING_LITERAL
+              PsiElement(Octave:STRING)(''polynomial'')
+          PsiElement(Octave:LINE_BREAK)('\n')
+          PsiWhiteSpace('            ')
+          Octave:ASSIGNMENT_STATEMENT
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('kernelSwitch')
+            PsiWhiteSpace(' ')
+            PsiElement(Octave:EQ)('=')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:STRING_LITERAL
+                PsiElement(Octave:STRING)(''-t 1'')
+          PsiElement(Octave:SEMICOLON)(';')
+          PsiElement(Octave:LINE_BREAK)('\n')
+          PsiWhiteSpace('            ')
+          Octave:ASSIGNMENT_STATEMENT
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('paramSwitch')
+            PsiWhiteSpace(' ')
+            PsiElement(Octave:EQ)('=')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('sprintf')
+              Octave:PAR_EXPRESSION
+                PsiElement(Octave:LPAR)('(')
+                Octave:EXPRESSION
+                  Octave:STRING_LITERAL
+                    PsiElement(Octave:STRING)(''-d %f'')
+                PsiElement(Octave:COMMA)(',')
+                PsiWhiteSpace(' ')
+                Octave:EXPRESSION
+                  Octave:REFERENCE_EXPRESSION
+                    PsiElement(Octave:IDENTIFIER)('kernelParam')
+                PsiElement(Octave:RPAR)(')')
+          PsiElement(Octave:SEMICOLON)(';')
+          PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('        ')
+        Octave:CASE_STATEMENT
+          PsiElement(Octave:CASE_KEYWORD)('case')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:STRING_LITERAL
+              PsiElement(Octave:STRING)(''linear'')
+          PsiElement(Octave:LINE_BREAK)('\n')
+          PsiWhiteSpace('            ')
+          Octave:ASSIGNMENT_STATEMENT
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('kernelSwitch')
+            PsiWhiteSpace(' ')
+            PsiElement(Octave:EQ)('=')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:STRING_LITERAL
+                PsiElement(Octave:STRING)(''-t 0'')
+          PsiElement(Octave:SEMICOLON)(';')
+          PsiElement(Octave:LINE_BREAK)('\n')
+          PsiWhiteSpace('            ')
+          Octave:ASSIGNMENT_STATEMENT
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('paramSwitch')
+            PsiWhiteSpace(' ')
+            PsiElement(Octave:EQ)('=')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:STRING_LITERAL
+                PsiElement(Octave:STRING)('''')
+          PsiElement(Octave:SEMICOLON)(';')
+          PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('        ')
+        Octave:CASE_STATEMENT
+          PsiElement(Octave:CASE_KEYWORD)('case')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:STRING_LITERAL
+              PsiElement(Octave:STRING)(''sigmoid'')
+          PsiElement(Octave:LINE_BREAK)('\n')
+          PsiWhiteSpace('            ')
+          Octave:ASSIGNMENT_STATEMENT
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('kernelSwitch')
+            PsiWhiteSpace(' ')
+            PsiElement(Octave:EQ)('=')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:STRING_LITERAL
+                PsiElement(Octave:STRING)(''-t 3'')
+          PsiElement(Octave:SEMICOLON)(';')
+          PsiElement(Octave:LINE_BREAK)('\n')
+          PsiWhiteSpace('            ')
+          Octave:ASSIGNMENT_STATEMENT
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('paramSwitch')
+            PsiWhiteSpace(' ')
+            PsiElement(Octave:EQ)('=')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('sprintf')
+              Octave:PAR_EXPRESSION
+                PsiElement(Octave:LPAR)('(')
+                Octave:EXPRESSION
+                  Octave:STRING_LITERAL
+                    PsiElement(Octave:STRING)(''-g %f'')
+                PsiElement(Octave:COMMA)(',')
+                PsiWhiteSpace(' ')
+                Octave:EXPRESSION
+                  Octave:REFERENCE_EXPRESSION
+                    PsiElement(Octave:IDENTIFIER)('kernelParam')
+                PsiElement(Octave:RPAR)(')')
+          PsiElement(Octave:SEMICOLON)(';')
+          PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('        ')
+        Octave:CASE_STATEMENT
+          PsiElement(Octave:OTHERWISE_KEYWORD)('otherwise')
+          PsiElement(Octave:LINE_BREAK)('\n')
+          PsiWhiteSpace('            ')
+          Octave:ASSIGNMENT_STATEMENT
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('kernelSwitch')
+            PsiWhiteSpace(' ')
+            PsiElement(Octave:EQ)('=')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:STRING_LITERAL
+                PsiElement(Octave:STRING)('''')
+          PsiElement(Octave:SEMICOLON)(';')
+          PsiElement(Octave:LINE_BREAK)('\n')
+          PsiWhiteSpace('            ')
+          Octave:ASSIGNMENT_STATEMENT
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('paramSwitch')
+            PsiWhiteSpace(' ')
+            PsiElement(Octave:EQ)('=')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:STRING_LITERAL
+                PsiElement(Octave:STRING)('''')
+          PsiElement(Octave:SEMICOLON)(';')
+          PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('    ')
+        PsiElement(Octave:END_KEYWORD)('end')
+      PsiElement(Octave:LINE_BREAK)('\n')
+      PsiWhiteSpace('    ')
+      PsiElement(Octave:LINE_BREAK)('\n')
+      PsiWhiteSpace('    ')
+      Octave:IF_STATEMENT
+        PsiElement(Octave:IF_KEYWORD)('if')
+        PsiWhiteSpace(' ')
+        Octave:CONDITION_STATEMENT
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('isequal')
+            Octave:PAR_EXPRESSION
+              PsiElement(Octave:LPAR)('(')
+              Octave:EXPRESSION
+                Octave:REFERENCE_EXPRESSION
+                  PsiElement(Octave:IDENTIFIER)('y')
+              PsiElement(Octave:COMMA)(',')
+              PsiWhiteSpace(' ')
+              Octave:EXPRESSION
+                Octave:REFERENCE_EXPRESSION
+                  PsiElement(Octave:IDENTIFIER)('round')
+                Octave:PAR_EXPRESSION
+                  PsiElement(Octave:LPAR)('(')
+                  Octave:EXPRESSION
+                    Octave:REFERENCE_EXPRESSION
+                      PsiElement(Octave:IDENTIFIER)('y')
+                  PsiElement(Octave:RPAR)(')')
+              PsiElement(Octave:RPAR)(')')
+          PsiWhiteSpace(' ')
+          PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('        ')
+        Octave:ASSIGNMENT_STATEMENT
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('typeSwitch')
+          PsiWhiteSpace(' ')
+          PsiElement(Octave:EQ)('=')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:STRING_LITERAL
+              PsiElement(Octave:STRING)(''-s 0'')
+        PsiElement(Octave:SEMICOLON)(';')
+        PsiWhiteSpace(' ')
+        PsiComment(Octave:COMMENT)('%classification (both binary and multiclass)')
+        PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('        ')
+        Octave:ASSIGNMENT_STATEMENT
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('epsilonTubeSwitch')
+          PsiWhiteSpace(' ')
+          PsiElement(Octave:EQ)('=')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:STRING_LITERAL
+              PsiElement(Octave:STRING)('''')
+        PsiElement(Octave:SEMICOLON)(';')
+        PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('    ')
+        PsiElement(Octave:ELSE_KEYWORD)('else')
+        PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('        ')
+        Octave:ASSIGNMENT_STATEMENT
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('typeSwitch')
+          PsiWhiteSpace(' ')
+          PsiElement(Octave:EQ)('=')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:STRING_LITERAL
+              PsiElement(Octave:STRING)(''-s 3'')
+        PsiElement(Octave:SEMICOLON)(';')
+        PsiWhiteSpace(' ')
+        PsiComment(Octave:COMMENT)('%regression')
+        PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('        ')
+        Octave:ASSIGNMENT_STATEMENT
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('epsilonTubeSwitch')
+          PsiWhiteSpace(' ')
+          PsiElement(Octave:EQ)('=')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('sprintf')
+            Octave:PAR_EXPRESSION
+              PsiElement(Octave:LPAR)('(')
+              Octave:EXPRESSION
+                Octave:STRING_LITERAL
+                  PsiElement(Octave:STRING)(''-p %d'')
+              PsiElement(Octave:COMMA)(',')
+              PsiWhiteSpace(' ')
+              Octave:EXPRESSION
+                Octave:REFERENCE_EXPRESSION
+                  PsiElement(Octave:IDENTIFIER)('epsilonTube')
+              PsiElement(Octave:RPAR)(')')
+        PsiElement(Octave:SEMICOLON)(';')
+        PsiElement(Octave:LINE_BREAK)('\n')
+        PsiWhiteSpace('    ')
+        PsiElement(Octave:END_KEYWORD)('end')
+      PsiElement(Octave:LINE_BREAK)('\n')
+      PsiWhiteSpace('    ')
+      Octave:ASSIGNMENT_STATEMENT
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('Cswitch')
+        PsiWhiteSpace(' ')
+        PsiElement(Octave:EQ)('=')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('sprintf')
+          Octave:PAR_EXPRESSION
+            PsiElement(Octave:LPAR)('(')
+            Octave:EXPRESSION
+              Octave:STRING_LITERAL
+                PsiElement(Octave:STRING)(''-c %f'')
+            PsiElement(Octave:COMMA)(',')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('C')
+            PsiElement(Octave:RPAR)(')')
+      PsiElement(Octave:SEMICOLON)(';')
+      PsiElement(Octave:LINE_BREAK)('\n')
+      PsiWhiteSpace('    ')
+      Octave:ASSIGNMENT_STATEMENT
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('options')
+        PsiWhiteSpace(' ')
+        PsiElement(Octave:EQ)('=')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('sprintf')
+          Octave:PAR_EXPRESSION
+            PsiElement(Octave:LPAR)('(')
+            Octave:EXPRESSION
+              Octave:STRING_LITERAL
+                PsiElement(Octave:STRING)(''%s %s %s %s %s %s %s'')
+            PsiElement(Octave:COMMA)(',')
+            PsiWhiteSpace(' ')
+            PsiWhiteSpace('...\n')
+            PsiWhiteSpace('        ')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('Cswitch')
+            PsiElement(Octave:COMMA)(',')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('typeSwitch')
+            PsiElement(Octave:COMMA)(',')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('kernelSwitch')
+            PsiElement(Octave:COMMA)(',')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('paramSwitch')
+            PsiElement(Octave:COMMA)(',')
+            PsiWhiteSpace('...\n')
+            PsiWhiteSpace('        ')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('epsilonTubeSwitch')
+            PsiElement(Octave:COMMA)(',')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('shrinkSwitch')
+            PsiElement(Octave:COMMA)(',')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:REFERENCE_EXPRESSION
+                PsiElement(Octave:IDENTIFIER)('estProbSwitch')
+            PsiElement(Octave:RPAR)(')')
+      PsiElement(Octave:SEMICOLON)(';')
+      PsiElement(Octave:LINE_BREAK)('\n')
+      PsiElement(Octave:ELSE_KEYWORD)('else')
+      PsiElement(Octave:LINE_BREAK)('\n')
+      PsiWhiteSpace('    ')
+      Octave:ASSIGNMENT_STATEMENT
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('options')
+        PsiWhiteSpace(' ')
+        PsiElement(Octave:EQ)('=')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('customOptions')
+      PsiElement(Octave:SEMICOLON)(';')
+      PsiElement(Octave:LINE_BREAK)('\n')
+      PsiElement(Octave:END_KEYWORD)('end')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    Octave:ASSIGNMENT_STATEMENT
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('model')
+      PsiWhiteSpace(' ')
+      PsiElement(Octave:EQ)('=')
+      PsiWhiteSpace(' ')
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('libsvmTrain')
+        Octave:PAR_EXPRESSION
+          PsiElement(Octave:LPAR)('(')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('y')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('X')
+          PsiElement(Octave:COMMA)(',')
+          PsiWhiteSpace(' ')
+          Octave:EXPRESSION
+            Octave:REFERENCE_EXPRESSION
+              PsiElement(Octave:IDENTIFIER)('options')
+          PsiElement(Octave:RPAR)(')')
+    PsiElement(Octave:SEMICOLON)(';')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    Octave:ASSIGNMENT_STATEMENT
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('model')
+        PsiElement(Octave:DOT)('.')
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('C')
+      PsiWhiteSpace(' ')
+      PsiElement(Octave:EQ)('=')
+      PsiWhiteSpace(' ')
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('C')
+    PsiElement(Octave:SEMICOLON)(';')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    Octave:ASSIGNMENT_STATEMENT
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('model')
+        PsiElement(Octave:DOT)('.')
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('fitEngine')
+      PsiWhiteSpace(' ')
+      PsiElement(Octave:EQ)('=')
+      PsiWhiteSpace(' ')
+      Octave:EXPRESSION
+        Octave:REFERENCE_EXPRESSION
+          PsiElement(Octave:IDENTIFIER)('mfilename')
+        Octave:PAR_EXPRESSION
+          PsiElement(Octave:LPAR)('(')
+          PsiElement(Octave:RPAR)(')')
+    PsiElement(Octave:SEMICOLON)(';')
+    PsiElement(Octave:LINE_BREAK)('\n')
+    PsiElement(Octave:END_KEYWORD)('end')

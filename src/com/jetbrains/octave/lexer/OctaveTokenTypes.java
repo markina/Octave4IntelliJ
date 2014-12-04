@@ -18,6 +18,8 @@ public interface OctaveTokenTypes {
 
   public static final IElementType IDENTIFIER = new OctaveElementType("IDENTIFIER");
 
+  public static final IElementType DOTS = new OctaveElementType("DOTS");
+
   //grouping
   public static final IElementType LPAR = new OctaveElementType("LPAR");    // (
   public static final IElementType RPAR = new OctaveElementType("RPAR");    // )

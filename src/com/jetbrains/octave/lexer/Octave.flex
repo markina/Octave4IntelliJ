@@ -139,8 +139,21 @@ private Set<Character> setCharactersBeforeStringLiteral = new HashSet<>(Arrays.a
 
 "..."{WHITE_SPACE}*"\n"     { return OctaveTokenTypes.SPACE; }
 "..."                       { return OctaveTokenTypes.SPACE; }
+
 //todo ab ... #dfdf
 //todo cd
+
+//todo t = 4...   <---- syntax error
+//todo t = 4 ...  <--- ok
+
+//todo t = 4 ......
+//todo 5
+
+//todo t = 3 ....... $$$$$ everything
+//todo 4
+
+//todo printPmtkFigure fht14-23images - ???
+//todo printPmtkFigure fht14-23dots
 
 //todo methods(m).modelname = 'JJ'; - ???
 
@@ -150,6 +163,26 @@ private Set<Character> setCharactersBeforeStringLiteral = new HashSet<>(Arrays.a
 //todo f "ab"
 
 //todo plot(2', 'color', 'r');
+
+//todo not forget :) grep -r "Error"
+
+//todo t = 0  %{useLogScale, hline} -???
+
+//todo methods //(empty)
+//todo end
+
+//todo e(k) = 1;
+
+//todo M.(id).email = e;
+//todo M.(id).Math  = 0;
+//todo table{i, 1} = M.(ids{i}).email;
+
+//todo sprintf('\', '/')
+
+//todo if( U<cdf(li) ) break;
+//todo if (dmu < MIN_DMU)  break;  end;
+
+
 
 
 {NEXT_LINE}*                { return OctaveTokenTypes.LINE_BREAK; }
