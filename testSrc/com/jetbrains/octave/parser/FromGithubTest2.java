@@ -3,11 +3,11 @@ package com.jetbrains.octave.parser;
 import com.intellij.testFramework.ParsingTestCase;
 import com.intellij.testFramework.TestDataPath;
 
-@TestDataPath("/testData/fromGithub")
-public class FromGithubTest extends ParsingTestCase {
-  private static final String DATA_PATH = System.getProperty("user.dir") + "/testData/fromGithub";
+@TestDataPath("/testData/fromGithub2")
+public class FromGithubTest2 extends ParsingTestCase {
+  private static final String DATA_PATH = System.getProperty("user.dir") + "/testData/fromGithub2";
 
-  public FromGithubTest() {
+  public FromGithubTest2() {
     super("", "m", new OctaveParserDefinition());
   }
 
@@ -25,15 +25,13 @@ public class FromGithubTest extends ParsingTestCase {
     return y.toString();
   }
 
-  public void test() {
-    for (int i = 1; i <= 100; i++) {
+  public void test2() {
+    for (int i = 101; i <= 200; i++) {
       y = i;
 
       doTest(true);
     }
   }
-
-
 
 }
 
