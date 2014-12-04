@@ -139,6 +139,18 @@ private Set<Character> setCharactersBeforeStringLiteral = new HashSet<>(Arrays.a
 
 "..."{WHITE_SPACE}*"\n"     { return OctaveTokenTypes.SPACE; }
 "..."                       { return OctaveTokenTypes.SPACE; }
+//todo ab ... #dfdf
+//todo cd
+
+//todo methods(m).modelname = 'JJ'; - ???
+
+//todo [~] = 2
+//todo [!] = 2
+
+//todo f "ab"
+
+//todo plot(2', 'color', 'r');
+
 
 {NEXT_LINE}*                { return OctaveTokenTypes.LINE_BREAK; }
 {SPASE}*                    { return OctaveTokenTypes.SPACE; }
