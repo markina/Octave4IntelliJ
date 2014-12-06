@@ -23,8 +23,9 @@ public class OctaveFormattingModelBuilder implements FormattingModelBuilder {
   private static SpacingBuilder createSpaceBuilder(CodeStyleSettings settings) {
     return new SpacingBuilder(settings).
       around(OctaveTokenTypes.OPERATORS_WITH_SPACE).spaceIf(settings.SPACE_AROUND_ASSIGNMENT_OPERATORS).
-        after(OctaveTokenTypes.COMMA).spaceIf(settings.SPACE_AROUND_ASSIGNMENT_OPERATORS).
-        before(OctaveTokenTypes.APOSTROPHE).none();
+      after(OctaveTokenTypes.COMMA).spaceIf(settings.SPACE_AROUND_ASSIGNMENT_OPERATORS).
+      before(OctaveTokenTypes.APOSTROPHE).none().
+      around(OctaveTokenTypes.COLON).none();
   }
 
   //todo -5

@@ -22,6 +22,7 @@ CRLF= \n|\r|\r\n
 
 WHITE_SPACE=[\ \t\f]
 
+DOTS_END_OF_LINE_COMMENT = "..."[^\r\n]*("\n")
 END_OF_LINE_COMMENT=(("%"|"#")[^{\r\n]+[^\r\n]*)|("%\n")|("#\n")
 COMMENT_BLOCK = "#{" [^#] ~"#}" | "#{" "#"+ "}"
 COMMENT_BLOCK_2 = "%{" [^%] ~"%}" | "%{" "%"+ "}"
@@ -137,8 +138,10 @@ private Set<Character> setCharactersBeforeStringLiteral = new HashSet<>(Arrays.a
 {COMMENT_BLOCK_2}           { return OctaveTokenTypes.COMMENT; }
 {END_OF_LINE_COMMENT}       { return OctaveTokenTypes.COMMENT; }
 
-"..."{WHITE_SPACE}*"\n"     { return OctaveTokenTypes.SPACE; }
-"..."                       { return OctaveTokenTypes.SPACE; }
+{DOTS_END_OF_LINE_COMMENT}  { return OctaveTokenTypes.COMMENT; }
+
+//"..."{WHITE_SPACE}*"\n"     { return OctaveTokenTypes.SPACE; }
+//"..."                       { return OctaveTokenTypes.SPACE; }
 
 //todo ab ... #dfdf
 //todo cd
@@ -165,6 +168,7 @@ private Set<Character> setCharactersBeforeStringLiteral = new HashSet<>(Arrays.a
 //todo plot(2', 'color', 'r');
 
 //todo not forget :) grep -r "Error"
+//todo not forget :) sed -i 's/fofofofo/bar/' txt.txt
 
 //todo t = 0  %{useLogScale, hline} -???
 
