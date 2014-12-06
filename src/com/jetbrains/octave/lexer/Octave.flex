@@ -36,9 +36,8 @@ IDENTIFIER = {IDENT_START}{IDENT_CONTINUE}*
 // string constants
 TWO_SINGLE_QUOTE_CHARACTERS = \'\'
 TWO_DOUBLE_QUOTE_CHARACTERS = \"\"
-QUOTED_LITERAL="'"({TWO_SINGLE_QUOTE_CHARACTERS}|[^\\\'\r\n]|{ANY_ESCAPE_SEQUENCE})*?("'")
-DOUBLE_QUOTED_LITERAL=\"([^\\\"\r\n]|{TWO_DOUBLE_QUOTE_CHARACTERS}|{ANY_ESCAPE_SEQUENCE})*?(\")
-ANY_ESCAPE_SEQUENCE = \\[^]
+QUOTED_LITERAL="'"({TWO_SINGLE_QUOTE_CHARACTERS}|[^\'\r\n])*?("'")
+DOUBLE_QUOTED_LITERAL=\"([^\"\r\n]|{TWO_DOUBLE_QUOTE_CHARACTERS})*?(\")
 STRING=({QUOTED_LITERAL} | {DOUBLE_QUOTED_LITERAL})
 
 // numeric constants
@@ -152,7 +151,6 @@ private Set<Character> setCharactersBeforeStringLiteral = new HashSet<>(Arrays.a
 
 //todo 5+foo()*2 ----> 5+foo  and   ()*2
 
-
 //todo plot(2', 'color', 'r');
 
 //todo t = 0  %{useLogScale, hline} -???
@@ -168,8 +166,6 @@ private Set<Character> setCharactersBeforeStringLiteral = new HashSet<>(Arrays.a
 
 //todo if( U<cdf(li) ) break;
 //todo if (dmu < MIN_DMU)  break;  end;
-
-
 
 {NEXT_LINE}*                { return OctaveTokenTypes.LINE_BREAK; }
 {SPASE}*                    { return OctaveTokenTypes.SPACE; }

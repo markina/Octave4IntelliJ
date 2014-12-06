@@ -163,11 +163,6 @@ public class OctaveLexerTest extends TestCase {
            "['I \\can\"\"t escape\', Octave:STRING]");
   }
 
-  public void testEscapeStringDouble() throws IOException {
-    doTest("\"\\\"\"",
-           "[\"\\\"\", Octave:STRING]");
-  }
-
   public void testEscapeString() throws IOException {
     doTest("'\\r\\n\\t\\b\\a\\f\\v'",
            "['\\r\\n\\t\\b\\a\\f\\v', Octave:STRING]");
