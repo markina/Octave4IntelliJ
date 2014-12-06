@@ -193,7 +193,7 @@ public interface OctaveTokenTypes {
   public static final TokenSet POWER_OPERATIONS = TokenSet.create(POWER, DOT_POWER);
   public static final TokenSet MULT_DIV_OPERATIONS = TokenSet.create(
     MULTIPLICATION, DIVISION, LEFT_DIVISION, DOT_MULTIPLICATION, DOT_DIVISION, DOT_LEFT_DIVISION);
-  public static final TokenSet UNARY_OPERATIONS = TokenSet.create(PLUS, MINUS, TILDE, AT, INCREMENT, DECREMENT);
+  public static final TokenSet UNARY_OPERATIONS = TokenSet.create(PLUS, MINUS, TILDE, INCREMENT, DECREMENT);
   public static final TokenSet SET_CONST = TokenSet.create(
     E_KEYWORD, INF_KEYWORD, NAN_KEYWORD, NA_KEYWORD, PI_KEYWORD, EPS_KEYWORD, REALMAX_KEYWORD, REALMIN_KEYWORD,
     TRUE_KEYWORD, FALSE_KEYWORD);

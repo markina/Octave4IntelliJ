@@ -105,7 +105,9 @@ private IElementType getTypeOrIdentifier(IElementType typeKeyWord) {
 private IElementType getConstOrIdentifier(IElementType typeConstWord) {
   for(int i = zzMarkedPos; i < zzBuffer.length(); i++) {
     if(zzBuffer.charAt(i) == '='
-        || zzBuffer.charAt(i) == '.') {
+        || zzBuffer.charAt(i) == '.'
+        || zzBuffer.charAt(i) == '{'
+        || zzBuffer.charAt(i) == '[') {
           return OctaveTokenTypes.IDENTIFIER;
         }
     if(zzBuffer.charAt(i) == ' ') {
@@ -140,42 +142,30 @@ private Set<Character> setCharactersBeforeStringLiteral = new HashSet<>(Arrays.a
 
 {DOTS_END_OF_LINE_COMMENT}  { return OctaveTokenTypes.COMMENT; }
 
-//"..."{WHITE_SPACE}*"\n"     { return OctaveTokenTypes.SPACE; }
-//"..."                       { return OctaveTokenTypes.SPACE; }
-
-//todo ab ... #dfdf
-//todo cd
-
 //todo t = 4...   <---- syntax error
 //todo t = 4 ...  <--- ok
-
-//todo t = 4 ......
-//todo 5
-
-//todo t = 3 ....... $$$$$ everything
-//todo 4
 
 //todo printPmtkFigure fht14-23images - ???
 //todo printPmtkFigure fht14-23dots
 
 //todo methods(m).modelname = 'JJ'; - ???
 
-//todo [~] = 2
-//todo [!] = 2
+// [~] = 2
+// [!] = 2
 
-//todo f "ab"
+// f "ab"
+
+//todo 5+foo()*2 ----> 5+foo  and   ()*2
+
 
 //todo plot(2', 'color', 'r');
 
-//todo not forget :) grep -r "Error"
-//todo not forget :) sed -i 's/fofofofo/bar/' txt.txt
-
 //todo t = 0  %{useLogScale, hline} -???
 
-//todo methods //(empty)
+//todo methods //(empty)  ---????
 //todo end
 
-//todo e(k) = 1;
+// e(k) = 1;
 
 //todo M.(id).email = e;
 //todo M.(id).Math  = 0;

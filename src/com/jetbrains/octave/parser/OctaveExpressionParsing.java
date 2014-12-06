@@ -6,9 +6,6 @@ import com.jetbrains.octave.lexer.OctaveTokenTypes;
 
 public class OctaveExpressionParsing extends OctaveParsing {
 
-
-
-
   public OctaveExpressionParsing(OctaveParserContext context) {
     super(context);
   }
@@ -231,8 +228,10 @@ public class OctaveExpressionParsing extends OctaveParsing {
   private boolean parseUnaryExpression() {
     if (OctaveTokenTypes.UNARY_OPERATIONS.contains(myPsiBuilder.getTokenType())) {
       final PsiBuilder.Marker unaryEsprassion = myPsiBuilder.mark();
+      IElementType currentPsiElement = myPsiBuilder.getTokenType();
       feedMatches(OctaveTokenTypes.UNARY_OPERATIONS, "Error: unary operation");
-      if (!parseUnaryExpression()) {
+      if (!parseUnaryExpression() && !currentPsiElement.equals(OctaveTokenTypes.TILDE)
+      && !currentPsiElement.equals(OctaveTokenTypes.NOT)) {
         myPsiBuilder.error(EXPRESSION_EXPECTED);
       }
       unaryEsprassion.done(OctaveElementTypes.PREFIX_EXPRESSION);
@@ -300,6 +299,9 @@ public class OctaveExpressionParsing extends OctaveParsing {
     if(parseIdentifier()) {
       while(numberOfNesting == 0 && myPsiBuilder.getTokenType() == OctaveTokenTypes.IDENTIFIER) {
         parseIdentifier();
+      }
+      if(numberOfNesting == 0 && myPsiBuilder.getTokenType() == OctaveTokenTypes.STRING) {
+        buildTokenElement(OctaveElementTypes.STRING);
       }
       return true;
     }
