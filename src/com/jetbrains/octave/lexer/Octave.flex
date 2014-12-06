@@ -150,11 +150,6 @@ private Set<Character> setCharactersBeforeStringLiteral = new HashSet<>(Arrays.a
 
 //todo methods(m).modelname = 'JJ'; - ???
 
-// [~] = 2
-// [!] = 2
-
-// f "ab"
-
 //todo 5+foo()*2 ----> 5+foo  and   ()*2
 
 
@@ -165,8 +160,6 @@ private Set<Character> setCharactersBeforeStringLiteral = new HashSet<>(Arrays.a
 //todo methods //(empty)  ---????
 //todo end
 
-// e(k) = 1;
-
 //todo M.(id).email = e;
 //todo M.(id).Math  = 0;
 //todo table{i, 1} = M.(ids{i}).email;
@@ -175,7 +168,6 @@ private Set<Character> setCharactersBeforeStringLiteral = new HashSet<>(Arrays.a
 
 //todo if( U<cdf(li) ) break;
 //todo if (dmu < MIN_DMU)  break;  end;
-
 
 
 
