@@ -71,19 +71,26 @@ public class OctaveParsing {
   }
 
 
-  public void skipIncrementDecrement() {
+  public boolean skipIncrementDecrement() {
     if (OctaveTokenTypes.INCREMENT == myPsiBuilder.getTokenType()) {
       myPsiBuilder.advanceLexer();
+      return true;
     }
     else if (OctaveTokenTypes.DECREMENT == myPsiBuilder.getTokenType()) {
       myPsiBuilder.advanceLexer();
+      return true;
     }
+    return false;
   }
 
-  public void skipApostrophe() {
+  public boolean skipApostrophe() {
+    if (myPsiBuilder.getTokenType() != OctaveTokenTypes.APOSTROPHE) {
+      return false;
+    }
     while (OctaveTokenTypes.APOSTROPHE == myPsiBuilder.getTokenType()) {
       myPsiBuilder.advanceLexer();
     }
+    return true;
   }
 
   public void buildTokenElement(@NotNull final IElementType elementType) {

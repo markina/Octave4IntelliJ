@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.util.Map;
 
-public class OctaveColorSettingsPage implements ColorSettingsPage{
+public class OctaveColorSettingsPage implements ColorSettingsPage {
   private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[]{
     new AttributesDescriptor(OctaveSyntaxHighlighterColors.OCTAVE_KEYWORD, OctaveSyntaxHighlighterColors.KEYWORD),
     new AttributesDescriptor(OctaveSyntaxHighlighterColors.OCTAVE_OPERATORS, OctaveSyntaxHighlighterColors.OPERATORS),

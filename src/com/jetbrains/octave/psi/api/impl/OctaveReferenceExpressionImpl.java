@@ -20,5 +20,4 @@ public class OctaveReferenceExpressionImpl extends OctaveElementImpl implements 
   public String getName() {
     return getText();
   }
-
 }

@@ -1,4 +1,4 @@
 package com.jetbrains.octave.psi.api;
 
-public interface OctaveBraceStatement extends OctaveElement{
+public interface OctaveBraceStatement extends OctaveElement {
 }

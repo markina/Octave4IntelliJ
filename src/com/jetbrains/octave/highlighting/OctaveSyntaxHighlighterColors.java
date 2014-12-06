@@ -22,7 +22,8 @@ public class OctaveSyntaxHighlighterColors {
 
 
   public static final TextAttributesKey KEYWORD = createTextAttributesKey(OCTAVE_KEYWORD, DefaultLanguageHighlighterColors.KEYWORD);
-  public static final TextAttributesKey OPERATORS = createTextAttributesKey(OCTAVE_OPERATORS, DefaultLanguageHighlighterColors.OPERATION_SIGN);
+  public static final TextAttributesKey OPERATORS =
+    createTextAttributesKey(OCTAVE_OPERATORS, DefaultLanguageHighlighterColors.OPERATION_SIGN);
   public static final TextAttributesKey STRING = createTextAttributesKey(OCTAVE_STRING, DefaultLanguageHighlighterColors.STRING);
   public static final TextAttributesKey NUMBER = createTextAttributesKey(OCTAVE_NUMBER, DefaultLanguageHighlighterColors.NUMBER);
   public static final TextAttributesKey PAR = createTextAttributesKey(OCTAVE_PAR, DefaultLanguageHighlighterColors.PARENTHESES);

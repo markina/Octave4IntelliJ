@@ -94,7 +94,7 @@ public class OctaveStatementParsing extends OctaveParsing {
     final PsiBuilder.Marker returnExpression = myPsiBuilder.mark();
     feedMatches(OctaveTokenTypes.RETURN_KEYWORD, "Error: return");
     //skipLineBreak();
-    if(!OctaveTokenTypes.SET_END_EXPRESSION.contains(myPsiBuilder.getTokenType())) {
+    if (!OctaveTokenTypes.SET_END_EXPRESSION.contains(myPsiBuilder.getTokenType())) {
       parseExpression();
     }
     else {
@@ -261,7 +261,7 @@ public class OctaveStatementParsing extends OctaveParsing {
       skipLineBreak();
       parseCaseStatement();
     }
-    if(isNullOrMatches(OctaveTokenTypes.OTHERWISE_KEYWORD)) {
+    if (isNullOrMatches(OctaveTokenTypes.OTHERWISE_KEYWORD)) {
       parseOtherwiseStatement();
     }
     checkMatches(OctaveTokenTypes.SET_ENDSWITCH_KEYWORDS, "endswitch expected");

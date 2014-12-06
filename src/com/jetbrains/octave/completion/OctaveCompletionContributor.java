@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OctaveCompletionContributor extends CompletionContributor{
+public class OctaveCompletionContributor extends CompletionContributor {
   String[] keywords = new String[]{
     "end_try_catch",
     "end_unwind_protect",
@@ -76,7 +76,7 @@ public class OctaveCompletionContributor extends CompletionContributor{
                                         ProcessingContext context,
                                         @NotNull CompletionResultSet resultSet) {
                List<LookupElementBuilder> array = new ArrayList<>();
-               for(int i = 0; i < keywords.length; i++) {
+               for (int i = 0; i < keywords.length; i++) {
                  array.add(LookupElementBuilder.create(keywords[i]));
                }
                resultSet.addAllElements(array);

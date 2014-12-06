@@ -42,7 +42,7 @@ public class OctaveAssignmentStatementImpl extends OctaveBaseElementImpl<OctaveA
     if (isAssgnment()) {
       return node.findChildByType(OctaveElementTypes.EXPRESSION);
     }
-    for(ASTNode element = node.getLastChildNode(); element != null; element = element.getTreePrev()){
+    for (ASTNode element = node.getLastChildNode(); element != null; element = element.getTreePrev()) {
       if (element.getElementType() == OctaveElementTypes.EXPRESSION) return element;
     }
     return null;

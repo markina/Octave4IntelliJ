@@ -34,7 +34,7 @@ public class OctaveReferenceImpl extends PsiReferenceBase {
     final PsiFile file = myElement.getContainingFile();
 
     PsiTreeUtil.processElements(file, element -> {
-      if(element instanceof OctaveAssignmentStatementImpl) {
+      if (element instanceof OctaveAssignmentStatementImpl) {
         OctaveAssignmentStatement statement = (OctaveAssignmentStatement)element;
         final PsiElement assignee = statement.getAssignee();
         if (assignee != null && assignee.getText().equals(myElement.getText())) {
@@ -59,8 +59,8 @@ public class OctaveReferenceImpl extends PsiReferenceBase {
   public PsiElement resolve() {
     final ResolveResult[] results = multiResolve(false);
     int i = results.length - 1;
-    for(; i >= 0; i--) {
-      if(results[i].getElement().getTextOffset() < myElement.getTextOffset()) {
+    for (; i >= 0; i--) {
+      if (results[i].getElement().getTextOffset() < myElement.getTextOffset()) {
         break;
       }
     }

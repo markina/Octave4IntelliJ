@@ -149,7 +149,7 @@ private Set<Character> setCharactersBeforeStringLiteral = new HashSet<>(Arrays.a
 
 //todo methods(m).modelname = 'JJ'; - ???
 
-//todo 5+foo()*2 ----> 5+foo  and   ()*2
+//todo 5+foo()*2 ----> 5+foo  and   ()*2 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 //todo t = 0  %{useLogScale, hline} -???
 

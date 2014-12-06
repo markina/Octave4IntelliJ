@@ -8,7 +8,5 @@ public class OctaveLanguage extends Language {
   private OctaveLanguage() {
     super("Octave");
   }
-
-
 }
 

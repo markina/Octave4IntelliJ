@@ -48,6 +48,7 @@ public interface OctaveElementTypes {
   OctaveElementType HEX_INTEGER = new OctaveElementType("HEX_INTEGER", OctaveHexIntegerImpl.class);
   OctaveElementType CONST = new OctaveElementType("CONST", OctaveConstExpressionImpl.class);
   OctaveElementType STRING = new OctaveElementType("STRING_LITERAL", OctaveStringLiteralImpl.class);
+  OctaveElementType IDENTIFIER = new OctaveElementType("IDENTIFIER", OctaveIdentifierImpl.class);
 
   OctaveElementType BRACKET_EXPRESSION = new OctaveElementType("BRACKET_EXPRESSION", OctaveBracketExpressionImpl.class);
   OctaveElementType PAR_EXPRESSION = new OctaveElementType("PAR_EXPRESSION", OctaveParExpressionImpl.class);

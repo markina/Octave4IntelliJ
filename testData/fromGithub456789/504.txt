@@ -40,11 +40,12 @@ Octave File
   PsiElement(Octave:SEMICOLON)(';')
   PsiElement(Octave:LINE_BREAK)('\n\n')
   Octave:EXPRESSION
-    Octave:REFERENCE_EXPRESSION
-      PsiElement(Octave:IDENTIFIER)('figure')
-    Octave:PAR_EXPRESSION
-      PsiElement(Octave:LPAR)('(')
-      PsiElement(Octave:RPAR)(')')
+    Octave:IDENTIFIER
+      Octave:REFERENCE_EXPRESSION
+        PsiElement(Octave:IDENTIFIER)('figure')
+      Octave:PAR_EXPRESSION
+        PsiElement(Octave:LPAR)('(')
+        PsiElement(Octave:RPAR)(')')
   PsiElement(Octave:SEMICOLON)(';')
   PsiElement(Octave:LINE_BREAK)('\n')
   PsiComment(Octave:COMMENT)('%pscatter(X,'y', y);')
@@ -52,60 +53,62 @@ Octave File
   PsiComment(Octave:COMMENT)('%suptitle(sprintf('iris data, red=setosa, green=versicolor, blue=virginica'));')
   PsiElement(Octave:LINE_BREAK)('\n')
   Octave:EXPRESSION
-    Octave:REFERENCE_EXPRESSION
-      PsiElement(Octave:IDENTIFIER)('pscatter')
-    Octave:PAR_EXPRESSION
-      PsiElement(Octave:LPAR)('(')
-      Octave:EXPRESSION
-        Octave:REFERENCE_EXPRESSION
-          PsiElement(Octave:IDENTIFIER)('X')
-      PsiElement(Octave:COMMA)(',')
-      PsiWhiteSpace(' ')
-      Octave:EXPRESSION
-        Octave:STRING_LITERAL
-          PsiElement(Octave:STRING)(''y'')
-      PsiElement(Octave:COMMA)(',')
-      PsiWhiteSpace(' ')
-      Octave:EXPRESSION
-        Octave:REFERENCE_EXPRESSION
-          PsiElement(Octave:IDENTIFIER)('y')
-      PsiElement(Octave:COMMA)(',')
-      PsiWhiteSpace(' ')
-      Octave:EXPRESSION
-        Octave:STRING_LITERAL
-          PsiElement(Octave:STRING)(''vnames'')
-      PsiElement(Octave:COMMA)(',')
-      PsiWhiteSpace(' ')
-      Octave:EXPRESSION
-        Octave:BRACE_EXPRESSION
-          PsiElement(Octave:LBRACE)('{')
-          Octave:EXPRESSION
-            Octave:STRING_LITERAL
-              PsiElement(Octave:STRING)(''sepal length'')
-          PsiElement(Octave:COMMA)(',')
-          PsiWhiteSpace(' ')
-          Octave:EXPRESSION
-            Octave:STRING_LITERAL
-              PsiElement(Octave:STRING)(''sepal width'')
-          PsiElement(Octave:COMMA)(',')
-          PsiWhiteSpace(' ')
-          Octave:EXPRESSION
-            Octave:STRING_LITERAL
-              PsiElement(Octave:STRING)(''petal length'')
-          PsiElement(Octave:COMMA)(',')
-          PsiWhiteSpace(' ')
-          Octave:EXPRESSION
-            Octave:STRING_LITERAL
-              PsiElement(Octave:STRING)(''petal width'')
-          PsiElement(Octave:RBRACE)('}')
-      PsiElement(Octave:RPAR)(')')
+    Octave:IDENTIFIER
+      Octave:REFERENCE_EXPRESSION
+        PsiElement(Octave:IDENTIFIER)('pscatter')
+      Octave:PAR_EXPRESSION
+        PsiElement(Octave:LPAR)('(')
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('X')
+        PsiElement(Octave:COMMA)(',')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:STRING_LITERAL
+            PsiElement(Octave:STRING)(''y'')
+        PsiElement(Octave:COMMA)(',')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:REFERENCE_EXPRESSION
+            PsiElement(Octave:IDENTIFIER)('y')
+        PsiElement(Octave:COMMA)(',')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:STRING_LITERAL
+            PsiElement(Octave:STRING)(''vnames'')
+        PsiElement(Octave:COMMA)(',')
+        PsiWhiteSpace(' ')
+        Octave:EXPRESSION
+          Octave:BRACE_EXPRESSION
+            PsiElement(Octave:LBRACE)('{')
+            Octave:EXPRESSION
+              Octave:STRING_LITERAL
+                PsiElement(Octave:STRING)(''sepal length'')
+            PsiElement(Octave:COMMA)(',')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:STRING_LITERAL
+                PsiElement(Octave:STRING)(''sepal width'')
+            PsiElement(Octave:COMMA)(',')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:STRING_LITERAL
+                PsiElement(Octave:STRING)(''petal length'')
+            PsiElement(Octave:COMMA)(',')
+            PsiWhiteSpace(' ')
+            Octave:EXPRESSION
+              Octave:STRING_LITERAL
+                PsiElement(Octave:STRING)(''petal width'')
+            PsiElement(Octave:RBRACE)('}')
+        PsiElement(Octave:RPAR)(')')
   PsiElement(Octave:SEMICOLON)(';')
   PsiElement(Octave:LINE_BREAK)('\n')
   Octave:EXPRESSION
-    Octave:REFERENCE_EXPRESSION
-      PsiElement(Octave:IDENTIFIER)('printPmtkFigure')
-    PsiWhiteSpace(' ')
-    Octave:REFERENCE_EXPRESSION
-      PsiElement(Octave:IDENTIFIER)('fisherIrisPairs')
+    Octave:IDENTIFIER
+      Octave:REFERENCE_EXPRESSION
+        PsiElement(Octave:IDENTIFIER)('printPmtkFigure')
+      PsiWhiteSpace(' ')
+      Octave:REFERENCE_EXPRESSION
+        PsiElement(Octave:IDENTIFIER)('fisherIrisPairs')
   PsiElement(Octave:LINE_BREAK)('\n\n')
   PsiComment(Octave:COMMENT)('%{\nfigure();\nfor dim=1:4\nsubplot(2,2,dim)\nif dim<=2\n  boxplot(X(:,dim), y, 'notch', 'off');\nelse\n  boxplot(X(:,dim), y, 'notch', 'on');\nend\nset(gca,'xticklabel',classnames);\nxlabel(''); ylabel('');\ntitle(sprintf('%s', varnames{dim}))\nend\nprintPmtkFigure irisBoxNotch\n\n%}')
