@@ -55,7 +55,5 @@ for i=1:5
     end
 end
 figure(fig1)
-printPmtkFigure fht14-23images
 figure(fig2)
-printPmtkFigure fht14-23dots
 % figure(3);imagesc(reshape(X(73,:),16,16));colormap(gray)

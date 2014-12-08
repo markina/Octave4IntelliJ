@@ -163,7 +163,9 @@ public class OctaveStatementParsing extends OctaveParsing {
 
   private void parseMethodsName() {
     final PsiBuilder.Marker methodsNameExpression = myPsiBuilder.mark();
-    parseExpression();
+    if(myPsiBuilder.getTokenType() != OctaveTokenTypes.LINE_BREAK) {
+      parseExpression();
+    }
     methodsNameExpression.done(OctaveElementTypes.METHODS_NAME_STATEMENT);
   }
 

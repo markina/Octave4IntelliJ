@@ -24,4 +24,12 @@ public class BadCharTest extends ParsingTestCase {
   public void testBadFor() {
     doTest(true);
   }
+
+  public void testBadComment() {
+    doTest(true);
+  }
+
+  public void testBadIdentifier() {
+    doTest(true);
+  }
 }

@@ -16,8 +16,7 @@ y = convertLabelsToPM1(data.y);
 %% Plot 1D CV Slices
 gammas = [5, 1, 0.5, 0.1];
 Crange = logspace(-1, 3.5, 15); 
-plotArgs = {true, data.bayesError};  %{useLogScale, hline}
-cvopts = {5, 'useSErule', false, 'doPlot', true, 'plotArgs', plotArgs}; %{nfolds, useSErule, doPlot, plotArgs}
+
 for i=1:numel(gammas)
     gamma = gammas(i); 
     svmFit(X, y, 'kernelParam', gamma, 'C', Crange, ...

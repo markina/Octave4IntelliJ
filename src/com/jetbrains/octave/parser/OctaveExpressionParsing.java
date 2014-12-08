@@ -28,6 +28,10 @@ public class OctaveExpressionParsing extends OctaveParsing {
         return true;
       }
       if (numberOfNesting == 0) {
+        if(OctaveTokenTypes.SET_KEYWORD.contains(myPsiBuilder.getTokenType())) {
+          expression.drop();
+          return true;
+        }
         checkMatches(OctaveTokenTypes.SET_END_EXPRESSION, END_EXPRESSION_EXPECTED);
         expression.drop();
         skipLineBreak();
@@ -287,8 +291,22 @@ public class OctaveExpressionParsing extends OctaveParsing {
       return true;
     }
     if (OctaveTokenTypes.SET_CONST.contains(currentToken)) {
+      PsiBuilder.Marker constExpression = myPsiBuilder.mark();
       buildTokenElement(OctaveElementTypes.CONST);
-      return true;
+      if(OctaveTokenTypes.SET_LEFT_BRACKETS.contains(myPsiBuilder.getTokenType())) {
+        if (parseInBracketsExpression()) {
+          constExpression.done(OctaveElementTypes.EXPRESSION);
+          return true;
+        }
+        else {
+          constExpression.drop();
+          return false;
+        }
+      }
+      else {
+        constExpression.drop();
+        return true;
+      }
     }
     if (OctaveTokenTypes.STRING == (currentToken)) {
       buildTokenElement(OctaveElementTypes.STRING);
@@ -394,9 +412,11 @@ public class OctaveExpressionParsing extends OctaveParsing {
         if (parseDotOperator()) {
           skipIncrementDecrement();
           skipApostrophe();
-          if (!parseInBracketsExpression()) {
-            return false;
-          }
+          //if (!
+          parseInBracketsExpression();
+          //){
+          //  return false;
+          //}
         }
         else {
           return false;
@@ -404,6 +424,7 @@ public class OctaveExpressionParsing extends OctaveParsing {
       }
       skipApostrophe();
     }
+
     return true;
   }
 
