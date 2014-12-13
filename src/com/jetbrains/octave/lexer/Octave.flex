@@ -142,7 +142,7 @@ private Set<Character> setCharactersBeforeStringLiteral = new HashSet<>(Arrays.a
 {DOTS_END_OF_LINE_COMMENT}  { return OctaveTokenTypes.COMMENT; }
 
 //todo t = 4...   <---- syntax error
-//todo t = 4 ...  <--- ok
+//  todo t = 4 ...  <--- ok
 
 
 {NEXT_LINE}*                { return OctaveTokenTypes.LINE_BREAK; }

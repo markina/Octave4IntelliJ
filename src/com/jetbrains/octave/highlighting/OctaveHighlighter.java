@@ -15,8 +15,7 @@ public class OctaveHighlighter extends SyntaxHighlighterBase {
   private static final Map<IElementType, TextAttributesKey> ATTRIBUTES = new HashMap<>();
 
   static {
-    fillMap(ATTRIBUTES, OctaveTokenTypes.SET_KEYWORD, OctaveSyntaxHighlighterColors.KEYWORD);
-    fillMap(ATTRIBUTES, OctaveTokenTypes.SET_CONST, OctaveSyntaxHighlighterColors.KEYWORD);
+    fillMap(ATTRIBUTES, OctaveTokenTypes.SET_KEYWORD_OR_CONST, OctaveSyntaxHighlighterColors.KEYWORD);
 
     fillMap(ATTRIBUTES, OctaveTokenTypes.OPERATORS, OctaveSyntaxHighlighterColors.OPERATORS);
 

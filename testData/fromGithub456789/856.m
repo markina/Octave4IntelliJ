@@ -19,8 +19,8 @@ else
     X = arg3;
 end
 
-logZ = gammaln(a) - a.*log(b); 
-logp = -(a+1).*log(X) - b./X - logZ; 
+
+
 
 
 
