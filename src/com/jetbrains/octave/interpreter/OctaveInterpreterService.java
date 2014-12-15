@@ -1,13 +1,19 @@
 package com.jetbrains.octave.interpreter;
 
-import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.components.ServiceManager;
+import com.intellij.openapi.components.*;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@State(
+  name = "OctaveInterpreterService",
+  storages = {
+    @Storage(
+      file = StoragePathMacros.APP_CONFIG + "/octaveInterpreterSettings.xml"
+    )}
+)
 public class OctaveInterpreterService implements PersistentStateComponent<OctaveInterpreterService>{
-  private String INTERPRETER_PATH = "";
+  public String INTERPRETER_PATH = "";
 
   @Nullable
   @Override

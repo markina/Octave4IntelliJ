@@ -15,12 +15,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class OctaveInterpreterConfigurable implements SearchableConfigurable, Configurable.NoScroll{
-
-  ///usr/share/octave/
-
   private JPanel myMainPanel;
   private final Project myProject;
   private final TextFieldWithBrowseButton myInterpreterField;
+  public static final String OCTAVE_SKELETONS = "Octave Skeletons";
 
   OctaveInterpreterConfigurable(Project project) {
     myProject = project;
@@ -91,9 +89,6 @@ public class OctaveInterpreterConfigurable implements SearchableConfigurable, Co
   public void apply() throws ConfigurationException {
     final OctaveInterpreterService interpreterService = OctaveInterpreterService.getInstance();
     final String interpreterPath = myInterpreterField.getText();
-
-
-//    generateSkeletons();
     interpreterService.setInterpreterPath(interpreterPath);
   }
 
